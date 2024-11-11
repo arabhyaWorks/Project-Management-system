@@ -1,27 +1,33 @@
+export interface ProjectApprovalInfo {
+  date: string;
+  orderNumber: string;
+}
+
 export interface Project {
   id: string;
+  serialNumber: number;
   name: string;
+  currentStatus: string;
+  projectApprovalInfo: ProjectApprovalInfo;
+  governmentApprovalInfo: ProjectApprovalInfo;
+  approvedCost: number;
+  totalAllocatedAmount: number;
+  milestoneProgress: number;
+  physicalProgress: number;
+  estimatedCompletionDate: string;
+  delayReason?: string;
+  restructuredPlanDate?: string;
+  revisedCost?: number;
+  revisedCompletionDate?: string;
   department: string;
+  category: string;
+  subproject?: string;
+  agreementDate: string;
+  landAvailabilityDate: string;
+  updatedProjectCost: number;
+  galleryImages: string[];
+  meetingInstructions: string;
   executingAgency: string;
-  yojnaName: string;
-  description: string;
-  goals: string;
-  fundsSanctionedBy: string;
-  percentComplete: number;
-  status: 'In Planning' | 'In Progress' | 'On Hold' | 'Completed';
-  contractorName: string;
-  amountSanctioned: number;
-  amountReleased: number;
-  financialProgress: number;
-  revisedCost: number;
-  sanctionDate: string;
-  financialApprovalDate: string;
-  contractDate: string;
-  workStartDate: string;
-  workCompletionDate: string;
-  projectCompletionDate: string;
-  revisedCompletionDate: string;
-  estimatedDate: string;
 }
 
 export interface User {
