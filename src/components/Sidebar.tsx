@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   Database,
@@ -14,21 +14,21 @@ import {
   Image,
   UserCircle,
   LogOut,
-} from 'lucide-react';
+} from "lucide-react";
 
 const navigation = [
-  { name: 'Dashboard', href: '/', icon: LayoutDashboard },
-  { name: 'Masters', href: '/masters', icon: Database },
-  { name: 'Project Date Extend', href: '/date-extend', icon: Calendar },
-  { name: 'Project Inspection', href: '/inspection', icon: ClipboardCheck },
-  { name: 'Project Essential Test', href: '/essential-test', icon: TestTube2 },
-  { name: 'Budget & UC Upload', href: '/budget', icon: Receipt },
-  { name: 'All Projects', href: '/projects', icon: FolderKanban },
-  { name: 'Milestones', href: '/milestones', icon: Milestone },
-  { name: 'Issue Management', href: '/issues', icon: AlertCircle },
-  { name: 'Reports', href: '/reports', icon: FileBarChart },
-  { name: 'Gallery', href: '/gallery', icon: Image },
-  { name: 'Profile', href: '/profile', icon: UserCircle },
+  { name: "Dashboard", href: "/", icon: LayoutDashboard },
+  { name: "Masters", href: "/masters", icon: Database },
+  { name: "Project Date Extend", href: "/date-extend", icon: Calendar },
+  { name: "Project Inspection", href: "/inspection", icon: ClipboardCheck },
+  { name: "Project Essential Test", href: "/essential-test", icon: TestTube2 },
+  { name: "Budget & UC Upload", href: "/budget", icon: Receipt },
+  { name: "All Projects", href: "/projects", icon: FolderKanban },
+  { name: "Milestones", href: "/milestones", icon: Milestone },
+  { name: "Issue Management", href: "/issues", icon: AlertCircle },
+  { name: "Reports", href: "/reports", icon: FileBarChart },
+  { name: "Gallery", href: "/gallery", icon: Image },
+  { name: "Profile", href: "/profile", icon: UserCircle },
 ];
 
 export function Sidebar() {
@@ -39,11 +39,14 @@ export function Sidebar() {
       <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
         <div className="flex h-16 shrink-0 items-center">
           <img
-            className="h-8 w-auto"
-            src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+            className="h-10 w-10 "
+            // src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+            src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Seal_of_Uttar_Pradesh.svg"
             alt="Ayodhya Municipal Department"
           />
-          <span className="ml-4 text-lg font-semibold text-gray-900">PMS Ayodhya</span>
+          <span className="ml-4 text-lg font-semibold text-gray-900">
+            PMS Ayodhya
+          </span>
         </div>
         <nav className="flex flex-1 flex-col">
           <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -59,14 +62,16 @@ export function Sidebar() {
                           group flex gap-x-3 rounded-md p-2 text-sm leading-6
                           ${
                             isActive
-                              ? 'bg-gray-50 text-orange-600'
-                              : 'text-gray-700 hover:text-orange-600 hover:bg-gray-50'
+                              ? "bg-gray-50 text-orange-600"
+                              : "text-gray-700 hover:text-orange-600 hover:bg-gray-50"
                           }
                         `}
                       >
                         <item.icon
                           className={`h-6 w-6 shrink-0 ${
-                            isActive ? 'text-orange-600' : 'text-gray-400 group-hover:text-orange-600'
+                            isActive
+                              ? "text-orange-600"
+                              : "text-gray-400 group-hover:text-orange-600"
                           }`}
                         />
                         {item.name}

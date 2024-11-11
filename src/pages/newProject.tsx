@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import Drawer from "../components/drawer/Drawer";
+import ProjectForm from "../components/drawer/ProjectForm";
 import { Plus, Download } from "lucide-react";
 import type { Project } from "../types";
 import { ProjectTable } from "../components/table/ProjectTable";
@@ -335,6 +336,7 @@ export function Projects() {
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const filteredProjects = mockProjects.filter((project) => {
     const matchesSearch =
@@ -409,13 +411,13 @@ export function Projects() {
             <Download className="h-4 w-4 mr-1" />
             Export
           </button>
-          <Link
-            to="/projects/new"
+          <button
+            onClick={() => setIsDrawerOpen(true)}
             className="inline-flex items-center rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500"
           >
             <Plus className="h-5 w-5 mr-1" />
             New Project
-          </Link>
+          </button>
         </div>
       </div>
 
@@ -435,6 +437,16 @@ export function Projects() {
 
         <ProjectTable projects={filteredProjects} />
       </div>
+
+      <Drawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        title="Create New Project"
+      >
+        <div className="p-6">
+          <ProjectForm onSubmitSuccess={() => setIsDrawerOpen(false)} />
+        </div>
+      </Drawer>
     </div>
   );
 }
