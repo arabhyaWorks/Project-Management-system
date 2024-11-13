@@ -1,98 +1,136 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState } from "react";
 import {
   LayoutDashboard,
   Database,
   Calendar,
   ClipboardCheck,
-  TestTube2,
+  PenTool,
   Receipt,
-  FolderKanban,
+  FolderOpen,
   Milestone,
   AlertCircle,
-  FileBarChart,
+  BarChart2,
   Image,
-  UserCircle,
+  User,
   LogOut,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
-
-const navigation = [
-  { name: "Dashboard", href: "/", icon: LayoutDashboard },
-  { name: "Masters", href: "/masters", icon: Database },
-  { name: "Project Date Extend", href: "/date-extend", icon: Calendar },
-  { name: "Project Inspection", href: "/inspection", icon: ClipboardCheck },
-  { name: "Project Essential Test", href: "/essential-test", icon: TestTube2 },
-  { name: "Budget & UC Upload", href: "/budget", icon: Receipt },
-  { name: "All Projects", href: "/projects", icon: FolderKanban },
-  { name: "Milestones", href: "/milestones", icon: Milestone },
-  { name: "Issue Management", href: "/issues", icon: AlertCircle },
-  { name: "Reports", href: "/reports", icon: FileBarChart },
-  { name: "Gallery", href: "/gallery", icon: Image },
-  { name: "Profile", href: "/profile", icon: UserCircle },
+import { motion, AnimatePresence } from "framer-motion";
+const menuItems = [
+  { icon: LayoutDashboard, label: "Dashboard", active: true, ruote: "/" },
+  { icon: Database, label: "Masters", ruote: "/projectDashboard" },
+  { icon: FolderOpen, label: "All Projects", ruote: "/projects" },
+  { icon: FolderOpen, label: "New Projects", ruote: "/newProjects" },
+  { icon: Image, label: "Gallery", ruote: "/gallery" },
+  // {
+  //   icon: Calendar,
+  //   label: "Project Date Extend",
+  //   ruote: "/project-date-extend",
+  // },
+  // {
+  //   icon: ClipboardCheck,
+  //   label: "Project Inspection",
+  //   ruote: "/project-inspection",
+  // },
+  {
+    icon: PenTool,
+    label: "Project Essential Test",
+    ruote: "/project-essential-test",
+  },
+  { icon: Receipt, label: "Budget & UC Upload", ruote: "/budget-uc-upload" },
+  { icon: Milestone, label: "Milestones", ruote: "/milestones" },
+  { icon: AlertCircle, label: "Issue Management", ruote: "/issue-management" },
+  { icon: BarChart2, label: "Reports", ruote: "/reports" },
+  // { icon: User, label: "Profile", ruote: "/profile" },
 ];
 
-export function Sidebar() {
-  const location = useLocation();
+interface SidebarProps {
+  isOpen: boolean;
+}
+const indiaLogo =
+  "https://upload.wikimedia.org/wikipedia/commons/f/fa/Seal_of_Uttar_Pradesh.svg";
 
+export default function Sidebar({ isOpen }: SidebarProps) {
   return (
-    <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-      <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
-        <div className="flex h-16 shrink-0 items-center">
-          <img
-            className="h-10 w-10 "
-            // src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
-            src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Seal_of_Uttar_Pradesh.svg"
-            alt="Ayodhya Municipal Department"
-          />
-          <span className="ml-4 text-lg font-semibold text-gray-900">
-            PMS Ayodhya
-          </span>
-        </div>
-        <nav className="flex flex-1 flex-col">
-          <ul role="list" className="flex flex-1 flex-col gap-y-7">
-            <li>
-              <ul role="list" className="-mx-2 space-y-1">
-                {navigation.map((item) => {
-                  const isActive = location.pathname === item.href;
-                  return (
-                    <li key={item.name}>
-                      <Link
-                        to={item.href}
-                        className={`
-                          group flex gap-x-3 rounded-md p-2 text-sm leading-6
-                          ${
-                            isActive
-                              ? "bg-gray-50 text-orange-600"
-                              : "text-gray-700 hover:text-orange-600 hover:bg-gray-50"
-                          }
-                        `}
-                      >
-                        <item.icon
-                          className={`h-6 w-6 shrink-0 ${
-                            isActive
-                              ? "text-orange-600"
-                              : "text-gray-400 group-hover:text-orange-600"
-                          }`}
-                        />
-                        {item.name}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </li>
-            <li className="mt-auto">
-              <Link
-                to="/logout"
-                className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-orange-600"
+    <>
+      <motion.div
+        className={`${
+          !isOpen ? "w-20" : "w-[300px]"
+        } bg-white h-screen  fixed left-0 top-0 border-r border-gray-200 flex flex-col transition-all duration-300 z-20`}
+        animate={{ width: !isOpen ? 100 : 300 }}
+      >
+        <div className="p-3 border-b border-gray-200">
+          <AnimatePresence>
+            {!!isOpen && (
+              <motion.div
+                className="flex items-center gap-3"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
               >
-                <LogOut className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-orange-600" />
-                Logout
-              </Link>
-            </li>
+                <img src={indiaLogo} alt="India Logo" className="w-10 h-10" />
+                <h1 className="text-xl font-bold text-gray-900">PMS Bhadohi</h1>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          {!isOpen && (
+            <div className="flex justify-center">
+              <img src={indiaLogo} alt="India Logo" className="w-10 h-10" />
+            </div>
+          )}
+        </div>
+
+        <nav className="flex-1 overflow-y-auto p-4">
+          <ul className="space-y-2">
+            {menuItems.map((item) => (
+              <li key={item.label}>
+                <a
+                  href={item.ruote}
+                  className={`flex items-center gap-3 px-3 py-[0.62rem] rounded-lg text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors ${
+                    item.active ? "bg-orange-50 text-orange-600" : ""
+                  }`}
+                >
+                  <item.icon className="w-5 h-5 flex-shrink-0" />
+                  <AnimatePresence>
+                    {!!isOpen && (
+                      <motion.span
+                        //className="font-medium"
+                        initial={{ opacity: 0, width: 0 }}
+                        animate={{ opacity: 1, width: "auto" }}
+                        exit={{ opacity: 0, width: 0 }}
+                      >
+                        {item.label}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </a>
+              </li>
+            ))}
           </ul>
         </nav>
-      </div>
-    </div>
+
+        <div className="p-4 border-t border-gray-200">
+          <a
+          href="/login"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+          >
+            <LogOut className="w-5 h-5 flex-shrink-0" />
+            <AnimatePresence>
+              {!!isOpen && (
+                <motion.span
+        
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: "auto" }}
+                  exit={{ opacity: 0, width: 0 }}
+                >
+                  Logout
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </a>
+        </div>
+      </motion.div>
+    </>
   );
 }

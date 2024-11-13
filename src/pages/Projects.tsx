@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Plus, Search, Download, Filter } from "lucide-react";
 import { format } from "date-fns";
 import type { Project } from "../types";
+import { DataTable } from "../components/table/dataTable";
 
 const mockProjects: Project[] = [
   {
@@ -83,7 +84,7 @@ export function Projects() {
         </Link>
       </div>
 
-      <div className="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-lg">
+      <div className="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-lg overflow-hidden	">
         <div className="border-b border-gray-200 p-4">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="relative flex-1 max-w-xs">
@@ -134,161 +135,8 @@ export function Projects() {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead>
-              <tr className="bg-gray-50">
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider  bg-green-500 ">
-                  Sr. No.
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider  bg-green-500 ">
-                  Sr. No.
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider  bg-green-500 ">
-                  Sr. No.
-                </th>
-              </tr>
-              <tr className="bg-gray-50">
-                {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Project</th> */}
-                {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Progress</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Timeline</th> */}
+        <DataTable searchTerm={searchTerm} />
 
-                {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider  bg-green-500 ">
-                  Sr. No.
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Project Name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Project Current Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Project Approval Date & Order Number
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Approval Date and Order Number Issued by Government for the
-                  Project
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Approved Cost of the Project
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Total Amount Allocated to Date for the Project
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Milestone Progress %
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Physical Progress %
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Estimated Date of Completion by the Executing Agency
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Reason for Delay in the Project
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Approval Date of Restructured Plan
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Revised Cost of the Project
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Revised Completion Date According to the Approved Plan
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Department Name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Project Category/Subproject Name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Agreement Date
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Date for Making Land Available to the Executing Agency
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Updated Project Cost
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Project Gallery
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Meeting Instructions
-                </th> */}
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {filteredProjects.map((project) => (
-                <tr key={project.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4">
-                    <div className="text-sm font-medium text-gray-900">
-                      {project.name}
-                    </div>
-                    <div className="text-sm text-gray-500">
-                      {project.executingAgency}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
-                    {project.department}
-                  </td>
-                  <td className="px-6 py-4">
-                    <span
-                      className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
-                        project.status === "Completed"
-                          ? "bg-green-100 text-green-800"
-                          : project.status === "In Progress"
-                          ? "bg-blue-100 text-blue-800"
-                          : project.status === "On Hold"
-                          ? "bg-yellow-100 text-yellow-800"
-                          : "bg-gray-100 text-gray-800"
-                      }`}
-                    >
-                      {project.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center">
-                      <div className="w-full bg-gray-200 rounded-full h-2.5">
-                        <div
-                          className="bg-orange-600 h-2.5 rounded-full"
-                          style={{ width: `${project.percentComplete}%` }}
-                        ></div>
-                      </div>
-                      <span className="ml-2 text-sm text-gray-500">
-                        {project.percentComplete}%
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="text-sm text-gray-900">
-                      ₹{project.amountSanctioned.toLocaleString()} Lacs
-                    </div>
-                    <div className="text-sm text-gray-500">
-                      Released: ₹{project.amountReleased.toLocaleString()} Lacs
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="text-sm text-gray-900">
-                      {format(new Date(project.workStartDate), "dd MMM yyyy")}
-                    </div>
-                    <div className="text-sm text-gray-500">
-                      to{" "}
-                      {format(
-                        new Date(project.projectCompletionDate),
-                        "dd MMM yyyy"
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
       </div>
     </div>
   );
