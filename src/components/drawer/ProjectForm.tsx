@@ -99,7 +99,8 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmitSuccess }) => {
   const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
 
   const renderProjectInformation = () => (
-    <div className="space-y-6 animate-fadeIn">
+    <div
+     className="space-y-6 animate-fadeIn">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
           label="Project Department"

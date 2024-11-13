@@ -21,7 +21,6 @@ const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", active: true, ruote: "/" },
   { icon: Database, label: "Masters", ruote: "/projectDashboard" },
   { icon: FolderOpen, label: "All Projects", ruote: "/projects" },
-  { icon: FolderOpen, label: "New Projects", ruote: "/newProjects" },
   { icon: Image, label: "Gallery", ruote: "/gallery" },
   // {
   //   icon: Calendar,

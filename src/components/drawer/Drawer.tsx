@@ -1,6 +1,6 @@
-import React from 'react';
-import { X } from 'lucide-react';
-import classNames from 'classnames';
+import React from "react";
+import { X } from "lucide-react";
+import classNames from "classnames";
 
 interface DrawerProps {
   isOpen: boolean;
@@ -9,13 +9,23 @@ interface DrawerProps {
   title: string;
 }
 
-const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, children, title }) => {
+const Drawer: React.FC<DrawerProps> = ({
+  isOpen,
+  onClose,
+  children,
+  title,
+}) => {
   return (
     <>
       {/* Backdrop */}
       <div
+        style={{
+          backdropFilter: "blur(0.5px)",
+          margin: 0,
+          padding: 0,
+        }}
         className={classNames(
-          "fixed inset-0 bg-black bg-opacity-50 transition-opacity z-40",
+          "fixed top-0 inset-0 bg-black bg-opacity-50 transition-opacity z-40",
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         )}
         onClick={onClose}
@@ -23,6 +33,9 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, children, title }) => 
 
       {/* Drawer */}
       <div
+        style={{
+          marginTop: "-10px",
+        }}
         className={classNames(
           "fixed inset-y-0 right-0 w-full max-w-3xl bg-white shadow-xl z-50",
           "transform transition-transform duration-300 ease-in-out",
@@ -30,7 +43,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, children, title }) => 
         )}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b">
+        <div className="flex  items-center justify-between px-6 py-4 border-b">
           <h2 className="text-xl font-semibold text-gray-800">{title}</h2>
           <button
             onClick={onClose}
@@ -41,9 +54,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, children, title }) => 
         </div>
 
         {/* Content */}
-        <div className="h-full overflow-y-auto pb-20">
-          {children}
-        </div>
+        <div className="h-full overflow-y-auto pb-20">{children}</div>
       </div>
     </>
   );
