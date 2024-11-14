@@ -12,6 +12,8 @@ import ProjectDashboard from "./pages/projectDashboard";
 import Gallery from "./pages/Gallery";
 import MilestonePage from "./pages/MilestonePage";
 import UsersList from "./pages/userList";
+import ProjectInsection from "./pages/projectInspection";
+import ProjectTest from "./pages/projectTest";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
             <Route path="projectDashboard" element={<ProjectDashboard />} />
             <Route path="gallery" element={<Gallery isSidebarOpen={false} />} />
             <Route path="milestones" element={<MilestonePage />} />
+            <Route path="projectInspection" element={<ProjectInsection />} />
+            <Route path="projectTest" element={<ProjectTest />} />
 
             <Route path="projects/new" element={<ProjectForm />} />
             {/* <Route path="milestones" element={<Milestones />} /> */}

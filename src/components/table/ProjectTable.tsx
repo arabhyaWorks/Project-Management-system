@@ -1,153 +1,254 @@
-import React from 'react';
-import { format } from 'date-fns';
-import { Camera, FileText } from 'lucide-react';
-import type { Project } from '../../types';
+import React, { useState } from "react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
+import classNames from "classnames";
 
-interface ProjectTableProps {
-  projects: Project[];
+interface InspectionDetail {
+  srNo: string;
+  inspectionDate: string;
+  inspectionTitle: string;
+  inspectionAuthority: string;
+  inspectionType: string;
+  inspectionInstruction: string;
+  inspectionReport: string;
+  complianceStatus: string;
+  action: Array<string>;
 }
 
-export function ProjectTable({ projects }: ProjectTableProps) {
+interface ProjectTable {
+  srNo: string;
+  projectName: string;
+  inspectionDetails: InspectionDetail[];
+}
+
+interface Header {
+  main: {
+    [key: string]: Array<string>;
+  };
+  subHeaders: {
+    [key: string]: Array<string>;
+  };
+}
+
+interface DataTableProps {
+  searchTerm: string;
+  projects: ProjectTable[];
+  headers: Header;
+}
+
+const subTable = (
+  inspectionDetails: InspectionDetail[],
+  headers: Header["subHeaders"]
+) => {
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead>
-          <tr className="bg-gray-50">
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">S.No</th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Project Details</th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status & Progress</th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Approvals</th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Financial</th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Timeline</th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
-          {projects.map((project) => (
-            <tr key={project.id} className="hover:bg-gray-50">
-              <td className="px-4 py-4 text-sm text-gray-500">
-                {project.serialNumber}
-              </td>
-              <td className="px-4 py-4">
-                <div className="text-sm font-medium text-gray-900">{project.name}</div>
-                <div className="text-sm text-gray-500">{project.department}</div>
-                <div className="text-sm text-gray-500">{project.category}</div>
-                {project.subproject && (
-                  <div className="text-sm text-gray-500">Sub: {project.subproject}</div>
-                )}
-              </td>
-              <td className="px-4 py-4">
-                <div className="space-y-2">
-                  <span className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
-                    project.currentStatus === 'Completed' ? 'bg-green-100 text-green-800' :
-                    project.currentStatus === 'In Progress' ? 'bg-blue-100 text-blue-800' :
-                    project.currentStatus === 'On Hold' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-gray-100 text-gray-800'
-                  }`}>
-                    {project.currentStatus}
-                  </span>
-                  <div className="space-y-1">
-                    <div className="flex items-center text-sm">
-                      <span className="w-32">Milestone:</span>
-                      <div className="flex-1">
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div
-                            className="bg-orange-600 h-2 rounded-full"
-                            style={{ width: `${project.milestoneProgress}%` }}
-                          ></div>
-                        </div>
-                      </div>
-                      <span className="ml-2">{project.milestoneProgress}%</span>
-                    </div>
-                    <div className="flex items-center text-sm">
-                      <span className="w-32">Physical:</span>
-                      <div className="flex-1">
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div
-                            className="bg-green-600 h-2 rounded-full"
-                            style={{ width: `${project.physicalProgress}%` }}
-                          ></div>
-                        </div>
-                      </div>
-                      <span className="ml-2">{project.physicalProgress}%</span>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td className="px-4 py-4">
-                <div className="text-sm space-y-1">
-                  <div>
-                    <span className="font-medium">Project:</span>
-                    <div className="text-gray-500">
-                      {format(new Date(project.projectApprovalInfo.date), 'dd MMM yyyy')}
-                      <div className="text-xs">#{project.projectApprovalInfo.orderNumber}</div>
-                    </div>
-                  </div>
-                  <div>
-                    <span className="font-medium">Government:</span>
-                    <div className="text-gray-500">
-                      {format(new Date(project.governmentApprovalInfo.date), 'dd MMM yyyy')}
-                      <div className="text-xs">#{project.governmentApprovalInfo.orderNumber}</div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td className="px-4 py-4">
-                <div className="text-sm space-y-1">
-                  <div>
-                    <span className="font-medium">Approved:</span>
-                    <div className="text-gray-900">₹{project.approvedCost.toLocaleString()} Lacs</div>
-                  </div>
-                  <div>
-                    <span className="font-medium">Allocated:</span>
-                    <div className="text-gray-900">₹{project.totalAllocatedAmount.toLocaleString()} Lacs</div>
-                  </div>
-                  {project.revisedCost && (
-                    <div>
-                      <span className="font-medium">Revised:</span>
-                      <div className="text-gray-900">₹{project.revisedCost.toLocaleString()} Lacs</div>
-                    </div>
-                  )}
-                </div>
-              </td>
-              <td className="px-4 py-4">
-                <div className="text-sm space-y-1">
-                  <div>
-                    <span className="font-medium">Agreement:</span>
-                    <div className="text-gray-500">{format(new Date(project.agreementDate), 'dd MMM yyyy')}</div>
-                  </div>
-                  <div>
-                    <span className="font-medium">Estimated:</span>
-                    <div className="text-gray-500">{format(new Date(project.estimatedCompletionDate), 'dd MMM yyyy')}</div>
-                  </div>
-                  {project.revisedCompletionDate && (
-                    <div>
-                      <span className="font-medium">Revised:</span>
-                      <div className="text-gray-500">{format(new Date(project.revisedCompletionDate), 'dd MMM yyyy')}</div>
-                    </div>
-                  )}
-                </div>
-              </td>
-              <td className="px-4 py-4">
-                <div className="flex space-x-2">
-                  <button
-                    className="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100"
-                    title="View Gallery"
-                  >
-                    <Camera className="h-5 w-5" />
-                  </button>
-                  <button
-                    className="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100"
-                    title="View Instructions"
-                  >
-                    <FileText className="h-5 w-5" />
-                  </button>
-                </div>
-              </td>
-            </tr>
+    <table className="min-w-full divide-y divide-gray-200">
+      <thead className="bg-gray-50">
+        <tr>
+          {headers.hi.map((header, index) => (
+            <th
+              key={index}
+              className={classNames(
+                "px-6 py-4 text-left text-sm font-bold text-orange-800 tracking-wider whitespace-normal border-2 border-gray-200",
+                index === 0 ? "w-16" : "w-40",
+                index === 0 && "border-l-0",
+                index === headers.hi.length - 1 && "border-r-0",
+                "border-t-0"
+              )}
+            >
+              {header}
+            </th>
           ))}
-        </tbody>
-      </table>
+        </tr>
+      </thead>
+      <tbody className="bg-white divide-y divide-gray-200">
+        {inspectionDetails.map((detail, index) => (
+          <tr key={index} className="hover:bg-gray-50 transition-colors">
+            {Object.keys(detail).map((key, index) => (
+              <td
+                key={index}
+                className={classNames(
+                  "px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-2 border-gray-100",
+                  index === 0 ? "w-16 text-center" : "w-40",
+                  index === 0 && "border-l-0",
+                  index === Object.keys(detail).length - 1 && "border-r-0",
+                  "border-b-0"
+                )}
+              >
+                {Array.isArray(detail[key])
+                  ? detail[key].join(", ")
+                  : detail[key]}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+export const DataTable = ({
+  searchTerm,
+  projects,
+  headers,
+}: DataTableProps) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [entriesPerPage, setEntriesPerPage] = useState(10);
+
+  // Pagination calculations
+  const indexOfLastEntry = currentPage * entriesPerPage;
+  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+  const currentEntries = projects.slice(indexOfFirstEntry, indexOfLastEntry);
+  const totalPages = Math.ceil(projects.length / entriesPerPage);
+
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(Math.min(Math.max(1, pageNumber), totalPages));
+  };
+
+  return (
+    <div className="flex flex-col">
+      {/* No. of Entries Control */}
+      <div className="p-4 flex items-center justify-between bg-white border-b">
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-gray-600">Show</span>
+          <select
+            value={entriesPerPage}
+            onChange={(e) => {
+              setEntriesPerPage(Number(e.target.value));
+              setCurrentPage(1);
+            }}
+            className="border rounded px-2 py-1 text-sm"
+          >
+            {[10, 25, 50, 100].map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+          <span className="text-sm text-gray-600">entries</span>
+        </div>
+        <div className="text-sm text-gray-600">
+          Showing {indexOfFirstEntry + 1} to{" "}
+          {Math.min(indexOfLastEntry, projects.length)} of {projects.length}{" "}
+          entries
+        </div>
+      </div>
+
+      {/* Table */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              {headers.main.hi.map((header, headerIndex) => (
+                <th
+                  key={headerIndex}
+                  className={classNames(
+                    "px-6 py-4 text-left text-sm font-bold text-orange-800 tracking-wider whitespace-normal border-2 border-gray-200",
+                    headerIndex === 0 ? "w-16" : "w-40"
+                  )}
+                >
+                  {header}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {currentEntries.map((project, index) => (
+              <React.Fragment key={project.projectName}>
+                <tr className="hover:bg-gray-50 transition-colors">
+                  {Object.keys(project).map((key, index) => (
+                    <td
+                      key={index}
+                      className={classNames(
+                        "px-6 py-4 text-sm",
+                        "text-gray-900 border-2 border-gray-100",
+                        index === 0 ? "w-16 text-center" : "w-40",
+                        key === "projectName" && "flex w-[300px] border-none ",
+                        key === "inspectionDetails" && "px-0 py-0"
+                      )}
+                    >
+                      {key === "inspectionDetails"
+                        ? subTable(project[key], headers.subHeaders)
+                        : project[key]}
+                    </td>
+                  ))}
+                </tr>
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="p-4 flex items-center justify-between border-t bg-white">
+        <div className="text-sm text-gray-700">
+          Page {currentPage} of {totalPages}
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => paginate(1)}
+            disabled={currentPage === 1}
+            className="p-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <ChevronsLeft className="h-4 w-4" />
+          </button>
+          <button
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="p-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+
+          {/* Page Numbers */}
+          <div className="flex items-center gap-1">
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              let pageNum;
+              if (totalPages <= 5) {
+                pageNum = i + 1;
+              } else if (currentPage <= 3) {
+                pageNum = i + 1;
+              } else if (currentPage >= totalPages - 2) {
+                pageNum = totalPages - 4 + i;
+              } else {
+                pageNum = currentPage - 2 + i;
+              }
+
+              return (
+                <button
+                  key={pageNum}
+                  onClick={() => paginate(pageNum)}
+                  className={`px-3 py-1 rounded ${
+                    currentPage === pageNum
+                      ? "bg-orange-600 text-white"
+                      : "hover:bg-gray-100"
+                  }`}
+                >
+                  {pageNum}
+                </button>
+              );
+            })}
+          </div>
+
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="p-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+          <button
+            onClick={() => paginate(totalPages)}
+            disabled={currentPage === totalPages}
+            className="p-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <ChevronsRight className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
     </div>
   );
-}
+};

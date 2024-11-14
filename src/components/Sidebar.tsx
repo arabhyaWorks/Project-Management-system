@@ -15,6 +15,8 @@ import {
   User,
   Users,
   LogOut,
+  InspectionPanel,
+  FileCheck,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 const menuItems = [
@@ -25,10 +27,20 @@ const menuItems = [
   { icon: Image, label: "Gallery", route: "/gallery" },
   { icon: Milestone, label: "Milestones", route: "/milestones" },
   {
-    icon: PenTool,
-    label: "Project Essential Test",
-    route: "/project-essential-test",
+    icon: InspectionPanel,
+    label: "Inspection Panel",
+    route: "/projectInspection",
   },
+  {
+    icon: FileCheck,
+    label: "Project Essential Test",
+    route: "/projectTest",
+  },
+  // {
+  //   icon: PenTool,
+  //   label: "Project Essential Test",
+  //   route: "/project-essential-test",
+  // },
   { icon: Receipt, label: "Budget & UC Upload", route: "/budget-uc-upload" },
   { icon: AlertCircle, label: "Issue Management", route: "/issue-management" },
   { icon: BarChart2, label: "Reports", route: "/reports" },

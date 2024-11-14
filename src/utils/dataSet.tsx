@@ -37,6 +37,24 @@ interface Users {
   executingOfficerMobile: string;
 }
 
+interface InspectionDetail {
+  srNo: string;
+  inspectionDate: string;
+  inspectionTitle: string;
+  inspectionAuthority: string;
+  inspectionType: string;
+  inspectionInstruction: string;
+  inspectionReport: string;
+  complianceStatus: string;
+  action: string[];
+}
+
+interface ProjectInspection {
+  srNo: string;
+  projectName: string;
+  inspectionDetails: InspectionDetail[];
+}
+
 export const usersHeaders = {
   en: [
     "Sr. No.",
@@ -204,7 +222,7 @@ export const users: Users[] = [
   },
 ];
 
-const projectsData: Project[] = [
+export const projectsData: Project[] = [
   {
     id: "1",
     projectName: "कारपेट सिटी-2 विकास",
@@ -477,7 +495,115 @@ const projectsData: Project[] = [
   },
 ];
 
-const headers = {
+export const projectInspection: ProjectInspection[] = [
+  {
+    srNo: "1",
+    projectName:
+      "450 मीटर लंबाई में नदी गंगा के दाहिने किनारे के क्षरण को रोकने के लिए क्रेटेड स्टोन बोल्डर कटर का निर्माण, गाँव- महुजी, ब्लॉक- धनापुर, तहसील- सकलडीहा, जिला- चंदौली",
+    inspectionDetails: [
+      {
+        srNo: "1",
+        inspectionDate: "02-06-2023",
+        inspectionTitle: "परियोजना के कार्य के गुणवत्ता के सम्बन्ध में",
+        inspectionAuthority:
+          "श्री प्रभाकर प्रसाद, अधीक्षण अभियंता, सिंचाई कार्य मंडल, सीतापुर",
+        inspectionType: "self",
+        inspectionInstruction: "परियोजना के कार्य के गुणवत्ता के सम्बन्ध में",
+        inspectionReport: "Inspection Report not Uploaded",
+        complianceStatus: "Compliance Status not Uploaded",
+        action: ["Edit", "Delete"],
+      },
+      {
+        srNo: "2",
+        inspectionDate: "19-06-2023",
+        inspectionTitle: "परियोजना के कार्य के गुणवत्ता के सम्बन्ध में",
+        inspectionAuthority:
+          "श्री केशरी सिंह, अधीक्षण अभियंता, सिंचाई कार्य मंडल, वाराणसी",
+        inspectionType: "self",
+        inspectionInstruction: "परियोजना के कार्य के गुणवत्ता के सम्बन्ध में",
+        inspectionReport: "Inspection Report not Uploaded",
+        complianceStatus: "Compliance Status not Uploaded",
+        action: ["Edit", "Delete"],
+      },
+      {
+        srNo: "3",
+        inspectionDate: "24-05-2023",
+        inspectionTitle: "परियोजना के कार्य के गुणवत्ता के सम्बन्ध में",
+        inspectionAuthority:
+          "श्री केशरी सिंह, अधीक्षण अभियंता, सिंचाई कार्य मंडल, वाराणसी",
+        inspectionType: "self",
+        inspectionInstruction: "परियोजना के कार्य के गुणवत्ता के सम्बन्ध में",
+        inspectionReport: "Inspection Report not Uploaded",
+        complianceStatus: "Compliance Status not Uploaded",
+        action: ["Edit", "Delete"],
+      },
+    ],
+  },
+  {
+    srNo: "2",
+    projectName:
+      "किमी. 19.200, किमी. 21.300 और किमी. 22.350 पर 3 रेगुलेटर और किमी. 22.350 और किमी. 18.000 पर 2 वी.आर.बी. का नवीनीकरण, रॉयलताल ड्रेन पर",
+    inspectionDetails: [
+      {
+        srNo: "1",
+        inspectionDate: "02-06-2023",
+        inspectionTitle: "परियोजना के कार्य के गुणवत्ता के सम्बन्ध में",
+        inspectionAuthority:
+          "श्री प्रभाकर प्रसाद, अधीक्षण अभियंता, सिंचाई कार्य मंडल, सीतापुर",
+        inspectionType: "self",
+        inspectionInstruction: "परियोजना के कार्य के गुणवत्ता के सम्बन्ध में",
+        inspectionReport: "Inspection Report not Uploaded",
+        complianceStatus: "Compliance Status not Uploaded",
+        action: ["Edit", "Delete"],
+      },
+      {
+        srNo: "2",
+        inspectionDate: "24-05-2023",
+        inspectionTitle: "परियोजना के कार्य के गुणवत्ता के सम्बन्ध में",
+        inspectionAuthority:
+          "श्री केशरी सिंह, अधीक्षण अभियंता, सिंचाई कार्य मंडल, वाराणसी",
+        inspectionType: "self",
+        inspectionInstruction: "परियोजना के कार्य के गुणवत्ता के सम्बन्ध में",
+        inspectionReport: "Inspection Report not Uploaded",
+        complianceStatus: "Compliance Status not Uploaded",
+        action: ["Edit", "Delete"],
+      },
+      {
+        srNo: "3",
+        inspectionDate: "17-05-2023",
+        inspectionTitle: "परियोजना के कार्य के गुणवत्ता के सम्बन्ध में",
+        inspectionAuthority:
+          "श्री केशरी सिंह, अधीक्षण अभियंता, सिंचाई कार्य मंडल, वाराणसी",
+        inspectionType: "self",
+        inspectionInstruction: "परियोजना के कार्य के गुणवत्ता के सम्बन्ध में",
+        inspectionReport: "Inspection Report not Uploaded",
+        complianceStatus: "Compliance Status not Uploaded",
+        action: ["Edit", "Delete"],
+      },
+    ],
+  },
+];
+
+export const projectInspectionHeader = {
+  main: {
+    hi: ["क्रमांक", "परियोजना का नाम", "परियोजना निरीक्षण विवरण"],
+  },
+  subHeaders: {
+    hi: [
+      "क्रमांक",
+      "निरीक्षण तिथि",
+      "निरीक्षण शीर्षक",
+      "अधिकारी / निरीक्षण प्राधिकरण (नाम और पद)",
+      "निरीक्षण प्रकार",
+      "निरीक्षण निर्देश",
+      "निरीक्षण रिपोर्ट (पीडीएफ)",
+      "अनुपालन स्थिति (पीडीएफ)",
+      "कार्रवाई",
+    ],
+  },
+};
+
+export const headers = {
   hi: [
     "क्रम संख्या",
     "परियोजना का नाम",
@@ -534,4 +660,107 @@ const headers = {
   ],
 };
 
-export { projectsData, headers };
+
+interface TestDetail {
+  srNo: string;
+  testName: string;
+  dateOfSampleCollection: string;
+  samplingAuthority: string;
+  sampleTestLabName: string;
+  sampleCollectionSiteImage: string;
+  reportOfSampleCollection: string;
+  action: string[];
+}
+
+interface ProjectTest {
+  srNo: string;
+  projectName: string;
+  testDetails: TestDetail[];
+}
+
+
+export const projectTest: ProjectTest[] = [
+  {
+    srNo: "1",
+    projectName:
+      "500 मीटर लंबाई में नदी गंगा के दाहिने किनारे के क्षरण को रोकने के लिए क्रेटेड स्टोन बोल्डर कटर का निर्माण, गाँव- बड़ागांव, ब्लॉक- चोलापुर, तहसील- पिंडरा, जिला- वाराणसी",
+    testDetails: [
+      {
+        srNo: "1",
+        testName: "M-25 Cube Test",
+        dateOfSampleCollection: "12-03-2023",
+        samplingAuthority: "UPRNN",
+        sampleTestLabName: "IIT BHU",
+        sampleCollectionSiteImage: "File not Uploaded",
+        reportOfSampleCollection: "Report not Uploaded",
+        action: ["Delete"],
+      },
+      {
+        srNo: "2",
+        testName: "Steel Test",
+        dateOfSampleCollection: "12-03-2023",
+        samplingAuthority: "UPRNN",
+        sampleTestLabName: "IIT BHU",
+        sampleCollectionSiteImage: "File not Uploaded",
+        reportOfSampleCollection: "Report not Uploaded",
+        action: ["Delete"],
+      },
+      {
+        srNo: "3",
+        testName: "Brick Test",
+        dateOfSampleCollection: "12-03-2023",
+        samplingAuthority: "UPRNN",
+        sampleTestLabName: "IIT BHU",
+        sampleCollectionSiteImage: "File not Uploaded",
+        reportOfSampleCollection: "Report not Uploaded",
+        action: ["Delete"],
+      },
+    ],
+  },
+  {
+    srNo: "2",
+    projectName:
+      "500 मीटर लंबाई में मुरलीपुर तालाब के किनारे के क्षरण को रोकने के लिए मिट्टी के कटाव का काम, ब्लॉक- पलाम, जिला- मिर्जापुर",
+    testDetails: [
+      {
+        srNo: "1",
+        testName: "M-15 Concrete Test",
+        dateOfSampleCollection: "25-05-2024",
+        samplingAuthority: "QA Testing Laboratories Pvt. Ltd",
+        sampleTestLabName: "IIT Kanpur",
+        sampleCollectionSiteImage: "File not Uploaded",
+        reportOfSampleCollection: "Report not Uploaded",
+        action: ["Delete"],
+      },
+      {
+        srNo: "2",
+        testName: "Steel Tensile Test",
+        dateOfSampleCollection: "27-05-2024",
+        samplingAuthority: "UPRNN",
+        sampleTestLabName: "IIT Kanpur",
+        sampleCollectionSiteImage: "File not Uploaded",
+        reportOfSampleCollection: "Report not Uploaded",
+        action: ["Delete"],
+      },
+    ],
+  },
+];
+
+export const projectTestHeader = {
+  main: {
+    hi: ["क्रमांक", "परियोजना का नाम", "परियोजना परीक्षण विवरण"],
+  },
+  subHeaders: {
+    hi: [
+      "क्रमांक",
+      "परीक्षण का नाम",
+      "सैंपल संग्रह की तिथि",
+      "सैंपलिंग प्राधिकरण",
+      "सैंपल टेस्ट लैब का नाम",
+      "सैंपल संग्रह स्थल का चित्र",
+      "सैंपल संग्रह की रिपोर्ट (पीडीएफ)",
+      "कार्रवाई",
+    ],
+  },
+};
+
