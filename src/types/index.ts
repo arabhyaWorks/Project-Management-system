@@ -5,30 +5,32 @@ export interface ProjectApprovalInfo {
 
 export interface Project {
   id: string;
-  serialNumber: number;
-  name: string;
-  currentStatus: string;
-  projectApprovalInfo: ProjectApprovalInfo;
-  governmentApprovalInfo: ProjectApprovalInfo;
-  approvedCost: number;
-  totalAllocatedAmount: number;
-  milestoneProgress: number;
-  physicalProgress: number;
-  estimatedCompletionDate: string;
-  delayReason?: string;
-  restructuredPlanDate?: string;
-  revisedCost?: number;
-  revisedCompletionDate?: string;
-  department: string;
-  category: string;
-  subproject?: string;
-  agreementDate: string;
-  landAvailabilityDate: string;
-  updatedProjectCost: number;
-  galleryImages: string[];
-  meetingInstructions: string;
+  projectName: string;
+  projectStatus: string;
   executingAgency: string;
+  approvalDateAndOrderNumber: string;
+  financialApprovalDateAndOrderNumber: string;
+  approvedProjectCost: string;
+  completionDateAsPerContract: string;
+  totalReleasedFunds: string;
+  totalExpenditure: string;
+  milestoneProgress: string;
+  physicalProgress: string;
+  estimatedCompletionDateByAgency: string;
+  delayReason: string;
+  revisedApprovalDate: string;
+  revisedProjectCost: string;
+  revisedCompletionDate: string;
+  departmentName: string;
+  projectCategory: string;
+  contractFormationDate: string;
+  landAvailabilityDate: string;
+  projectUpdate: string;
+  projectGallery: string;
+  meetingInstructions: string;
+  complianceOfMeetingInstructions: string;
 }
+
 
 export interface User {
   id: string;

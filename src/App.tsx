@@ -11,6 +11,7 @@ import { AuthProvider } from "./context/AuthContext";
 import ProjectDashboard from "./pages/projectDashboard";
 import Gallery from "./pages/Gallery";
 import MilestonePage from "./pages/MilestonePage";
+import UsersList from "./pages/userList";
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />} />
             <Route path="projects" element={<Projects />} />
+            <Route path="users" element={<UsersList />} />
+
             <Route path="projectDashboard" element={<ProjectDashboard />} />
             <Route path="gallery" element={<Gallery isSidebarOpen={false} />} />
             <Route path="milestones" element={<MilestonePage />} />

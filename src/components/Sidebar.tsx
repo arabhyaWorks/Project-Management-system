@@ -13,23 +13,23 @@ import {
   BarChart2,
   Image,
   User,
+  Users,
   LogOut,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", route: "/" },
   { icon: Database, label: "Masters", route: "/projectDashboard" },
   { icon: FolderOpen, label: "All Projects", route: "/projects" },
+  { icon: Users, label: "Users", route: "/users" },
   { icon: Image, label: "Gallery", route: "/gallery" },
+  { icon: Milestone, label: "Milestones", route: "/milestones" },
   {
     icon: PenTool,
     label: "Project Essential Test",
     route: "/project-essential-test",
   },
   { icon: Receipt, label: "Budget & UC Upload", route: "/budget-uc-upload" },
-  { icon: Milestone, label: "Milestones", route: "/milestones" },
   { icon: AlertCircle, label: "Issue Management", route: "/issue-management" },
   { icon: BarChart2, label: "Reports", route: "/reports" },
   // { icon: User, label: "Profile", route: "/profile" },

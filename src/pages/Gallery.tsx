@@ -9,16 +9,17 @@ interface GalleryProps {
 const projects = [
   {
     id: 1,
-    title: "Project Estimate for construction of crated stone Boulder cutter to prevent of erosion in 450 meter length at right bank of river Ganga in village- Mahuji, Block- Dhanapur Tahsil- Sakaldiha, Distt- Chandauli.",
+    title:
+      "Project Estimate for construction of crated stone Boulder cutter to prevent of erosion in 450 meter length at right bank of river Ganga in village- Mahuji, Block- Dhanapur Tahsil- Sakaldiha, Distt- Chandauli.",
     agency: "Bandhi Prakhand",
     images: [
       {
-        url: "https://pmschandauli.com/upload/project/9/main/240108045338.png",
+        url: "https://cdn.britannica.com/20/119620-050-AC901996/Yichang-Three-Gorges-Dam-Yangtze-River-China.jpg",
         description: "Construction Progress - Phase 1",
         uploadedAt: "2024-01-08T16:53:38",
       },
       {
-        url: "https://pmschandauli.com/upload/project/9/main/240108045338.png",
+        url: "https://cdn.britannica.com/20/119620-050-AC901996/Yichang-Three-Gorges-Dam-Yangtze-River-China.jpg",
         description: "Site Overview",
         uploadedAt: "2024-01-08T16:52:16",
       },
@@ -26,16 +27,17 @@ const projects = [
   },
   {
     id: 2,
-    title: "R.O.B. IN LIEU OF LC No.-102B/3E ON CHANDAULI- SAKALDIHA ROAD BETWEEN KUCHAMAN-SAKALDIHA RAILWAY STATION OF ECR RAIL SECTION IN DISTT. CHANDAULI",
+    title:
+      "R.O.B. IN LIEU OF LC No.-102B/3E ON CHANDAULI- SAKALDIHA ROAD BETWEEN KUCHAMAN-SAKALDIHA RAILWAY STATION OF ECR RAIL SECTION IN DISTT. CHANDAULI",
     agency: "PWD Chandauli",
     images: [
       {
-        url: "https://pmschandauli.com/upload/project/26/main/240824042657.jpeg",
+        url: "https://cdn.britannica.com/58/1758-050-F33B1845/Itaipu-Dam-Upper-Parana-River-Paraguay-Ciudad.jpg",
         description: "M.O. Residence",
         uploadedAt: "2024-08-24T16:26:57",
       },
       {
-        url: "https://pmschandauli.com/upload/project/26/main/240824042651.jpeg",
+        url: "https://cdn.britannica.com/58/1758-050-F33B1845/Itaipu-Dam-Upper-Parana-River-Paraguay-Ciudad.jpg",
         description: "PHC Main Building",
         uploadedAt: "2024-08-24T16:26:51",
       },
@@ -62,24 +64,6 @@ export default function Gallery({ isSidebarOpen }: GalleryProps) {
       className={`min-h-screen bg-gray-50 transition-all duration-300 m-0
         `}
     >
-      {/* ${isSidebarOpen ? 'ml-64' : 'ml-0'} */}
-      {/* Header */}
-      <header className="bg-white rounded shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-gray-900">
-              Project Gallery
-            </h1>
-            <div className="flex items-center space-x-2">
-              <button className="px-4 py-2 bg-orange-500 text-white rounded-lg flex items-center gap-2 hover:bg-orange-600 transition-colors">
-                <ImageIcon size={20} />
-                Upload Images
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
       {/* Filters */}
       <div className="max-w-7xl mx-auto py-6">
         <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
@@ -120,20 +104,7 @@ export default function Gallery({ isSidebarOpen }: GalleryProps) {
                 ))}
               </select>
             </div>
-            
-            {/* <div className="relative">
-              <Search
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                size={20}
-              />
-              <input
-                type="text"
-                placeholder="Search projects..."
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div> */}
+
             <button
               className="px-4 py-2 text-orange-500 border border-orange-500 rounded-lg hover:bg-orange-50 transition-colors"
               onClick={() => {
@@ -153,15 +124,22 @@ export default function Gallery({ isSidebarOpen }: GalleryProps) {
               key={project.id}
               className="bg-white rounded-lg shadow-sm overflow-hidden"
             >
-              
-              <div className="p-4 border-b">
-                <h2 className="text-xl font-semibold text-gray-900">
-                  {project.title}
-                </h2>
-                <p className="text-sm text-gray-500 mt-1">{project.agency}</p>
+              <div className="p-4 border-b flex ">
+                <div className="">
+                  <h2 className="text-xl font-semibold text-gray-900">
+                    {project.title}
+                  </h2>
+                  <p className="text-sm text-gray-500 mt-1">{project.agency}</p>
+                </div>
+
+                <div className="">
+                  <button className=" w-[170px] px-4 py-2 bg-orange-500 text-white rounded-lg flex items-center gap-2 hover:bg-orange-600 transition-colors">
+                    <ImageIcon size={20} />
+                    Upload Images
+                  </button>
+                </div>
               </div>
- 
-           
+
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
                 {project.images.map((image, index) => (
                   <div
