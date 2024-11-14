@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   Database,
@@ -18,30 +19,30 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 const menuItems = [
-  { icon: LayoutDashboard, label: "Dashboard", active: true, ruote: "/" },
-  { icon: Database, label: "Masters", ruote: "/projectDashboard" },
-  { icon: FolderOpen, label: "All Projects", ruote: "/projects" },
-  { icon: Image, label: "Gallery", ruote: "/gallery" },
+  { icon: LayoutDashboard, label: "Dashboard", route: "/" },
+  { icon: Database, label: "Masters", route: "/projectDashboard" },
+  { icon: FolderOpen, label: "All Projects", route: "/projects" },
+  { icon: Image, label: "Gallery", route: "/gallery" },
+  {
+    icon: PenTool,
+    label: "Project Essential Test",
+    route: "/project-essential-test",
+  },
+  { icon: Receipt, label: "Budget & UC Upload", route: "/budget-uc-upload" },
+  { icon: Milestone, label: "Milestones", route: "/milestones" },
+  { icon: AlertCircle, label: "Issue Management", route: "/issue-management" },
+  { icon: BarChart2, label: "Reports", route: "/reports" },
+  // { icon: User, label: "Profile", route: "/profile" },
   // {
   //   icon: Calendar,
   //   label: "Project Date Extend",
-  //   ruote: "/project-date-extend",
+  //   route: "/project-date-extend",
   // },
   // {
   //   icon: ClipboardCheck,
   //   label: "Project Inspection",
-  //   ruote: "/project-inspection",
+  //   route: "/project-inspection",
   // },
-  {
-    icon: PenTool,
-    label: "Project Essential Test",
-    ruote: "/project-essential-test",
-  },
-  { icon: Receipt, label: "Budget & UC Upload", ruote: "/budget-uc-upload" },
-  { icon: Milestone, label: "Milestones", ruote: "/milestones" },
-  { icon: AlertCircle, label: "Issue Management", ruote: "/issue-management" },
-  { icon: BarChart2, label: "Reports", ruote: "/reports" },
-  // { icon: User, label: "Profile", ruote: "/profile" },
 ];
 
 interface SidebarProps {
@@ -51,6 +52,8 @@ const indiaLogo =
   "https://upload.wikimedia.org/wikipedia/commons/f/fa/Seal_of_Uttar_Pradesh.svg";
 
 export default function Sidebar({ isOpen }: SidebarProps) {
+  const location = useLocation();
+
   return (
     <>
       <motion.div
@@ -69,19 +72,22 @@ export default function Sidebar({ isOpen }: SidebarProps) {
 
         <nav className="flex-1 overflow-y-auto p-4">
           <ul className="space-y-2">
-            {menuItems.map((item) => (
-              <li key={item.label}>
-                <a
-                  href={item.ruote}
-                  className={`flex items-center gap-3 px-3 py-[0.62rem] rounded-lg text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors ${
-                    item.active ? "bg-orange-50 text-orange-600" : ""
-                  }`}
-                >
-                  <item.icon className="w-5 h-5 flex-shrink-0" />
-                  {isOpen && <p> {item.label}</p>}
-                </a>
-              </li>
-            ))}
+            {menuItems.map((item) => {
+              const isActive = location.pathname === item.route;
+              return (
+                <li key={item.label}>
+                  <a
+                    href={item.route}
+                    className={`flex items-center gap-3 px-3 py-[0.62rem] rounded-lg text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors ${
+                      isActive ? "bg-orange-50 text-orange-600" : ""
+                    }`}
+                  >
+                    <item.icon className="w-5 h-5 flex-shrink-0" />
+                    {isOpen && <p> {item.label}</p>}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
