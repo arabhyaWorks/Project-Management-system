@@ -17,7 +17,7 @@ export function Layout() {
       <div
         className="transition-all duration-300 bg-white-900 w-full"
         style={{
-          paddingLeft: isSidebarOpen ? "300px" : "80px",
+          paddingLeft: isSidebarOpen ? "250px" : "80px",
         }}
       >
         <Header isOpen={isSidebarOpen} onToggle={toggleSidebar} />

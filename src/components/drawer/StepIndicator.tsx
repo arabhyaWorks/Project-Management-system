@@ -14,7 +14,7 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep, steps }) => 
         {/* Progress bar */}
         <div className="absolute top-5 left-0 right-0 h-1 bg-gray-200">
           <div
-            className="h-full bg-indigo-600 transition-all duration-500"
+            className="h-full bg-orange-600 transition-all duration-500"
             style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
           />
         </div>
@@ -31,7 +31,7 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep, steps }) => 
                 "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500",
                 "border-2 z-10",
                 {
-                  'bg-indigo-600 border-indigo-600': index + 1 <= currentStep,
+                  'bg-orange-600 border-orange-600': index + 1 <= currentStep,
                   'bg-white border-gray-300': index + 1 > currentStep
                 }
               )}
@@ -47,7 +47,7 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep, steps }) => 
             <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 w-32 text-center">
               <p className={classNames(
                 "text-sm font-medium transition-colors duration-300",
-                index + 1 <= currentStep ? 'text-indigo-600' : 'text-gray-500'
+                index + 1 <= currentStep ? 'text-orange-600' : 'text-gray-500'
               )}>
                 {step.title}
               </p>

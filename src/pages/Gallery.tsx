@@ -9,7 +9,7 @@ interface GalleryProps {
 const projects = [
   {
     id: 1,
-    title: "Construction of crated stone Boulder cutter - Mahuji Project",
+    title: "Project Estimate for construction of crated stone Boulder cutter to prevent of erosion in 450 meter length at right bank of river Ganga in village- Mahuji, Block- Dhanapur Tahsil- Sakaldiha, Distt- Chandauli.",
     agency: "Bandhi Prakhand",
     images: [
       {
@@ -26,16 +26,16 @@ const projects = [
   },
   {
     id: 2,
-    title: "Primary Health Center Construction",
+    title: "R.O.B. IN LIEU OF LC No.-102B/3E ON CHANDAULI- SAKALDIHA ROAD BETWEEN KUCHAMAN-SAKALDIHA RAILWAY STATION OF ECR RAIL SECTION IN DISTT. CHANDAULI",
     agency: "PWD Chandauli",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1590596504154-1592466956531",
+        url: "https://pmschandauli.com/upload/project/26/main/240824042657.jpeg",
         description: "M.O. Residence",
         uploadedAt: "2024-08-24T16:26:57",
       },
       {
-        url: "https://images.unsplash.com/photo-1584467541268-b040f83be3fd",
+        url: "https://pmschandauli.com/upload/project/26/main/240824042651.jpeg",
         description: "PHC Main Building",
         uploadedAt: "2024-08-24T16:26:51",
       },
@@ -103,6 +103,25 @@ export default function Gallery({ isSidebarOpen }: GalleryProps) {
               </select>
             </div>
             <div className="relative">
+              <Filter
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                size={20}
+              />
+              <select
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                value={selectedAgency}
+                onChange={(e) => setSelectedAgency(e.target.value)}
+              >
+                <option value="">Project Names</option>
+                {agencies.map((agency) => (
+                  <option key={agency} value={agency}>
+                    {agency}
+                  </option>
+                ))}
+              </select>
+            </div>
+            
+            {/* <div className="relative">
               <Search
                 className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
                 size={20}
@@ -114,7 +133,7 @@ export default function Gallery({ isSidebarOpen }: GalleryProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-            </div>
+            </div> */}
             <button
               className="px-4 py-2 text-orange-500 border border-orange-500 rounded-lg hover:bg-orange-50 transition-colors"
               onClick={() => {
@@ -134,12 +153,15 @@ export default function Gallery({ isSidebarOpen }: GalleryProps) {
               key={project.id}
               className="bg-white rounded-lg shadow-sm overflow-hidden"
             >
+              
               <div className="p-4 border-b">
                 <h2 className="text-xl font-semibold text-gray-900">
                   {project.title}
                 </h2>
                 <p className="text-sm text-gray-500 mt-1">{project.agency}</p>
               </div>
+ 
+           
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
                 {project.images.map((image, index) => (
                   <div

@@ -7,7 +7,7 @@ export default function DashboardHeader() {
   const totalIssues = 0;
 
   return (
-    <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 rounded-xl shadow-lg mb-8">
+    <div className="bg-gradient-to-r from-orange-400 to-orange-500 text-white p-6 rounded-xl shadow-lg mb-8">
       <h1 className="text-2xl font-bold mb-6">Dashboard Overview</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

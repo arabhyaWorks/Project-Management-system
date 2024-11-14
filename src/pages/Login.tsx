@@ -1,30 +1,38 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { LogIn } from 'lucide-react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { LogIn } from "lucide-react";
+import bgImage from "../assets/bg_img.png";
 
 export function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Add authentication logic here
-    navigate('/');
+
+    navigate("/");
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center p-4">
+    <div
+      style={{ backgroundImage: `url(${bgImage})` }}
+      className="min-h-screen w-full fixed bg-cover bg-center from-orange-50 to-orange-100 flex items-center justify-center p-4"
+    >
       <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <LogIn className="h-12 w-12 text-orange-600" />
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Seal_of_Uttar_Pradesh.svg"
+              alt="Seal of Uttar Pradesh"
+              className="h-[80px] w-[80px] bg-red-0"
+            />
           </div>
-          <h2 className="text-2xl font-bold text-orange-500">
+          <h2 className="text-2xl font-bold text-black">
             Program Management System
           </h2>
-          <p className="text-gray-600">Ayodhya Municipal Department</p>
+          <p className="text-gray-600 font-medium">Bhadohi District</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">

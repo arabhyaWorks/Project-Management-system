@@ -43,8 +43,6 @@ export function Projects() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-
-
   const filteredProjects = mockProjects.filter((project) => {
     const matchesSearch =
       project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -80,18 +78,7 @@ export function Projects() {
 
   return (
     <div className="space-y-6">
-      {/* <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">Projects</h2>
-        <Link
-          to="/projects/new"
-          className="inline-flex items-center rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500"
-        >
-          <Plus className="h-5 w-5 mr-1" />
-          New Project
-        </Link>
-      </div> */}
-
-<div className="flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Projects</h2>
           <p className="mt-1 text-sm text-gray-500">
@@ -117,7 +104,7 @@ export function Projects() {
       </div>
 
       <div className="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-lg overflow-hidden	">
-      <div className="border-b border-gray-200 p-4">
+        <div className="border-b border-gray-200 p-4">
           <ProjectFilters
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
@@ -130,9 +117,7 @@ export function Projects() {
           />
         </div>
         <DataTable searchTerm={searchTerm} />
-
       </div>
-
 
       <Drawer
         isOpen={isDrawerOpen}
