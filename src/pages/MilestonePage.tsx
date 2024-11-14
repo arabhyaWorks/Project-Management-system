@@ -62,8 +62,11 @@ export default function MilestonePage() {
   };
 
   return (
-    <div className="p-6 max-w-[1400px] mx-auto">
-      <div className="bg-white rounded-xl shadow-lg p-6">
+    <div
+      className={`min-h-screen bg-gray-50 transition-all duration-300 m-0
+      `}
+    >
+      <div className="max-w-7xl bg-white r mx-auto py-6 rounded-lg shadow-sm p-4 mb-6s">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold text-gray-900">
             Milestone Management

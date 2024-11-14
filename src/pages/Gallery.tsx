@@ -1,5 +1,11 @@
-import React from "react";
-import { Search, Image as ImageIcon, Filter } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import {
+  Search,
+  Image as ImageIcon,
+  Filter,
+  Calendar,
+  Plus,
+} from "lucide-react";
 
 interface GalleryProps {
   isSidebarOpen: boolean;
@@ -46,8 +52,10 @@ const projects = [
 ];
 
 export default function Gallery({ isSidebarOpen }: GalleryProps) {
-  const [selectedAgency, setSelectedAgency] = React.useState("");
-  const [searchQuery, setSearchQuery] = React.useState("");
+  const [selectedAgency, setSelectedAgency] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState({});
 
   const agencies = [...new Set(projects.map((project) => project.agency))];
 
@@ -59,13 +67,18 @@ export default function Gallery({ isSidebarOpen }: GalleryProps) {
     return matchesAgency && matchesSearch;
   });
 
+  const handleUpdateProgress = (project: object) => {
+    setSelectedProject(project);
+    setShowUpdateModal(true);
+  };
+
   return (
     <div
       className={`min-h-screen bg-gray-50 transition-all duration-300 m-0
         `}
     >
-      {/* Filters */}
       <div className="max-w-7xl mx-auto py-6">
+        {/* Filters */}
         <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="relative">
@@ -133,7 +146,10 @@ export default function Gallery({ isSidebarOpen }: GalleryProps) {
                 </div>
 
                 <div className="">
-                  <button className=" w-[170px] px-4 py-2 bg-orange-500 text-white rounded-lg flex items-center gap-2 hover:bg-orange-600 transition-colors">
+                  <button
+                    onClick={() => handleUpdateProgress(project)}
+                    className=" w-[170px] px-4 py-2 bg-orange-500 text-white rounded-lg flex items-center gap-2 hover:bg-orange-600 transition-colors"
+                  >
                     <ImageIcon size={20} />
                     Upload Images
                   </button>
@@ -169,6 +185,57 @@ export default function Gallery({ isSidebarOpen }: GalleryProps) {
           ))}
         </div>
       </div>
+
+      {showUpdateModal && selectedProject && (
+        <div
+          style={{
+            zIndex: 9999,
+          }}
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+        >
+          <div className="bg-white rounded-xl shadow-xl  p-6 w-full max-w-2xl">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">
+              Update Project Gallery
+            </h2>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Project Name
+                </label>
+                <p className="text-sm text-gray-600">{selectedProject.title}</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Upload Image
+                </label>
+                <div className="flex items-center justify-center w-full">
+                  <label className="w-full flex flex-col items-center px-4 py-6 bg-white rounded-lg border-2 border-gray-300 border-dashed cursor-pointer hover:border-orange-500">
+                    <Plus className="w-8 h-8 text-gray-400" />
+                    <span className="mt-2 text-sm text-gray-500">
+                      Click to upload or drag and drop
+                    </span>
+                    <input type="file" className="hidden" />
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                onClick={() => setShowUpdateModal(false)}
+                className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                Cancel
+              </button>
+              <button className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors">
+                Update Image
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
