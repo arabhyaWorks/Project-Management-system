@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 import { Plus, Search, Download, Filter } from "lucide-react";
 import { DataTable } from "../components/table/ProjectTable";
 import { ProjectFilters } from "../components/table/ProjectFilters";
-import { projectTest, projectTestHeader, projectInspection, projectInspectionHeader } from "../utils/dataSet";
+import {
+  projectTest,
+  projectTestHeader,
+  projectInspection,
+  projectInspectionHeader,
+} from "../utils/dataSet";
 
 export default function ProjectTest() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,7 +17,9 @@ export default function ProjectTest() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Projects</h2>
+          <h2 className="text-2xl font-bold text-gray-900">
+            Projects Essential Test Detail
+          </h2>
           <p className="mt-1 text-sm text-gray-500">
             Manage and monitor all development projects
           </p>
@@ -24,7 +31,7 @@ export default function ProjectTest() {
           </button>
           <button className="inline-flex items-center rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500">
             <Plus className="h-5 w-5 mr-1" />
-            New Project
+            Add Test
           </button>
         </div>
       </div>

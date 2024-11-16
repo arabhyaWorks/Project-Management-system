@@ -40,6 +40,54 @@ interface DataTableProps {
   headers: Header;
 }
 
+{
+  /* <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          {headers.subHeaders.hi.map((header, index) => (
+                            <th
+                              key={header}
+                              className={classNames(
+                                "px-6 py-4 text-left text-sm font-bold text-orange-800 tracking-wider whitespace-normal border-2 border-gray-200",
+                                index === 0 ? "w-16" : "w-40",
+                                index === 0 && "border-l-0",
+                                index === headers.subHeaders.hi.length - 1 &&
+                                  "border-r-0",
+                                "border-t-0"
+                              )}
+                            >
+                              {header}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-red-200 ">
+                        {project.inspectionDetails.map((detail, index) => (
+                          <tr
+                            key={index}
+                            className="hover:bg-gray-50 transition-colors"
+                          >
+                            {Object.keys(detail).map((key, index) => (
+                              <td
+                                key={index}
+                                className={classNames(
+                                  "px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-2 border-gray-100",
+                                  index === 0 ? "w-16 text-center" : "w-40",
+                                  index === 0 && "border-l-0",
+                                  index === Object.keys(detail).length - 1 &&
+                                    "border-r-0",
+                                  "border-b-0"
+                                )}
+                              >
+                                {detail[key]}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table> */
+}
+
 const subTable = (
   inspectionDetails: InspectionDetail[],
   headers: Header["subHeaders"]
@@ -64,7 +112,7 @@ const subTable = (
           ))}
         </tr>
       </thead>
-      <tbody className="bg-white divide-y divide-gray-200">
+      <tbody className="bg-white divide-y divide-red-200 ">
         {inspectionDetails.map((detail, index) => (
           <tr key={index} className="hover:bg-gray-50 transition-colors">
             {Object.keys(detail).map((key, index) => (
@@ -78,9 +126,7 @@ const subTable = (
                   "border-b-0"
                 )}
               >
-                {Array.isArray(detail[key])
-                  ? detail[key].join(", ")
-                  : detail[key]}
+                {detail[key]}
               </td>
             ))}
           </tr>
@@ -89,7 +135,6 @@ const subTable = (
     </table>
   );
 };
-
 export const DataTable = ({
   searchTerm,
   projects,
@@ -140,14 +185,14 @@ export const DataTable = ({
       {/* Table */}
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+          <thead className="bg-gray-50 ">
             <tr>
-              {headers.main.hi.map((header, headerIndex) => (
+              {headers.main.hi.map((header, index) => (
                 <th
-                  key={headerIndex}
+                  key={index}
                   className={classNames(
                     "px-6 py-4 text-left text-sm font-bold text-orange-800 tracking-wider whitespace-normal border-2 border-gray-200",
-                    headerIndex === 0 ? "w-16" : "w-40"
+                    index === 0 ? "w-16" : "w-40"
                   )}
                 >
                   {header}
@@ -157,17 +202,16 @@ export const DataTable = ({
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {currentEntries.map((project, index) => (
-              <React.Fragment key={project.projectName}>
+              <React.Fragment key={index}>
                 <tr className="hover:bg-gray-50 transition-colors">
                   {Object.keys(project).map((key, index) => (
                     <td
-                      key={index}
                       className={classNames(
-                        "px-6 py-4 text-sm",
+                        "text-sm",
                         "text-gray-900 border-2 border-gray-100",
                         index === 0 ? "w-16 text-center" : "w-40",
                         key === "projectName" && "flex w-[300px] border-none ",
-                        key === "inspectionDetails" && "px-0 py-0"
+                        key === "inspectionDetails" ? "px-0 py-0" : "px-6 py-4 "
                       )}
                     >
                       {key === "inspectionDetails"

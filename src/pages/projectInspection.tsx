@@ -12,7 +12,9 @@ export default function ProjectInsection() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Projects</h2>
+          <h2 className="text-2xl font-bold text-gray-900">
+            Projects Inspection
+          </h2>
           <p className="mt-1 text-sm text-gray-500">
             Manage and monitor all development projects
           </p>
@@ -24,7 +26,7 @@ export default function ProjectInsection() {
           </button>
           <button className="inline-flex items-center rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500">
             <Plus className="h-5 w-5 mr-1" />
-            New Project
+            New Inspection
           </button>
         </div>
       </div>

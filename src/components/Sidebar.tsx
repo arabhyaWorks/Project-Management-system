@@ -21,11 +21,9 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", route: "/" },
-  { icon: Database, label: "Masters", route: "/projectDashboard" },
+  { icon: Database, label: "Issues", route: "/projectDashboard" },
   { icon: FolderOpen, label: "All Projects", route: "/projects" },
-  { icon: Users, label: "Users", route: "/users" },
-  { icon: Image, label: "Gallery", route: "/gallery" },
-  { icon: Milestone, label: "Milestones", route: "/milestones" },
+  { icon: Users, label: "All Users", route: "/users" },
   {
     icon: InspectionPanel,
     label: "Inspection Panel",
@@ -36,14 +34,16 @@ const menuItems = [
     label: "Project Essential Test",
     route: "/projectTest",
   },
+  { icon: Receipt, label: "Budget & UC Upload", route: "/budget-uc-upload" },
+  { icon: Milestone, label: "Milestones", route: "/milestones" },
+  { icon: AlertCircle, label: "Issue Management", route: "/issue-management" },
+  { icon: BarChart2, label: "Reports", route: "/reports" },
+  { icon: Image, label: "Gallery", route: "/gallery" },
   // {
   //   icon: PenTool,
   //   label: "Project Essential Test",
   //   route: "/project-essential-test",
   // },
-  { icon: Receipt, label: "Budget & UC Upload", route: "/budget-uc-upload" },
-  { icon: AlertCircle, label: "Issue Management", route: "/issue-management" },
-  { icon: BarChart2, label: "Reports", route: "/reports" },
   // { icon: User, label: "Profile", route: "/profile" },
   // {
   //   icon: Calendar,
