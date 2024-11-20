@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import classNames from "classnames";
+import './sidebar.css'
 import {
   LayoutDashboard,
   Database,
@@ -69,9 +71,23 @@ export default function Sidebar({ isOpen }: SidebarProps) {
   return (
     <>
       <motion.div
-        className={`${
-          !isOpen ? "w-20" : "w-[250px]"
-        } bg-white h-screen  fixed left-0 top-0 border-r border-gray-200 flex flex-col transition-all duration-300 z-20`}
+        // className={`${
+        //   !isOpen ? "w-20" : "w-[250px]"
+        // } bg-white h-screen  fixed left-0 top-0 border-r border-gray-200 flex flex-col transition-all duration-300 z-20`}
+      
+        className={classNames(
+          "w-20 bg-white h-screen  fixed left-0 top-0 border-r border-gray-200 flex flex-col transition-all duration-300 z-20",
+          {
+            "w-20": !isOpen,
+            "w-[250px]": isOpen,
+          },
+          // 'sm:hidden'
+          // "hidden sm:block"
+          // "lg:bg-red-800 md:bg-green-600 sm:bg-blue-500"
+          'sidebarContainer'
+        )}
+
+
       >
         <div className="p-3 border-b border-gray-200">
           <div className="flex items-center gap-3">

@@ -1,4 +1,4 @@
-import { hi } from "date-fns/locale";
+import { hi, sr } from "date-fns/locale";
 
 interface Project {
   id: string;
@@ -49,10 +49,26 @@ interface InspectionDetail {
   action: string[];
 }
 
+interface budgetDetail {
+  installmentName: string;
+  installmentAmount: string;
+  installmentExpenditure: string;
+  amountRecievedDate: string;
+  utilizationCertificate: string;
+  remark: string;
+  action: string[];
+}
+
 interface ProjectInspection {
   srNo: string;
   projectName: string;
   inspectionDetails: InspectionDetail[];
+}
+
+interface BudgetUCUpload {
+  srNo: string;
+  projectName: string;
+  budgetDetails: budgetDetail[];
 }
 
 export const usersHeaders = {
@@ -73,6 +89,61 @@ export const usersHeaders = {
     "कार्यकारी अधिकारी मोबाइल",
   ],
 };
+
+export const issuesHeaders = {
+  hi: [
+    "क्रमांक",
+    "परियोजना का नाम",
+    "स्थिति",
+    "प्रारंभ तिथि",
+    "समाप्ति तिथि",
+    "कार्रवाई",
+  ],
+  en: ["Sr. No.", "Project Name", "Status", "Start Date", "End Date", "Action"],
+};
+
+export const issues = [
+  {
+    srNo: "1",
+    projectName: "शहर विकास योजना",
+    status: "कार्य प्रगति पर",
+    startDate: "01-01-2023",
+    endDate: "31-12-2023",
+    action: ["संपादित करें", "हटाएं"],
+  },
+  {
+    srNo: "2",
+    projectName: "पेयजल परियोजना",
+    status: "पूर्ण",
+    startDate: "01-06-2022",
+    endDate: "30-11-2022",
+    action: ["देखें", "रिपोर्ट"],
+  },
+  {
+    srNo: "3",
+    projectName: "नदी तट संरक्षण कार्य",
+    status: "विलंबित",
+    startDate: "15-03-2023",
+    endDate: "अज्ञात",
+    action: ["नवीनीकरण", "रिपोर्ट"],
+  },
+  {
+    srNo: "4",
+    projectName: "औद्योगिक पार्क निर्माण",
+    status: "योजना चरण",
+    startDate: "01-09-2023",
+    endDate: "31-12-2024",
+    action: ["संपादित करें", "हटाएं"],
+  },
+  {
+    srNo: "5",
+    projectName: "सड़क विस्तार परियोजना",
+    status: "कार्य प्रगति पर",
+    startDate: "01-01-2023",
+    endDate: "30-06-2023",
+    action: ["संपादित करें", "रिपोर्ट"],
+  },
+];
 
 export const users: Users[] = [
   {
@@ -603,6 +674,126 @@ export const projectInspectionHeader = {
   },
 };
 
+export const budgetUcupload: BudgetUCUpload[] = [
+  {
+    srNo: "1",
+    projectName:
+      "450 मीटर लंबाई में नदी गंगा के दाहिने किनारे के क्षरण को रोकने के लिए क्रेटेड स्टोन बोल्डर कटर का निर्माण, गाँव- महुजी, ब्लॉक- धनापुर, तहसील- सकलडीहा, जिला- चंदौली",
+    budgetDetails: [
+      {
+        installmentName: "1",
+        installmentAmount: "₹ 50,00,000",
+        installmentExpenditure: "₹ 20,00,000",
+        amountRecievedDate: "01-01-2023",
+        utilizationCertificate: "Utilization Certificate not Uploaded",
+        remark: "Remarks not Uploaded",
+        action: ["Edit", "Delete"],
+      },
+      {
+        installmentName: "1",
+        installmentAmount: "₹ 50,00,000",
+        installmentExpenditure: "₹ 20,00,000",
+        amountRecievedDate: "01-01-2023",
+        utilizationCertificate: "Utilization Certificate not Uploaded",
+        remark: "Remarks not Uploaded",
+        action: ["Edit", "Delete"],
+      },
+    ],
+  },
+  {
+    srNo: "1",
+    projectName:
+      "450 मीटर लंबाई में नदी गंगा के दाहिने किनारे के क्षरण को रोकने के लिए क्रेटेड स्टोन बोल्डर कटर का निर्माण, गाँव- महुजी, ब्लॉक- धनापुर, तहसील- सकलडीहा, जिला- चंदौली",
+    budgetDetails: [
+      {
+        installmentName: "1",
+        installmentAmount: "₹ 50,00,000",
+        installmentExpenditure: "₹ 20,00,000",
+        amountRecievedDate: "01-01-2023",
+        utilizationCertificate: "Utilization Certificate not Uploaded",
+        remark: "Remarks not Uploaded",
+        action: ["Edit", "Delete"],
+      },
+      {
+        installmentName: "1",
+        installmentAmount: "₹ 50,00,000",
+        installmentExpenditure: "₹ 20,00,000",
+        amountRecievedDate: "01-01-2023",
+        utilizationCertificate: "Utilization Certificate not Uploaded",
+        remark: "Remarks not Uploaded",
+        action: ["Edit", "Delete"],
+      },
+    ],
+  },
+  {
+    srNo: "1",
+    projectName:
+      "450 मीटर लंबाई में नदी गंगा के दाहिने किनारे के क्षरण को रोकने के लिए क्रेटेड स्टोन बोल्डर कटर का निर्माण, गाँव- महुजी, ब्लॉक- धनापुर, तहसील- सकलडीहा, जिला- चंदौली",
+    budgetDetails: [
+      {
+        installmentName: "1",
+        installmentAmount: "₹ 50,00,000",
+        installmentExpenditure: "₹ 20,00,000",
+        amountRecievedDate: "01-01-2023",
+        utilizationCertificate: "Utilization Certificate not Uploaded",
+        remark: "Remarks not Uploaded",
+        action: ["Edit", "Delete"],
+      },
+      {
+        installmentName: "1",
+        installmentAmount: "₹ 50,00,000",
+        installmentExpenditure: "₹ 20,00,000",
+        amountRecievedDate: "01-01-2023",
+        utilizationCertificate: "Utilization Certificate not Uploaded",
+        remark: "Remarks not Uploaded",
+        action: ["Edit", "Delete"],
+      },
+    ],
+  },
+  {
+    srNo: "1",
+    projectName:
+      "450 मीटर लंबाई में नदी गंगा के दाहिने किनारे के क्षरण को रोकने के लिए क्रेटेड स्टोन बोल्डर कटर का निर्माण, गाँव- महुजी, ब्लॉक- धनापुर, तहसील- सकलडीहा, जिला- चंदौली",
+    budgetDetails: [
+      {
+        installmentName: "1",
+        installmentAmount: "₹ 50,00,000",
+        installmentExpenditure: "₹ 20,00,000",
+        amountRecievedDate: "01-01-2023",
+        utilizationCertificate: "Utilization Certificate not Uploaded",
+        remark: "Remarks not Uploaded",
+        action: ["Edit", "Delete"],
+      },
+      {
+        installmentName: "1",
+        installmentAmount: "₹ 50,00,000",
+        installmentExpenditure: "₹ 20,00,000",
+        amountRecievedDate: "01-01-2023",
+        utilizationCertificate: "Utilization Certificate not Uploaded",
+        remark: "Remarks not Uploaded",
+        action: ["Edit", "Delete"],
+      },
+    ],
+  },
+];
+
+export const BudgetUcHeaders = {
+  main: {
+    hi: ["क्रमांक", "परियोजना का नाम", "प्रोजेक्ट बजट प्राप्त किस्त डेटा"],
+  },
+  subHeaders: {
+    hi: [
+      "किस्त संख्या",
+      "किस्त राशि (लाख में)",
+      "किस्त व्यय (लाख में)",
+      "प्राप्त राशि की तारीख",
+      "उपयोग प्रमाणपत्र (यूसी)",
+      "टिप्पणी",
+      "कार्रवाई",
+    ],
+  },
+};
+
 export const headers = {
   hi: [
     "क्रम संख्या",
@@ -660,7 +851,6 @@ export const headers = {
   ],
 };
 
-
 interface TestDetail {
   srNo: string;
   testName: string;
@@ -677,7 +867,6 @@ interface ProjectTest {
   projectName: string;
   testDetails: TestDetail[];
 }
-
 
 export const projectTest: ProjectTest[] = [
   {
@@ -763,4 +952,3 @@ export const projectTestHeader = {
     ],
   },
 };
-

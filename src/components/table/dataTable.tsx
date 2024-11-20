@@ -6,6 +6,7 @@ import {
   ChevronsRight,
 } from "lucide-react";
 import type { Project } from "../../types";
+import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 interface DataTableProps {
   searchTerm: string;
@@ -21,6 +22,7 @@ export const DataTable = ({
   projects,
   headers,
 }: DataTableProps) => {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage, setEntriesPerPage] = useState(10);
 
@@ -124,6 +126,13 @@ export const DataTable = ({
                             ? "bg-[#5A87D2]"
                             : ""
                         )}
+                      >
+                        {project[key]}
+                      </button>
+                    ) : key === "projectName" ? (
+                      <button
+                        onClick={() => navigate(`/projectDetail/${project.projectName}`)}
+                        className="text-black-500 hover:underline"
                       >
                         {project[key]}
                       </button>

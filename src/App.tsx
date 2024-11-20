@@ -14,6 +14,9 @@ import MilestonePage from "./pages/MilestonePage";
 import UsersList from "./pages/userList";
 import ProjectInsection from "./pages/projectInspection";
 import ProjectTest from "./pages/projectTest";
+import ProjectDetail from "./pages/ProjectDetail";
+import BudgetUcUpload from './pages/BudgetUCUpload'
+
 
 function App() {
   return (
@@ -27,13 +30,15 @@ function App() {
             <Route path="users" element={<UsersList />} />
 
             <Route path="projectDashboard" element={<ProjectDashboard />} />
+            <Route path="projectDetail/:id" element={<ProjectDetail />} />
             <Route path="gallery" element={<Gallery isSidebarOpen={false} />} />
             <Route path="milestones" element={<MilestonePage />} />
             <Route path="projectInspection" element={<ProjectInsection />} />
             <Route path="projectTest" element={<ProjectTest />} />
+            <Route path="budget-uc-upload" element={<BudgetUcUpload />} />
+            <Route path="issue-management" element={<Issues />} />
 
             <Route path="projects/new" element={<ProjectForm />} />
-            {/* <Route path="milestones" element={<Milestones />} /> */}
             <Route path="issues" element={<Issues />} />
           </Route>
         </Routes>

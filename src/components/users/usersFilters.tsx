@@ -29,8 +29,7 @@ export function UsersFilter({
 
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
-
-        <button
+          <button
             onClick={exportData}
             className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
           >
@@ -42,7 +41,7 @@ export function UsersFilter({
             className="inline-flex items-center rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500"
           >
             <Plus className="h-5 w-5 mr-1" />
-            New Project
+            Add New User
           </button>
         </div>
       </div>

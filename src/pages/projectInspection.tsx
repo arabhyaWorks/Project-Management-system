@@ -48,6 +48,7 @@ export default function ProjectInsection() {
           headers={projectInspectionHeader}
           projects={projectInspection}
           searchTerm={searchTerm}
+          subTableKeyName="inspectionDetails"
         />
       </div>
     </div>
