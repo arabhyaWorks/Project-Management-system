@@ -82,6 +82,19 @@ export const DataTable = ({
                 </th>
               ))}
             </tr>
+            {/* <tr>
+              {headers.hi.map((header, index) => (
+                <th
+                  key={header}
+                  className={classNames(
+                    "px-6 py-4 text-center text-sm font-bold text-orange-800 tracking-wider whitespace-normal border-2 border-gray-100",
+                    index === 0 ? "w-16" : "w-40"
+                  )}
+                >
+                  {index+1}
+                </th>
+              ))}
+            </tr> */}
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {currentEntries.map((project, index) => (
