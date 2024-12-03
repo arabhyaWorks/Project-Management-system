@@ -1,10 +1,69 @@
 import { hi, sr } from "date-fns/locale";
 
+export const ProjectTableDataKeys = [
+  "id",
+  "projectName",
+  "projectStatus",
+  "departmentName",
+  "projectApprovalDate",
+  "approvedProjectCost",
+  "contractDate",
+  "contractCost",
+  "totalReleasedFunds",
+  "totalExpenditure",
+  "lastMonthPhysicalProgress",
+  "currentMonthPhysicalProgress",
+  "projectStartDate",
+  "originalCompletionDate",
+  "revisedCompletionDate",
+  "lastFundReceivedDate",
+  "utilizationCertificateSubmissionDate",
+  "governmentApprovalDateAndOrder",
+  "delayReason",
+  "schemeName",
+  "landAvailabilityDate",
+  "geoTaggedPhotosLastMonth",
+  "geoTaggedPhotosCurrentMonth",
+  "meetingInstructions",
+  "complianceOfMeetingInstructions",
+  "feedback",
+];
+
 interface Project {
   id: string;
   projectName: string;
   projectStatus: string;
   departmentName: string;
+  projectApprovalDate: string;
+  approvedProjectCost: string;
+  contractDate: string;
+  contractCost: string;
+  totalReleasedFunds: string;
+  totalExpenditure: string;
+  lastMonthPhysicalProgress: string;
+  currentMonthPhysicalProgress: string;
+  projectStartDate: string;
+  originalCompletionDate: string;
+  revisedCompletionDate: string;
+  lastFundReceivedDate: string;
+  utilizationCertificateSubmissionDate: string;
+  governmentApprovalDateAndOrder: string;
+  delayReason: string;
+  schemeName: string;
+  landAvailabilityDate: string;
+  geoTaggedPhotosLastMonth: string;
+  geoTaggedPhotosCurrentMonth: string;
+  meetingInstructions: string;
+  complianceOfMeetingInstructions: string;
+  feedback: string;
+}
+
+export interface FetchedProject {
+  id: number;
+  projectName: string;
+  projectDescription: string;
+  projectDepartment: string;
+  projectStatus: string;
   projectApprovalDate: string;
   approvedProjectCost: string;
   contractDate: string;
@@ -570,7 +629,7 @@ export const users: Users[] = [
 //   },
 // ];
 
-export const  projectsData: Project[] = [
+export const projectsData: Project[] = [
   {
     id: "1",
     projectName: "कारपेट सिटी-2 विकास",
@@ -597,7 +656,7 @@ export const  projectsData: Project[] = [
     geoTaggedPhotosCurrentMonth: "फोटो लिंक 2",
     meetingInstructions: "निर्देश 1",
     complianceOfMeetingInstructions: "अनुपालन 1",
-    feedback: "प्रतिक्रिया 1"
+    feedback: "प्रतिक्रिया 1",
   },
   {
     id: "2",
@@ -625,7 +684,7 @@ export const  projectsData: Project[] = [
     geoTaggedPhotosCurrentMonth: "फोटो लिंक 4",
     meetingInstructions: "निर्देश 2",
     complianceOfMeetingInstructions: "अनुपालन 2",
-    feedback: "प्रतिक्रिया 2"
+    feedback: "प्रतिक्रिया 2",
   },
   {
     id: "3",
@@ -653,7 +712,7 @@ export const  projectsData: Project[] = [
     geoTaggedPhotosCurrentMonth: "फोटो लिंक 6",
     meetingInstructions: "निर्देश 3",
     complianceOfMeetingInstructions: "अनुपालन 3",
-    feedback: "प्रतिक्रिया 3"
+    feedback: "प्रतिक्रिया 3",
   },
   {
     id: "4",
@@ -681,7 +740,7 @@ export const  projectsData: Project[] = [
     geoTaggedPhotosCurrentMonth: "फोटो लिंक 8",
     meetingInstructions: "निर्देश 4",
     complianceOfMeetingInstructions: "अनुपालन 4",
-    feedback: "प्रतिक्रिया 4"
+    feedback: "प्रतिक्रिया 4",
   },
   {
     id: "5",
@@ -709,8 +768,8 @@ export const  projectsData: Project[] = [
     geoTaggedPhotosCurrentMonth: "फोटो लिंक 10",
     meetingInstructions: "निर्देश 5",
     complianceOfMeetingInstructions: "अनुपालन 5",
-    feedback: "प्रतिक्रिया 5"
-  }
+    feedback: "प्रतिक्रिया 5",
+  },
 ];
 export const projectInspection: ProjectInspection[] = [
   {
@@ -942,32 +1001,35 @@ export const BudgetUcHeaders = {
 
 export const headers = {
   hi: [
-    // "क्रम संख्या",
-    // "परियोजना का नाम",
-    // "परियोजना अद्यतन स्थिति",
-    // "कार्यदायी संस्था",
-    // "परियोजना स्वीकृत होने की तिथि एवं शासनादेश संख्या",
-    // "परियोजना हेतु शासन द्वारा जारी वित्तीय स्वीकृति का दिनांक एवं शासनादेश संख्या",
-    // "परियोजना की स्वीकृत लागत",
-    // "अनुबंध गठन के अनुसार परियोजना पूर्ण करने की तिथि",
-    // "परियोजना पर अब तक कुल अवमुक्त धनराशि",
-    // "परियोजना पर अब तक कुल व्यय धनराशि",
-    // "माइलस्टोन प्रगति %",
-    // "भौतिक प्रगति %",
-    // "कार्यदायी संस्था के अनुसार कार्य पूर्ण होने की अनुमानित तिथि",
-    // "परियोजना में विलम्ब के कारण",
-    // "पुनरीक्षित स्वीकृति की तिथि",
-    // "पुनरीक्षित स्वीकृति के अनुसार परियोजना की लागत",
-    // "पुनरीक्षित स्वीकृति के अनुसार परियोजना को पूर्ण करने की तिथि",
-    // "विभाग का नाम",
-    // "परियोजना श्रेणी/योजना का नाम",
-    // "अनुबंध गठन की तिथि",
-    // "कार्यदायी संस्था को भूमि उपलब्ध कराने की तिथि",
-    // "परियोजना अपडेट लाग",
-    // "परियोजना गैलरी",
-    // "बैठक निर्देश",
-    // "बैठक निर्देश अनुपालन",
-    "क्र0 सं0",
+    // {    // "क्रम संख्या",
+    //     // "परियोजना का नाम",
+    //     // "परियोजना अद्यतन स्थिति",
+    //     // "कार्यदायी संस्था",
+    //     // "परियोजना स्वीकृत होने की तिथि एवं शासनादेश संख्या",
+    //     // "परियोजना हेतु शासन द्वारा जारी वित्तीय स्वीकृति का दिनांक एवं शासनादेश संख्या",
+    //     // "परियोजना की स्वीकृत लागत",
+    //     // "अनुबंध गठन के अनुसार परियोजना पूर्ण करने की तिथि",
+    //     // "परियोजना पर अब तक कुल अवमुक्त धनराशि",
+    //     // "परियोजना पर अब तक कुल व्यय धनराशि",
+    //     // "माइलस्टोन प्रगति %",
+    //     // "भौतिक प्रगति %",
+    //     // "कार्यदायी संस्था के अनुसार कार्य पूर्ण होने की अनुमानित तिथि",
+    //     // "परियोजना में विलम्ब के कारण",
+    //     // "पुनरीक्षित स्वीकृति की तिथि",
+    //     // "पुनरीक्षित स्वीकृति के अनुसार परियोजना की लागत",
+    //     // "पुनरीक्षित स्वीकृति के अनुसार परियोजना को पूर्ण करने की तिथि",
+    //     // "विभाग का नाम",
+    //     // "परियोजना श्रेणी/योजना का नाम",
+    //     // "अनुबंध गठन की तिथि",
+    //     // "कार्यदायी संस्था को भूमि उपलब्ध कराने की तिथि",
+    //     // "परियोजना अपडेट लाग",
+    //     // "परियोजना गैलरी",
+    //     // "बैठक निर्देश",
+    //     // "बैठक निर्देश अनुपालन",
+    //     // "क्र0 सं0",
+    //     }
+
+    "क्रम संख्या",
     "परियोजना का नाम",
     "परियोजना अद्यतन स्थिति",
     "विभाग का नाम",
@@ -992,7 +1054,7 @@ export const headers = {
     "कार्य की जियोटैग फोटोग्राफ्स (अद्यतन माह की)",
     "समीक्षा बैठक में दिये गये निर्देश",
     "दिये गये निर्देश के सापेक्ष अनुपालन",
-    "अभ्यूक्ति"
+    "अभ्यूक्ति",
   ],
   en: [
     "Serial Number",

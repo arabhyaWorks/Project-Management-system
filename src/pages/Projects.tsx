@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { Plus, Search, Download, Filter } from "lucide-react";
-import { DataTable } from "../components/table/dataTable";
+import { DataTable } from "../components/table/SuperProjectTable";
 import { ProjectFilters } from "../components/table/ProjectFilters";
 import Drawer from "../components/drawer/Drawer";
 import ProjectForm from "../components/drawer/ProjectForm";
@@ -13,8 +14,37 @@ export function Projects() {
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedExecutiveAgency, setSelectedExecutiveAgency] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [projects, setProjects] = useState([]);
 
-  const filteredProjects = projectsData.slice(0, -1).filter((project) => {
+  async function fetchProjects() {
+    const url = "http://localhost:3000/api/projects";
+    const params = {
+      department: "",
+      status: "",
+    };
+
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        params: params,
+      });
+
+      console.log("Response Data:", response.data);
+      // return response.data;
+    
+      return setProjects(response.data);
+    } catch (error) {
+      console.error(
+        "Error fetching data:",
+        error.response ? error.response.data : error.message
+      );
+      throw error;
+    }
+  }
+
+  const filteredProjects = projects.filter((project) => {
     const matchesSearch =
       project.projectName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       project.executingAgency.toLowerCase().includes(searchTerm.toLowerCase());
@@ -47,6 +77,10 @@ export function Projects() {
     a.click();
     window.URL.revokeObjectURL(url);
   };
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
   return (
     <div className="space-y-6">
