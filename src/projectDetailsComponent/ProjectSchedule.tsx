@@ -1,22 +1,15 @@
-import React from 'react';
+import React from "react";
+import { convertToIST } from "../utils/functions";
 
-const milestones = [
-  {
-    id: 1,
-    description: 'Construction of 11 Nos. Stone Boulder Cutters in GI Wire Crate of Size 2.00 m. x 1.50 m. x 1.00 m. in length of 450 m.',
-    startDate: '05/04/2023',
-    plannedCompletion: '30/06/2024',
-    actualCompletion: '-',
-    progress: 100
-  }
-];
-
-const ProjectSchedule = () => {
+const ProjectSchedule = (milestoneData) => {
+  const data = milestoneData.milestoneData;
+  // console.log("-----this is milestone ------");
+  // console.log(data);
   return (
     <div className="bg-white rounded-lg shadow">
       <div className="p-6">
         <h2 className="text-lg font-semibold text-gray-800 mb-4">Schedule</h2>
-        
+
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead>
@@ -26,6 +19,9 @@ const ProjectSchedule = () => {
                 </th>
                 <th className="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Milestone
+                </th>
+                <th className="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
                 </th>
                 <th className="px-4 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Start Date
@@ -42,33 +38,38 @@ const ProjectSchedule = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {milestones.map((milestone) => (
+              {data.map((milestone, index) => (
                 <tr key={milestone.id}>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {milestone.id}
+                    {/* {milestone.id} */}
+                    {index + 1}
                   </td>
                   <td className="px-4 py-4 text-sm text-gray-900">
-                    {milestone.description}
+                    {milestone.milestoneName}
+                  </td>
+                  <td className="px-4 py-4 text-sm text-gray-900">
+                    under progress
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {milestone.startDate}
+                    {convertToIST(milestone.milestoneFromDate)}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {milestone.plannedCompletion}
+                    {convertToIST(milestone.milestoneCompletionDate)}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {milestone.actualCompletion}
+                    {/* {milestone.milestoneActualCompletionDate} */}
+                    milestone actual date
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div 
+                        <div
                           className="h-full bg-green-500 rounded-full"
-                          style={{ width: `${milestone.progress}%` }}
+                          style={{ width: `${milestone.milestoneProgress}%` }}
                         />
                       </div>
                       <span className="ml-2 text-sm text-gray-900">
-                        {milestone.progress}%
+                        {milestone.milestoneProgress}%
                       </span>
                     </div>
                   </td>

@@ -147,9 +147,7 @@ export const DataTable = ({
                       </button>
                     ) : key === "projectName" ? (
                       <button
-                        onClick={() =>
-                          navigate(`/projectDetail/${project.projectName}`)
-                        }
+                        onClick={() => navigate(`/projectDetail/${project.id}`)}
                         className="text-black-500 hover:underline"
                       >
                         {project[key]}

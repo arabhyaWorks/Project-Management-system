@@ -4,7 +4,7 @@ export const ProjectTableDataKeys = [
   "id",
   "projectName",
   "projectStatus",
-  "departmentName",
+  "projectDepartment",
   "projectApprovalDate",
   "approvedProjectCost",
   "contractDate",
@@ -1186,3 +1186,205 @@ export const projectTestHeader = {
     ],
   },
 };
+
+
+const projects = {
+  projectName: "Project Name",
+  projectDescription: "Project Description",
+  projectDepartment: "Project Department",
+  projectStatus: "Project Status",
+  projectApprovalDate: "15-05-2023",
+  approvedProjectCost: "₹100 करोड़",
+  contractDate: "20-06-2023",
+  contractCost: "₹95 करोड़",
+  totalReleasedFunds: "₹50 करोड़",
+  totalExpenditure: "₹45 करोड़",
+  lastMonthPhysicalProgress: "40%",
+  currentMonthPhysicalProgress: "50%",
+  projectStartDate: "01-07-2023",
+  originalCompletionDate: "31-12-2025",
+  revisedCompletionDate: "30-06-2026",
+  lastFundReceivedDate: "01-12-2023",
+  utilizationCertificateSubmissionDate: "15-12-2023",
+  governmentApprovalDateAndOrder: "20-05-2023, आदेश संख्या 101/2023",
+  delayReason: "भूमि अधिग्रहण में देरी",
+  schemeName: "औद्योगिक क्षेत्र विकास योजना",
+  landAvailabilityDate: "15-06-2023",
+  geoTaggedPhotosLastMonth: "फोटो लिंक 1",
+  geoTaggedPhotosCurrentMonth: "फोटो लिंक 2",
+  meetingInstructions: "निर्देश 1",
+  complianceOfMeetingInstructions: "अनुपालन 1",
+  feedback: "प्रतिक्रिया 1",
+
+  meetingInstructions: [
+    {
+      desc: "निर्देश 1",
+      date: "01-01-2023",
+      compliance: "अनुपालन 1",
+    },
+  ],
+
+  projectManager: {
+    officialName: "Official Name",
+    officialEmail: "Official Email",
+    officialPhone: "Official Phone",
+    officialDesignation: "Official Designation",
+    officialDepartment: "Official Department",
+  },
+  concernedOfficial: [
+    {
+      officialName: "Official Name",
+      officialEmail: "Official Email",
+      officialPhone: "Official Phone",
+      officialDesignation: "Official Designation",
+      officialDepartment: "Official Department",
+    },
+  ],
+  projectInspection: [
+    {
+      inspectionDate: "Inspection Date",
+      inspectionAuthority: [
+        {
+          officialName: "Official Name",
+          officialEmail: "Official Email",
+          officialPhone: "Official Phone",
+          officialDesignation: "Official Designation",
+          officialDepartment: "Official Department",
+        },
+      ],
+      InspectionType: "Inspection Type",
+      inspectionInstruction: "Inspection Instruction",
+      inspectionStatus: "Inspection Status",
+      inspectionReport: "inspectionReport.pdf",
+    },
+  ],
+  projectEssentialTest: [
+    {
+      testName: "Test Name",
+      dateOfSampleCollection: "Date Of Sample Collection",
+      samplingAuthority: "Sampling Authority",
+      sampleTestLabName: "Sample Test Lab Name",
+      sampleTestReport: "sampleTestReport.pdf",
+      sampleCollectionSiteImage: [
+        "sampleCollectionSiteImage1.jpg",
+        "sampleCollectionSiteImage2.jpg",
+      ],
+    },
+  ],
+  projectGallery: [
+    {
+      image: "image1.jpg",
+      imageDescription: "Image Description",
+      lattitude: "Lattitude",
+      longitude: "Longitude",
+      elevation: "Elevation",
+      accuracy: "Accuracy",
+      time: "Time",
+    },
+  ],
+  mileStones: [
+    {
+      milestoneName: "Milestone Name",
+      milestoneFromDate: "Milestone From Date",
+      milestoneCompletionDate: "Milestone Completion Date",
+      milestoneActualCompletionDate: "Milestone Actual Completion Date",
+      milestoneStatus: "Milestone Status",
+      milestoneDescription: "Milestone Description",
+      milestoneProgress: "Milestone Progress",
+    },
+  ],
+  issues: [
+    {
+      issueName: "Issue Name",
+      issueDescription: "Issue Description",
+      issueRaisedBy: "Issue Raised By",
+      issueRaisedDate: "Issue Raised Date",
+      assignedTo: "Assigned To",
+      issueReportedOn: "Issue Reported On",
+      issueStatus: "Issue Status",
+      issueClosedDate: "Issue Closed Date",
+      issueClosedBy: "Issue Closed By",
+    },
+  ],
+  budegetInstallment: [
+    {
+      installmentAmount: "Installment Amount",
+      amountRecievedDate: "Amount Recieved Date",
+      utilizationCertificate: "uc.pdf",
+    },
+  ],
+
+  //projectDetails
+  lastUpdatedDate: "Last Updated Date",
+  lastUpdatedDateOnCMIS: "Last Updated Date",
+  projectHandoverDate: "Project Handover",
+  projectHandoverTo: "Project Handover To",
+  parallelRequirements: "Parallel Requirements",
+};
+
+
+
+
+const wholeObj = {
+  "id": 2,
+  "projectName": "ग्रामीण सड़क निर्माण",
+  "projectDescription": "दूरस्थ गांवों में सड़कें बनाने का कार्य",
+  "projectDepartment": "ग्रामीण विकास विभाग",
+  "projectStatus": "निर्माणाधीन",
+  "projectApprovalDate": "2023-03-09T18:30:00.000Z",
+  "approvedProjectCost": "500000000.00",
+  "contractDate": "2023-04-04T18:30:00.000Z",
+  "contractCost": "480000000.00",
+  "totalReleasedFunds": "300000000.00",
+  "totalExpenditure": "250000000.00",
+  "projectStartDate": "2023-04-09T18:30:00.000Z",
+  "originalCompletionDate": "2025-06-29T18:30:00.000Z",
+  "revisedCompletionDate": null,
+  "governmentApprovalDateAndOrder": "10-03-2023, आदेश संख्या 202/2023",
+  "delayReason": "वित्तीय बाधा",
+  "schemeName": "ग्रामीण संपर्क योजना",
+  "landAvailabilityDate": "2023-03-19T18:30:00.000Z",
+  "milestones": [
+      {
+          "milestoneName": "मार्ग सर्वेक्षण",
+          "milestoneFromDate": "2023-04-14T18:30:00.000Z",
+          "milestoneCompletionDate": "2023-05-14T18:30:00.000Z",
+          "milestoneStatus": "पूर्ण",
+          "milestoneProgress": "100.00"
+      },
+      {
+          "milestoneName": "सड़क निर्माण",
+          "milestoneFromDate": "2023-05-31T18:30:00.000Z",
+          "milestoneCompletionDate": "2025-06-29T18:30:00.000Z",
+          "milestoneStatus": "कार्य प्रगति पर",
+          "milestoneProgress": "30.00"
+      }
+  ],
+  "inspections": [
+      {
+          "inspectionDate": "2023-08-31T18:30:00.000Z",
+          "inspectionType": "गुणवत्ता निरीक्षण",
+          "inspectionInstruction": "निर्माण सामग्री की गुणवत्ता जांचें।",
+          "inspectionStatus": "पूर्ण",
+          "inspectionReport": "inspection_report2.pdf"
+      }
+  ],
+  "budgetInstallments": [
+      {
+          "installmentAmount": "150000000.00",
+          "amountReceivedDate": "2023-07-31T18:30:00.000Z",
+          "utilizationCertificate": "uc2.pdf"
+      }
+  ],
+  "gallery": [
+      {
+          "image": "gallery_image2.jpg",
+          "imageDescription": "निर्माण सामग्री का फोटो",
+          "latitude": "25.2786540",
+          "longitude": "82.9876540",
+          "elevation": "55.00",
+          "accuracy": "3.00",
+          "time": "2023-07-16T05:30:00.000Z"
+      }
+  ]
+}
