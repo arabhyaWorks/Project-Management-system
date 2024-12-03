@@ -1,14 +1,11 @@
 import React from "react";
 import { convertToIST } from "../utils/functions";
 
-const ProjectSchedule = (milestoneData) => {
-  const data = milestoneData.milestoneData;
-  // console.log("-----this is milestone ------");
-  // console.log(data);
+const ProjectSchedule = ({ project }) => {
   return (
     <div className="bg-white rounded-lg shadow">
       <div className="p-6">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">Schedule</h2>
+        <h2 className="text-lg font-semibold text-gray-800 mb-4">Milestones</h2>
 
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
@@ -38,7 +35,7 @@ const ProjectSchedule = (milestoneData) => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {data.map((milestone, index) => (
+              {project.mileStones.map((milestone, index) => (
                 <tr key={milestone.id}>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
                     {/* {milestone.id} */}
@@ -57,7 +54,6 @@ const ProjectSchedule = (milestoneData) => {
                     {convertToIST(milestone.milestoneCompletionDate)}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {/* {milestone.milestoneActualCompletionDate} */}
                     milestone actual date
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap">

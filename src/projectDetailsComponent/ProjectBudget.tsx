@@ -1,20 +1,14 @@
-import React from 'react';
+import React from "react";
+import { convertToIST } from "../utils/functions";
 
-const ProjectBudget = () => {
-  const budget = [
-    {
-      srNo: 1,
-      installmentAmount: '0.00131',
-      receivedDate: '02/Nov/2023',
-      utilizationCertificate: 'Utilization certificate(UC) not Uploaded'
-    }
-  ];
-
+const ProjectBudget = ({ project }) => {
   return (
     <div className="bg-white rounded-lg shadow">
       <div className="p-6">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">Budget Received in Installment</h2>
-        
+        <h2 className="text-lg font-semibold text-gray-800 mb-4">
+          Budget Received in Installment
+        </h2>
+
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead>
@@ -34,16 +28,16 @@ const ProjectBudget = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {budget.map((item) => (
-                <tr key={item.srNo}>
+              {project.budegetInstallment.map((item, index) => (
+                <tr key={index}>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {item.srNo}
+                    {index + 1}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
                     {item.installmentAmount}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {item.receivedDate}
+                    {convertToIST(item.amountReceivedDate)}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-red-600">
                     {item.utilizationCertificate}

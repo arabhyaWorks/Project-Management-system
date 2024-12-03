@@ -38,7 +38,6 @@ const ProjectDetails = () => {
     fetchProjectDetail(id);
   }, []);
 
-
   if (!project) {
     return <div>Loading...</div>;
   }
@@ -64,11 +63,11 @@ const ProjectDetails = () => {
       <ProjectOverview project={project} />
 
       {/* <ProjectMetrics /> */}
-      <ProjectSchedule  milestoneData={project.milestones}/>
-      <ProjectInspection />
+      <ProjectSchedule project={project} />
+      <ProjectInspection project={project} />
       <ProjectEssentialTest />
-      <ProjectBudget />
-      <ProjectGallery />
+      <ProjectBudget project={project} />
+      <ProjectGallery project={project} />
       <ProjectProgress />
     </div>
   );
