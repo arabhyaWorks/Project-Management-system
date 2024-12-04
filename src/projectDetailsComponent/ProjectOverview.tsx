@@ -43,7 +43,6 @@ const ProjectOverview = ({ project }) => {
               {/* <p className="mt-1 text-gray-900">
                 Assistant Engineer-I Bandhi Division, Varanasi & 8394659586
               </p> */}
-
               <p className="mt-1 text-gray-900">
                 {project.concernedOfficial[0].officialName +
                   ", " +

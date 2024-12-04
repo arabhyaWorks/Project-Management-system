@@ -15,6 +15,21 @@ export function Projects() {
   const [selectedExecutiveAgency, setSelectedExecutiveAgency] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [projects, setProjects] = useState([]);
+  const [visibleColumns, setVisibleColumns] = useState(headers.hi.map((_, index) => index.toString()));
+
+
+  const columns = headers.hi.map((header, index) => ({
+    key: index.toString(),
+    label: header,
+  }));
+
+  const handleToggleColumn = (columnKey: string) => {
+    setVisibleColumns((prev) =>
+      prev.includes(columnKey)
+        ? prev.filter((key) => key !== columnKey)
+        : [...prev, columnKey]
+    );
+  };
 
   async function fetchProjects() {
     const url = "http://localhost:3000/api/projects";
@@ -120,12 +135,17 @@ export function Projects() {
             onStatusChange={setSelectedStatus}
             selectedExecutiveAgency={selectedExecutiveAgency}
             onSelectedExecutiveAgency={setSelectedExecutiveAgency}
+            columns={columns}
+            visibleColumns={visibleColumns}
+            onToggleColumn={handleToggleColumn}
           />
         </div>
         <DataTable
           headers={headers}
           projects={filteredProjects}
           searchTerm={searchTerm}
+          visibleColumns={visibleColumns}
+
         />
       </div>
 

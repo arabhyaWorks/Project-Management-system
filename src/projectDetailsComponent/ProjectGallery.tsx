@@ -13,8 +13,11 @@ const ProjectGallery = ({ project }) => {
           {project.projectGallery.map((image, index) => (
             <div key={index} className="relative group">
               <img
-                // src={image.image}
-                src="https://pmschandauli.com//upload/project/9/main/240108045216.jpg"
+                src={
+                  image.image ||
+                  "https://pmschandauli.com//upload/project/9/main/240108045216.jpg"
+                }
+                // src="https://pmschandauli.com//upload/project/9/main/240108045216.jpg"
                 alt={image.image}
                 className="w-full h-64 object-cover rounded-lg shadow-sm"
               />

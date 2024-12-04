@@ -65,7 +65,7 @@ const ProjectDetails = () => {
       {/* <ProjectMetrics /> */}
       <ProjectSchedule project={project} />
       <ProjectInspection project={project} />
-      <ProjectEssentialTest />
+      <ProjectEssentialTest project={project} />
       <ProjectBudget project={project} />
       <ProjectGallery project={project} />
       <ProjectProgress />

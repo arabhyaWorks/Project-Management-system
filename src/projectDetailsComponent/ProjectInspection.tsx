@@ -67,10 +67,10 @@ const ProjectInspection = ({ project }) => {
                     {convertToIST(data.inspectionDate)}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                    here is inspection authority
+                    {data.officialName || "--"}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {data.inspectionType}
+                    {data["InspectionType"]}
                   </td>
                   <td className="px-4 py-4 text-sm text-gray-900">
                     {data.inspectionInstruction}

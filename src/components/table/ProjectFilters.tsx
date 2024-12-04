@@ -1,5 +1,6 @@
 import React from "react";
-import { Search, Filter, SlidersHorizontal } from "lucide-react";
+import { Search, Filter } from "lucide-react";
+import { ColumnVisibilityToggle } from "./ColumnVisibilityToggle";
 
 interface ProjectFiltersProps {
   searchTerm: string;
@@ -10,6 +11,9 @@ interface ProjectFiltersProps {
   onStatusChange: (value: string) => void;
   selectedExecutiveAgency: string;
   onSelectedExecutiveAgency: (value: string) => void;
+  columns: { key: string; label: string }[];
+  visibleColumns: string[];
+  onToggleColumn: (columnKey: string) => void;
 }
 
 export function ProjectFilters({
@@ -21,6 +25,9 @@ export function ProjectFilters({
   onStatusChange,
   selectedExecutiveAgency,
   onSelectedExecutiveAgency,
+  columns,
+  visibleColumns,
+  onToggleColumn,
 }: ProjectFiltersProps) {
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -31,7 +38,7 @@ export function ProjectFilters({
           placeholder="Search projects..."
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="block outline-none	 w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600"
+          className="block outline-none w-full rounded-md border-0 py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600"
         />
       </div>
 
@@ -66,21 +73,18 @@ export function ProjectFilters({
             onChange={(e) => onSelectedExecutiveAgency(e.target.value)}
             className="rounded-md outline-none font-medium border-0 py-1.5 pl-3 pr-8 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-orange-600"
           >
-            <option value="">
-              <p className="font-bold">सभी कार्यदायी संस्था</p>
-            </option>
+            <option value="">सभी कार्यदायी संस्था</option>
             <option value="भदोही औद्योगिक विकास प्राधिकरण (BIDA)">
               बी.आई.डी.ए
             </option>
           </select>
-        </div>
 
-        {/* <button
-          className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-        >
-          <SlidersHorizontal className="h-4 w-4 mr-2" />
-          Advanced Filters
-        </button> */}
+          <ColumnVisibilityToggle
+            columns={columns}
+            visibleColumns={visibleColumns}
+            onToggleColumn={onToggleColumn}
+          />
+        </div>
       </div>
     </div>
   );
