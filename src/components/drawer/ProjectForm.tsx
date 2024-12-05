@@ -5,198 +5,59 @@ import StepIndicator from "./StepIndicator";
 import FormField from "./FormField";
 import "react-datepicker/dist/react-datepicker.css";
 import { formatDate } from "../../utils/functions";
+import axios from "axios";
+import { endpoint } from "../../utils/dataSet";
 
 const departments = [
-  {
-    value: "1",
-    label: "Divyang Jan sashaktikaran vibhag",
-  },
-  {
-    value: "2",
-    label: "Nagar vikas",
-  },
-  {
-    value: "3",
-    label: "Electric distribution division -1",
-  },
-  {
-    value: "4",
-    label: "Electric distribution division -3",
-  },
-  {
-    value: "5",
-    label: "Basic Education",
-  },
-  {
-    value: "6",
-    label: "Health",
-  },
-  {
-    value: "7",
-    label: "Tourism",
-  },
-  {
-    value: "8",
-    label: "Technical Education",
-  },
-  {
-    value: "9",
-    label: "Intermidiate Education",
-  },
-  {
-    value: "10",
-    label: "Revenue",
-  },
-  {
-    value: "11",
-    label: "Vocational Education",
-  },
-  {
-    value: "12",
-    label: "Home",
-  },
-  {
-    value: "13",
-    label: "Social welfare",
-  },
-  {
-    value: "14",
-    label: "Animal Husbandry",
-  },
-  {
-    value: "15",
-    label: "Probation",
-  },
-  {
-    value: "16",
-    label: "Public work department",
-  },
-  {
-    value: "17",
-    label: "Rural engineering department",
-  },
-  {
-    value: "18",
-    label: "Agriculture",
-  },
-  {
-    value: "19",
-    label: "Rural development",
-  },
-  {
-    value: "20",
-    label: "Irrigation department",
-  },
-  {
-    value: "21",
-    label: "Fisheries deparment",
-  },
-  {
-    value: "22",
-    label: "Forest Department",
-  },
+  "Divyang Jan sashaktikaran vibhag",
+  "Nagar vikas",
+  "Electric distribution division -1",
+  "Electric distribution division -3",
+  "Basic Education",
+  "Health",
+  "Tourism",
+  "Technical Education",
+  "Intermidiate Education",
+  "Revenue",
+  "Vocational Education",
+  "Home",
+  "Social welfare",
+  "Animal Husbandry",
+  "Probation",
+  "Public work department",
+  "Rural engineering department",
+  "Agriculture",
+  "Rural development",
+  "Irrigation department",
+  "Fisheries deparment",
+  "Forest Department",
 ];
 const executingAgencies = [
-  {
-    value: "1",
-    label: "Uttar Pradesh Power Transmission Corporation Limited",
-  },
-  {
-    value: "2",
-    label: "Construction Division Building, PWD,Varanasi",
-  },
-  {
-    value: "3",
-    label: "Uttar Pradesh State Bridge Corporation, Bhadohi",
-  },
-  {
-    value: "4",
-    label: "Bhadohi Development Authority, Bida",
-  },
-  {
-    value: "5",
-    label: "Rajkiya Nirman Nigam, Sonbhadra",
-  },
-  {
-    value: "6",
-    label: "C & DS Unit 24",
-  },
-  {
-    value: "7",
-    label: "Rajkiya Nirman Nigam, Bhadohi",
-  },
-  {
-    value: "8",
-    label: "Construction Division, PWD,Chandauli",
-  },
-  {
-    value: "9",
-    label: "Executive Engineer, Chandraprabha, Irrigation Department",
-  },
-  {
-    value: "10",
-    label: "Bandhi Prakhand, Irrigation Department",
-  },
-  {
-    value: "11",
-    label: "Uttar Pradesh Aawas Vikash Parisad, Prayagraj",
-  },
-  {
-    value: "12",
-    label: "Provincial Division, PWD, Bhadohi",
-  },
-  {
-    value: "13",
-    label: "U.P. Project Corporation Ltd. Construction Division-3, Lucknow",
-  },
-  {
-    value: "14",
-    label: "UPCLDF Bhadohi",
-  },
-  {
-    value: "15",
-    label: "UPRNSS, Varanasi",
-  },
-  {
-    value: "16",
-    label: "UPSIDCO",
-  },
-  {
-    value: "17",
-    label: "Uttar Pradesh Police Aawas Nirman Nigam, Varanasi",
-  },
-  {
-    value: "18",
-    label: "Uttar Pradesh Aawas Vikash Parisad, Varanasi-1",
-  },
-  {
-    value: "19",
-    label: "Executive Engineer, U.P. Power Corporation Ltd.",
-  },
-  {
-    value: "20",
-    label: "Forest Department",
-  },
-  {
-    value: "21",
-    label: "Rural Engineering Department",
-  },
-  {
-    value: "22",
-    label: "Jal Nigam Urban",
-  },
-  {
-    value: "23",
-    label: "Irrigation Department, Laghudal Prakhand",
-  },
-  {
-    value: "24",
-    label: "Irrigation Department, Tubewell division",
-  },
-  {
-    value: "25",
-    label: "HITES",
-  },
+  "Uttar Pradesh Power Transmission Corporation Limited",
+  "Construction Division Building, PWD,Varanasi",
+  "Uttar Pradesh State Bridge Corporation, Bhadohi",
+  "Bhadohi Development Authority, Bida",
+  "Rajkiya Nirman Nigam, Sonbhadra",
+  "C & DS Unit 24",
+  "Rajkiya Nirman Nigam, Bhadohi",
+  "Construction Division, PWD,Chandauli",
+  "Executive Engineer, Chandraprabha, Irrigation Department",
+  "Bandhi Prakhand, Irrigation Department",
+  "Uttar Pradesh Aawas Vikash Parisad, Prayagraj",
+  "Provincial Division, PWD, Bhadohi",
+  "U.P. Project Corporation Ltd. Construction Division-3, Lucknow",
+  "UPCLDF Bhadohi",
+  "UPRNSS, Varanasi",
+  "UPSIDCO",
+  "Uttar Pradesh Police Aawas Nirman Nigam, Varanasi",
+  "Uttar Pradesh Aawas Vikash Parisad, Varanasi-1",
+  "Executive Engineer, U.P. Power Corporation Ltd.",
+  "Forest Department",
+  "Rural Engineering Department",
+  "Jal Nigam Urban",
+  "Irrigation Department, Laghudal Prakhand",
+  "Irrigation Department, Tubewell division",
+  "HITES",
 ];
 const yojnaCategories = [
   "Sansad Nidhi",
@@ -238,7 +99,10 @@ const ProjectForm = ({ onSubmitSuccess }) => {
     actualCompletionDate: "",
     workOrderFormationDate: "",
     landHandoverDate: "",
-    contactInformation: "",
+    contactInformation: 1,
+
+    totalApprovedBudget: "",
+    revisedProjectCost: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -259,18 +123,25 @@ const ProjectForm = ({ onSubmitSuccess }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setFormData((prev) => ({
+      ...prev,
+      departmentId: 1,
+      executingAgencyId: 1,
+      contactInformation: 1,
+    }));
+
     console.log(formData);
 
-    // try {
-    //   // Simulate API call
-    //   await new Promise((resolve) => setTimeout(resolve, 1500));
-    //   console.log("Form submitted:", formData);
-    //   onSubmitSuccess?.();
-    // } catch (error) {
-    //   console.error("Submission error:", error);
-    // } finally {
-    //   setIsSubmitting(false);
-    // }
+    try {
+      // Simulate API call
+      const response = await axios.post(`${endpoint}/api/projects`, formData);
+      console.log("Form submitted:", response.data);
+      onSubmitSuccess?.();
+    } catch (error) {
+      console.error("Submission error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const nextStep = () => setCurrentStep((prev) => Math.min(prev + 1, 3));
@@ -285,7 +156,10 @@ const ProjectForm = ({ onSubmitSuccess }) => {
           type="select"
           value={formData.projectDepartment}
           onChange={handleInputChange}
-          options={departments}
+          options={departments.map((department, index) => ({
+            value: index,
+            label: department,
+          }))}
           required
         />
         <FormField
@@ -294,7 +168,11 @@ const ProjectForm = ({ onSubmitSuccess }) => {
           type="select"
           value={formData.executingAgency}
           onChange={handleInputChange}
-          options={executingAgencies}
+          // options={executingAgencies}
+          options={executingAgencies.map((department, index) => ({
+            value: index,
+            label: department,
+          }))}
           required
         />
       </div>
@@ -409,21 +287,19 @@ const ProjectForm = ({ onSubmitSuccess }) => {
       {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6"> */}
       <FormField
         label="Total Approved Budget (in Lac)"
-        name="amountSanctioned"
+        name="totalApprovedBudget"
         type="number"
-        value={formData.amountSanctioned}
+        value={formData.totalApprovedBudget}
         onChange={handleInputChange}
         placeholder="Enter amount"
-        required
       />
       <FormField
         label="Cost of the project as per revised acceptance in(Lac)"
-        name="amountReleased"
+        name="revisedProjectCost"
         type="number"
-        value={formData.amountReleased}
+        value={formData.revisedProjectCost}
         onChange={handleInputChange}
         placeholder="Enter amount"
-        required
       />
       {/* </div> */}
 
