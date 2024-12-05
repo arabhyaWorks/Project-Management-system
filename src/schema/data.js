@@ -21,19 +21,18 @@ const data = {
   currentMonthPhysicalProgress: "50%",
 
   //   fetch it from the budget table based on project id
-//   total released fund would be the sum of all the installments amount of the project 
-//   totalExpenditure would the sum of all the installments expenditure of the project
+  //   total released fund would be the sum of all the installments amount of the project
+  //   totalExpenditure would the sum of all the installments expenditure of the project
   totalReleasedFunds: "₹50 करोड़",
   totalExpenditure: "₹45 करोड़",
 
-//   last time when was the fund received
-//   last time when was the utilization certificate submitted
+  //   last time when was the fund received
+  //   last time when was the utilization certificate submitted
 
   lastFundReceivedDate: "01-12-2023",
   utilizationCertificateSubmissionDate: "15-12-2023",
 
-
-// fetch from the photo gallery based on the months
+  // fetch from the photo gallery based on the months
 
   geoTaggedPhotosLastMonth: "फोटो लिंक 1",
   geoTaggedPhotosCurrentMonth: "फोटो लिंक 2",
@@ -194,3 +193,31 @@ const user = [
     updatedAt: "Updated At",
   },
 ];
+
+const ProjectCreation = {
+  projectName: "Smart City Development Phase 1",
+  projectStatus: "In Progress",
+  projectGoal: "Develop smart infrastructure and digital services",
+  projectDepartment: "Urban Development",
+  departmentId: 1,
+  executingAgency: "Metro Infrastructure Ltd",
+  executingAgencyId: 1,
+  scheme: "Smart Cities Mission",
+  description:
+    "Implementation of smart city solutions including IoT sensors, digital governance platforms, and smart traffic management",
+  fundSanctionedBy: "State Urban Development Authority",
+  concernedOfficialName: "Mr. Raj Kumar, Chief Urban Planner, +91-9876543210",
+  concernedProjectManager: "Ms. Priya Singh, Project Director, +91-9876543211",
+  projectSanctionDate: "2024-01-15",
+  projectFinancialApprovalGoNumber: "UDA/2024/SC/001",
+  projectFinancialApprovalDate: "2024-01-20",
+  actualProjectStartDate: "2024-02-01",
+  projectCompletionDate: "2025-02-01",
+  revisedProjectSanctionDate: null,
+  revisedProjectCompletionDate: null,
+  estimatedCompletionDate: "2025-01-15",
+  actualCompletionDate: null,
+  workOrderFormationDate: "2024-01-25",
+  landHandoverDate: "2024-01-30",
+  contactInformation: 1001,
+};

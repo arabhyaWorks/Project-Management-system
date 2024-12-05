@@ -67,6 +67,8 @@ export const ProjectTableDataKeys = [
   "projectDepartment",
   "executingAgency",
   "scheme",
+  "totalApprovedBudget",
+  "revisedProjectCost",
   "projectSanctionDate",
   "projectFinancialApprovalGoNumber",
   "projectFinancialApprovalDate",
@@ -824,6 +826,8 @@ export const headers = {
     "विभाग का नाम", // projectDepartment
     "कार्यान्वयन एजेंसी", // executingAgency
     "योजना का नाम", // scheme
+    "कुल स्वीकृत बजट (₹)", // approvedProjectCost
+    "संशोधित परियोजना लागत (₹)", // revisedProjectCost
     "परियोजना स्वीकृति की तिथि", // projectSanctionDate
     "वित्तीय स्वीकृति गो संदर्भ संख्या", // projectFinancialApprovalGoNumber
     "वित्तीय स्वीकृति तिथि", // projectFinancialApprovalDate
@@ -882,6 +886,8 @@ export const headers = {
     "Department Name", // projectDepartment
     "Executing Agency", // executingAgency
     "Scheme Name", // scheme
+    "Total Approved Budget (₹)", // approvedProjectCost
+    "Revised Project Cost (₹)", // revisedProjectCost
     "Project Sanction Date", // projectSanctionDate
     "Financial Approval GO Reference Number", // projectFinancialApprovalGoNumber
     "Financial Approval Date", // projectFinancialApprovalDate
