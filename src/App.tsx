@@ -14,7 +14,7 @@ import MilestonePage from "./pages/MilestonePage";
 import UsersList from "./pages/userList";
 import ProjectInsection from "./pages/projectInspection";
 import ProjectTest from "./pages/projectTest";
-import ProjectDetail from "./pages/ProjectDetail";
+import ProjectDetail from "./projectDetailsComponent/ProjectDetails";
 import BudgetUcUpload from './pages/BudgetUCUpload'
 
 

@@ -7,6 +7,7 @@ import { ProjectFilters } from "../components/table/ProjectFilters";
 import Drawer from "../components/drawer/Drawer";
 import ProjectForm from "../components/drawer/ProjectForm";
 import { projectsData, headers } from "../utils/dataSet";
+import { endpoint } from "../utils/dataSet";
 
 export function Projects() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,8 +16,9 @@ export function Projects() {
   const [selectedExecutiveAgency, setSelectedExecutiveAgency] = useState("");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [projects, setProjects] = useState([]);
-  const [visibleColumns, setVisibleColumns] = useState(headers.hi.map((_, index) => index.toString()));
-
+  const [visibleColumns, setVisibleColumns] = useState(
+    headers.hi.map((_, index) => index.toString())
+  );
 
   const columns = headers.hi.map((header, index) => ({
     key: index.toString(),
@@ -32,7 +34,9 @@ export function Projects() {
   };
 
   async function fetchProjects() {
-    const url = "http://localhost:3000/api/projects";
+    const url = `${endpoint}/api/projects`;
+    // const url = "http://localhost:3000/api/projects";
+
     const params = {
       department: "",
       status: "",
@@ -42,13 +46,14 @@ export function Projects() {
       const response = await axios.get(url, {
         headers: {
           "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true", // Add this header
         },
         params: params,
       });
 
       console.log("Response Data:", response.data);
       // return response.data;
-    
+
       return setProjects(response.data);
     } catch (error) {
       console.error(
@@ -145,7 +150,6 @@ export function Projects() {
           projects={filteredProjects}
           searchTerm={searchTerm}
           visibleColumns={visibleColumns}
-
         />
       </div>
 

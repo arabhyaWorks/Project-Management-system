@@ -26,7 +26,6 @@ const ProjectOverview = ({ project }) => {
               <h3 className="text-sm font-medium text-gray-500">
                 Project Manager
               </h3>
-              {/* <p className="mt-1 text-gray-900">{Object.values(project.projectManager).join(", ")}</p> */}
               <p className="mt-1 text-gray-900">
                 {project.projectManager.officialName +
                   ", " +
@@ -40,9 +39,7 @@ const ProjectOverview = ({ project }) => {
               <h3 className="text-sm font-medium text-gray-500">
                 Contact Information
               </h3>
-              {/* <p className="mt-1 text-gray-900">
-                Assistant Engineer-I Bandhi Division, Varanasi & 8394659586
-              </p> */}
+
               <p className="mt-1 text-gray-900">
                 {project.concernedOfficial[0].officialName +
                   ", " +
@@ -56,7 +53,7 @@ const ProjectOverview = ({ project }) => {
               <h3 className="text-sm font-medium text-gray-500">
                 Goals & Objectives
               </h3>
-              <p className="mt-1 text-gray-900">Flood Protection</p>
+              <p className="mt-1 text-gray-900">{project.projectObjectives}</p>
             </div>
           </div>
         </div>

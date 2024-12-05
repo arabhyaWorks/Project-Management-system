@@ -309,3 +309,67 @@ const projectsCreation = {
   projectHandoverTo: "Project Handover To",
   parallelRequirements: "Parallel Requirements",
 };
+
+const users = [
+  {
+    officialName: "Official Name",
+    officialEmail: "Official Email",
+    officialPhone: "Official Phone",
+    officialDesignation: "Official Designation",
+    officialDepartment: "Official Department",
+    username: "username",
+    password: "password",
+    role: 1,
+    departmentId: 1,
+    status: 1,
+  },
+];
+
+const department = [
+  {
+    departmentId: 1,
+    departmentName: "Department Name",
+    departmentHead: "Department Head",
+    departmentEmail: "Department Email",
+    numberOfProjects: 10,
+    status: 1,
+    // ("derivered data can be fetched at the time of query data from projects table")
+  },
+];
+
+const sendData = {
+  projectName: "शहरी जल निकासी परियोजना",
+  projectDescription: "जल निकासी सुधार के लिए निर्माण कार्य।",
+  projectObjectives: "शहर में बाढ़ की समस्या का समाधान।",
+  projectDepartment: "शहरी विकास विभाग",
+  projectStatus: "निर्माणाधीन",
+  projectApprovalDate: "2023-02-01",
+  approvedProjectCost: 1200000000.0,
+  contractDate: "2023-03-15",
+  contractCost: 1150000000.0,
+  totalReleasedFunds: 500000000.0,
+  totalExpenditure: 450000000.0,
+  projectStartDate: "2023-04-01",
+  originalCompletionDate: "2025-12-31",
+  revisedCompletionDate: "2026-06-30",
+  governmentApprovalDateAndOrder: "2023-02-10, आदेश संख्या 202/2023",
+  delayReason: "साइट निरीक्षण में देरी।",
+  schemeName: "अमृत योजना",
+  landAvailabilityDate: "2023-03-01",
+  projectManager: {
+    officialName: "अजय शर्मा",
+    officialEmail: "ajay.sharma@example.com",
+    officialPhone: "9876543210",
+    officialDesignation: "वरिष्ठ अभियंता",
+    officialDepartment: "शहरी विकास विभाग",
+  },
+  concernedOfficial: [
+    {
+      officialName: "नीरज वर्मा",
+      officialEmail: "neeraj.verma@example.com",
+      officialPhone: "9123456789",
+      officialDesignation: "अधिशासी अभियंता",
+      officialDepartment: "शहरी विकास विभाग",
+    },
+  ],
+};

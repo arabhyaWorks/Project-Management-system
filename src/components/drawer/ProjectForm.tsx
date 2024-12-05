@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Save } from 'lucide-react';
-import classNames from 'classnames';
-import StepIndicator from './StepIndicator';
-import FormField from './FormField';
+import React, { useState } from "react";
+import { ChevronLeft, ChevronRight, Save } from "lucide-react";
+import classNames from "classnames";
+import StepIndicator from "./StepIndicator";
+import FormField from "./FormField";
 import "react-datepicker/dist/react-datepicker.css";
 
 interface ProjectFormProps {
@@ -10,45 +10,52 @@ interface ProjectFormProps {
 }
 
 interface FormData {
-  department: string;
-  executingAgency: string;
-  yojnaName: string;
   projectName: string;
-  description: string;
-  goals: string;
-  fundsSanctionedBy: string;
-  projectCompletion: string;
+  projectDescription: string;
+  projectObjectives: string;
+  projectDepartment: string;
   projectStatus: string;
-  contractorName: string;
-  amountSanctioned: string;
-  amountReleased: string;
-  financialProgress: string;
-  revisedCost: string;
-  sanctionDate: Date | null;
-  financialApprovalDate: Date | null;
-  contractDate: Date | null;
-  workStartDate: Date | null;
-  workCompletionDate: Date | null;
-  projectCompletionDate: Date | null;
-  revisedCompletionDate: Date | null;
-  estimatedDate: Date | null;
+  projectApprovalDate: string; // Use `Date` type if converting strings to Date objects
+  approvedProjectCost: number;
+  contractDate: string; // Use `Date` type if converting strings to Date objects
+  contractCost: number;
+  totalReleasedFunds: number;
+  totalExpenditure: number;
+  projectStartDate: string; // Use `Date` type if converting strings to Date objects
+  originalCompletionDate: string; // Use `Date` type if converting strings to Date objects
+  revisedCompletionDate: string; // Use `Date` type if converting strings to Date objects
+  governmentApprovalDateAndOrder: string;
+  delayReason: string;
+  schemeName: string;
+  landAvailabilityDate: string; // Use `Date` type if converting strings to Date objects
+  projectManager: Official;
+  concernedOfficial: Official[];
+}
+
+interface Official {
+  officialName: string;
+  officialEmail: string;
+  officialPhone: string;
+  officialDesignation: string;
+  officialDepartment: string;
 }
 
 const initialFormData: FormData = {
-  department: '',
-  executingAgency: '',
-  yojnaName: '',
-  projectName: '',
-  description: '',
-  goals: '',
-  fundsSanctionedBy: '',
-  projectCompletion: '',
-  projectStatus: '',
-  contractorName: '',
-  amountSanctioned: '',
-  amountReleased: '',
-  financialProgress: '',
-  revisedCost: '',
+  department: "",
+  executingAgency: "",
+  yojnaName: "",
+  projectName: "",
+  description: "",
+  objective: "",
+  goals: "",
+  fundsSanctionedBy: "",
+  projectCompletion: "",
+  projectStatus: "",
+  contractorName: "",
+  amountSanctioned: "",
+  amountReleased: "",
+  financialProgress: "",
+  revisedCost: "",
   sanctionDate: null,
   financialApprovalDate: null,
   contractDate: null,
@@ -60,9 +67,9 @@ const initialFormData: FormData = {
 };
 
 const STEPS = [
-  { title: 'Project Info', description: 'Basic details' },
-  { title: 'Financials', description: 'Budget & costs' },
-  { title: 'Schedule', description: 'Timeline & dates' },
+  { title: "Project Info", description: "Basic details" },
+  { title: "Financials", description: "Budget & costs" },
+  { title: "Schedule", description: "Timeline & dates" },
 ];
 
 const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmitSuccess }) => {
@@ -70,37 +77,40 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmitSuccess }) => {
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleDateChange = (date: Date | null, field: keyof FormData) => {
-    setFormData(prev => ({ ...prev, [field]: date }));
+    setFormData((prev) => ({ ...prev, [field]: date }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      console.log('Form submitted:', formData);
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      console.log("Form submitted:", formData);
       onSubmitSuccess?.();
     } catch (error) {
-      console.error('Submission error:', error);
+      console.error("Submission error:", error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, 3));
-  const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
+  const nextStep = () => setCurrentStep((prev) => Math.min(prev + 1, 3));
+  const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
 
   const renderProjectInformation = () => (
-    <div
-     className="space-y-6 animate-fadeIn">
+    <div className="space-y-6 animate-fadeIn">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
           label="Project Department"
@@ -109,8 +119,8 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmitSuccess }) => {
           value={formData.department}
           onChange={handleInputChange}
           options={[
-            { value: 'nagar_nigam', label: 'Nagar Nigam' },
-            { value: 'ada', label: 'ADA' },
+            { value: "nagar_nigam", label: "Nagar Nigam" },
+            { value: "ada", label: "ADA" },
           ]}
           required
         />
@@ -121,12 +131,12 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmitSuccess }) => {
           value={formData.executingAgency}
           onChange={handleInputChange}
           options={[
-            { value: 'jal_nigam', label: 'Jal Nigam' },
-            { value: 'jal_kal', label: 'Jal Kal' },
-            { value: 'civil', label: 'Civil' },
-            { value: 'health', label: 'Health' },
-            { value: 'construction', label: 'Construction' },
-            { value: 'design', label: 'Design' },
+            { value: "jal_nigam", label: "Jal Nigam" },
+            { value: "jal_kal", label: "Jal Kal" },
+            { value: "civil", label: "Civil" },
+            { value: "health", label: "Health" },
+            { value: "construction", label: "Construction" },
+            { value: "design", label: "Design" },
           ]}
           required
         />
@@ -139,10 +149,10 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmitSuccess }) => {
         value={formData.yojnaName}
         onChange={handleInputChange}
         options={[
-          { value: 'smart_city', label: 'State Smart City' },
-          { value: 'cm_grid', label: 'CM Grid' },
-          { value: 'finance_commission', label: '15th Finance Commission' },
-          { value: 'swacch_bharat', label: 'Swacch Bharat Mission' },
+          { value: "smart_city", label: "State Smart City" },
+          { value: "cm_grid", label: "CM Grid" },
+          { value: "finance_commission", label: "15th Finance Commission" },
+          { value: "swacch_bharat", label: "Swacch Bharat Mission" },
         ]}
         required
       />
@@ -167,17 +177,33 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmitSuccess }) => {
         required
       />
 
+      <FormField
+        label="Goal & Objectives"
+        name="objective"
+        type="textarea"
+        value={formData.objective}
+        onChange={handleInputChange}
+        placeholder="Enter project goals & objectives"
+        required
+      />
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
-          label="Project Completion"
-          name="projectCompletion"
+          label="Fund Sanctioned By"
+          name="sactionedBy"
           type="select"
-          value={formData.projectCompletion}
+          value={formData.fundsSanctionedBy}
           onChange={handleInputChange}
-          options={Array.from({ length: 10 }, (_, i) => ({
-            value: String((i + 1) * 10),
-            label: `${(i + 1) * 10}%`
-          }))}
+          options={[
+            {
+              value: "state_govt",
+              label: `State Government`,
+            },
+            {
+              value: "central_govt",
+              label: `Central Government`,
+            },
+          ]}
           required
         />
         <FormField
@@ -187,42 +213,83 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmitSuccess }) => {
           value={formData.projectStatus}
           onChange={handleInputChange}
           options={[
-            { value: 'planning', label: 'In Planning' },
-            { value: 'progress', label: 'In Progress' },
-            { value: 'hold', label: 'On Hold' },
+            { value: "planning", label: "In Planning" },
+            { value: "progress", label: "In Progress" },
+            { value: "hold", label: "On Hold" },
+            { value: "hold", label: "Delayed" },
+            { value: "hold", label: "Completed" },
           ]}
           required
         />
       </div>
+
+      <FormField
+        label="Concerned Official Name, Designation & Contact for project department"
+        name="projectName"
+        type="text"
+        value={formData.projectName}
+        onChange={handleInputChange}
+        placeholder="Enter project name"
+        required
+      />
+
+      <FormField
+        label="Concerned Project Manager Name & Contact of executing agency"
+        name="projectName"
+        type="text"
+        value={formData.projectName}
+        onChange={handleInputChange}
+        placeholder="Enter project name"
+        required
+      />
+
+<FormField
+        label=" Project Contact Information "
+        name="sactionedBy"
+        type="select"
+        value={formData.fundsSanctionedBy}
+        onChange={handleInputChange}
+        options={[
+          {
+            value: "state_govt",
+            label: `State Government`,
+          },
+          {
+            value: "central_govt",
+            label: `Central Government`,
+          },
+        ]}
+        required
+      />
     </div>
   );
 
   const renderFinancialInformation = () => (
     <div className="space-y-6 animate-fadeIn">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <FormField
-          label="Amount Sanctioned (in Lac)"
-          name="amountSanctioned"
-          type="number"
-          value={formData.amountSanctioned}
-          onChange={handleInputChange}
-          placeholder="Enter amount"
-          required
-        />
-        <FormField
-          label="Amount Released"
-          name="amountReleased"
-          type="number"
-          value={formData.amountReleased}
-          onChange={handleInputChange}
-          placeholder="Enter amount"
-          required
-        />
-      </div>
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6"> */}
+      <FormField
+        label="Total Approved Budget (in Lac)"
+        name="amountSanctioned"
+        type="number"
+        value={formData.amountSanctioned}
+        onChange={handleInputChange}
+        placeholder="Enter amount"
+        required
+      />
+      <FormField
+        label="Cost of the project as per revised acceptance in(Lac)"
+        name="amountReleased"
+        type="number"
+        value={formData.amountReleased}
+        onChange={handleInputChange}
+        placeholder="Enter amount"
+        required
+      />
+      {/* </div> */}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
-          label="Financial Progress"
+          label="Total Released Funds (in Lac)"
           name="financialProgress"
           type="text"
           value={formData.financialProgress}
@@ -231,7 +298,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmitSuccess }) => {
           required
         />
         <FormField
-          label="Revised Cost"
+          label="Total Expenditure "
           name="revisedCost"
           type="number"
           value={formData.revisedCost}
@@ -239,7 +306,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmitSuccess }) => {
           placeholder="Enter revised cost"
           required
         />
-      </div>
+      </div> */}
     </div>
   );
 
@@ -251,16 +318,18 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmitSuccess }) => {
           name="sanctionDate"
           type="date"
           value={formData.sanctionDate}
-          onChange={(date) => handleDateChange(date, 'sanctionDate')}
+          onChange={(date) => handleDateChange(date, "sanctionDate")}
           placeholder="Select date"
           required
         />
         <FormField
-          label="Financial Approval Date"
+          // label="Project Financial Approval GO Ref No."
+          // label="Project Financial Approval GO Ref No."
+          label="Project Financial Approval Date"
           name="financialApprovalDate"
           type="date"
           value={formData.financialApprovalDate}
-          onChange={(date) => handleDateChange(date, 'financialApprovalDate')}
+          onChange={(date) => handleDateChange(date, "financialApprovalDate")}
           placeholder="Select date"
           required
         />
@@ -268,20 +337,20 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmitSuccess }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
-          label="Contract Date"
+          label="Project Financial Approval GO Ref No."
           name="contractDate"
           type="date"
           value={formData.contractDate}
-          onChange={(date) => handleDateChange(date, 'contractDate')}
+          onChange={(date) => handleDateChange(date, "contractDate")}
           placeholder="Select date"
           required
         />
         <FormField
-          label="Work Start Date"
+          label="Actual Project Start Date"
           name="workStartDate"
           type="date"
           value={formData.workStartDate}
-          onChange={(date) => handleDateChange(date, 'workStartDate')}
+          onChange={(date) => handleDateChange(date, "workStartDate")}
           placeholder="Select date"
           required
         />
@@ -289,20 +358,20 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmitSuccess }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
-          label="Work Completion Date"
+          label="Project Completion Date(as per work order)"
           name="workCompletionDate"
           type="date"
           value={formData.workCompletionDate}
-          onChange={(date) => handleDateChange(date, 'workCompletionDate')}
+          onChange={(date) => handleDateChange(date, "workCompletionDate")}
           placeholder="Select date"
           required
         />
         <FormField
-          label="Project Completion Date"
+          label="Revised Project Sanction Date"
           name="projectCompletionDate"
           type="date"
           value={formData.projectCompletionDate}
-          onChange={(date) => handleDateChange(date, 'projectCompletionDate')}
+          onChange={(date) => handleDateChange(date, "projectCompletionDate")}
           placeholder="Select date"
           required
         />
@@ -310,24 +379,67 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmitSuccess }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
-          label="Revised Completion Date"
+          label="Revised Project Completion Date"
           name="revisedCompletionDate"
           type="date"
           value={formData.revisedCompletionDate}
-          onChange={(date) => handleDateChange(date, 'revisedCompletionDate')}
+          onChange={(date) => handleDateChange(date, "revisedCompletionDate")}
           placeholder="Select date"
           required
         />
         <FormField
-          label="Estimated Date"
+          label="Estimated date of completion of work as per executing agency in case of project delay"
           name="estimatedDate"
           type="date"
           value={formData.estimatedDate}
-          onChange={(date) => handleDateChange(date, 'estimatedDate')}
+          onChange={(date) => handleDateChange(date, "estimatedDate")}
           placeholder="Select date"
           required
         />
       </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <FormField
+          label="Actual Completion Date"
+          name="revisedCompletionDate"
+          type="date"
+          value={formData.revisedCompletionDate}
+          onChange={(date) => handleDateChange(date, "revisedCompletionDate")}
+          placeholder="Select date"
+          required
+        />
+        <FormField
+          label="Work Order Formation Date"
+          name="estimatedDate"
+          type="date"
+          value={formData.estimatedDate}
+          onChange={(date) => handleDateChange(date, "estimatedDate")}
+          placeholder="Select date"
+          required
+        />
+      </div>
+
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6"> */}
+      <FormField
+        label="Date of Land Handover to Executing Agency"
+        name="revisedCompletionDate"
+        type="date"
+        value={formData.revisedCompletionDate}
+        onChange={(date) => handleDateChange(date, "revisedCompletionDate")}
+        placeholder="Select date"
+        required
+      />
+
+      {/* <FormField
+          label="Work Order Formation Date"
+          name="estimatedDate"
+          type="date"
+          value={formData.estimatedDate}
+          onChange={(date) => handleDateChange(date, "estimatedDate")}
+          placeholder="Select date"
+          required
+        /> */}
+      {/* </div> */}
     </div>
   );
 
@@ -338,19 +450,25 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmitSuccess }) => {
       <div className="mb-8">
         {currentStep === 1 && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Project Information</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">
+              Project Information
+            </h2>
             {renderProjectInformation()}
           </div>
         )}
         {currentStep === 2 && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Financial Information</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">
+              Financial Information
+            </h2>
             {renderFinancialInformation()}
           </div>
         )}
         {currentStep === 3 && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Schedule Information</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">
+              Schedule Information
+            </h2>
             {renderScheduleInformation()}
           </div>
         )}
@@ -393,7 +511,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmitSuccess }) => {
             )}
           >
             <Save className="w-5 h-5 mr-2" />
-            {isSubmitting ? 'Submitting...' : 'Submit Project'}
+            {isSubmitting ? "Submitting..." : "Submit Project"}
           </button>
         )}
       </div>
