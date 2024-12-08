@@ -52,27 +52,40 @@ export const ProjectTableDataKeys = [
   "projectDepartment",
   "executingAgency",
   "scheme",
-  "totalApprovedBudget",
-  "revisedProjectCost",
   "projectSanctionDate",
   "projectFinancialApprovalGoNumber",
   "projectFinancialApprovalDate",
-  "actualProjectStartDate",
-  "projectCompletionDate",
-  "revisedProjectSanctionDate",
-  "revisedProjectCompletionDate",
-  "estimatedCompletionDate",
-  "actualCompletionDate",
-  "workOrderFormationDate",
-  "landHandoverDate",
-  "lastUpdatedDate",
-  "lastUpdatedDateOnCmis",
-  "lastMonthPhysicalProgress",
-  "currentMonthPhysicalProgress",
+  "approvedProjectCost",
+  "contractDate",
+  "contractCost",
   "totalReleasedFunds",
   "totalExpenditure",
+
+  "lastMonthPhysicalProgress",
+  "currentMonthPhysicalProgress",
+  "actualProjectStartDate",
+  "projectCompletionDate",
+  "revisedProjectCompletionDate",
+  
   "lastFundReceivedDate",
   "utilizationCertificateSubmissionDate",
+  "delayReason",
+  "landAvailabilityDate",
+  "lastUpdatedDateOnCmis",
+  
+  
+  
+  // "totalApprovedBudget",
+  // "revisedProjectCost",
+  // "revisedProjectSanctionDate",
+  // "estimatedCompletionDate",
+  // "actualCompletionDate",
+  // "workOrderFormationDate",
+  // "lastUpdatedDate",
+  
+  // "landHandoverDate",
+
+
   "geoTaggedPhotosLastMonth",
   "geoTaggedPhotosCurrentMonth",
   "meetingDescription",
@@ -776,43 +789,15 @@ export const BudgetUcHeaders = {
 
 export const headers = {
   hi: [
-    // Praroop,
-
-    // "क्रम संख्या",
-    // "परियोजना का नाम",
-    // "परियोजना अद्यतन स्थिति",
-    // "विभाग का नाम",
-    // "परियोजना स्वीकृति की तिथि",
-    // "स्वीकृत लागत (करोड़ में)",
-    // "अनुबन्ध की तिथि",
-    // "अनुबन्ध की धनराशि (करोड़ में)",
-    // "अवमुक्त धनराशि (करोड़ में)",
-    // "व्यय धनराशि (करोड़ में)",
-    // "भौतिक प्रगति प्रतिशत (गत माह में)",
-    // "भौतिक प्रगति प्रतिशत (वर्तमान माह में)",
-    // "कार्य प्रारम्भ की तिथि",
-    // "कार्य पूर्ण करने की मूल निर्धारित तिथि",
-    // "मूल निर्धारित तिथि तक कार्य पूर्ण न होने की स्थिति में विभाग द्वारा निर्धारित नई लक्षित तिथि",
-    // "परियोजना पर अन्तिम बार धनराशि कब प्राप्त हुई",
-    // "कालम 15 के सापेक्ष सम्बन्धित विभाग को उपभोग प्रमाण पत्र प्रेषित करने की तिथि",
-    // "परियोजना हेतु शासन द्वारा जारी वित्तीय स्वीकृति का दिनांक एवं शासनादेश संख्या",
-    // "यदि परियोजना मूल निर्धारित तिथि (कालम-13) तक पूर्ण न होने पर विलम्ब का कारण",
-    // "परियोजना किसी योजनान्तर्गत संचालित है",
-    // "कार्यदायी संस्था को भूमि उपलब्ध होने की तिथि",
-    // "कार्य की जियोटैग फोटोग्राफ्स (गत माह की)",
-    // "कार्य की जियोटैग फोटोग्राफ्स (अद्यतन माह की)",
-    // "समीक्षा बैठक में दिये गये निर्देश",
-    // "दिये गये निर्देश के सापेक्ष अनुपालन",
-    // "अभ्यूक्ति",
-
-    "क्रम संख्या", // id
+    "क्रम संख्या",
     "परियोजना का नाम", // projectName
     "परियोजना अद्यतन स्थिति", // projectStatus
     "विभाग का नाम", // projectDepartment
     "कार्यान्वयन एजेंसी", // executingAgency
     "योजना का नाम", // scheme (19place)
     "परियोजना स्वीकृति की तिथि", // projectSanctionDate
-    "परियोजना हेतु शासन द्वारा जारी वित्तीय स्वीकृति का दिनांक एवं शासनादेश संख्या", // projectFinancialApprovalGoNumber
+    "परियोजना हेतु शासन द्वारा जारी वित्तीय स्वीकृति का  शासनादेश संख्या", // projectFinancialApprovalGoNumber
+    "परियोजना हेतु शासन द्वारा जारी वित्तीय स्वीकृति का दिनांक", // projectFinancialApprovalDate
     "परियोजना की स्वीकृत लागत (करोड़ में) (₹)", // approvedProjectCost
 
     "अनुबन्ध की तिथि", // contractDate
@@ -820,11 +805,12 @@ export const headers = {
     "कुल अवमुक्त धनराशि (₹)", // totalReleasedFunds
     "कुल व्यय धनराशि (₹)", // totalExpenditure
 
-    
     "गत माह की भौतिक प्रगति (%)", // lastMonthPhysicalProgress
     "वर्तमान माह की भौतिक प्रगति (%)", // currentMonthPhysicalProgress
+
     "कार्य प्रारंभ की वास्तविक तिथि", // actualProjectStartDate
     "अनुबन्ध के अनुसार कार्य पूर्ण करने की तिथि", // projectCompletionDate
+
     "मूल निर्धारित तिथि तक कार्य पूर्ण न होने की स्थिति मे विभाग द्वारा निर्धारित नई लक्षित तिथि", // revisedProjectCompletionDate
     "परियोजना पर अन्तिम बार धनराशि कब प्राप्त हुई", // lastFundReceivedDate
     "उपयोग प्रमाण पत्र प्रस्तुत करने की तिथि", // utilizationCertificateSubmissionDate
@@ -841,6 +827,7 @@ export const headers = {
     // "भूमि हस्तांतरण की तिथि", // landHandoverDate
     // "अंतिम अद्यतन तिथि", // lastUpdatedDate
     "सीएमआईएस पर अंतिम अद्यतन तिथि", // lastUpdatedDateOnCmis
+
     "पिछले माह की जियोटैग फोटो", // geoTaggedPhotosLastMonth
     "वर्तमान माह की जियोटैग फोटो", // geoTaggedPhotosCurrentMonth
     "समीक्षा बैठक निर्देश", // meetingDescription
@@ -848,64 +835,37 @@ export const headers = {
     "अभ्यूक्ति", // meetingfeedback meetingComment
   ],
   en: [
-    // "Serial Number",
-    // "Project Name",
-    // "Project Update Status",
-    // "Executing Agency",
-    // "Date of Project Approval and Government Order Number",
-    // "Date and Government Order Number of Financial Approval Issued by Government for the Project",
-    // "Approved Cost of the Project",
-    // "Date of Project Completion as per Contract Formation",
-    // "Total Amount Released for the Project So Far",
-    // "Total Expenditure on the Project So Far",
-    // "Milestone Progress %",
-    // "Physical Progress %",
-    // "Estimated Date of Completion According to Executing Agency",
-    // "Reasons for Delay in the Project",
-    // "Date of Revised Approval",
-    // "Cost of the Project as per Revised Approval",
-    // "Date of Project Completion as per Revised Approval",
-    // "Department Name",
-    // "Project Category/Scheme Name",
-    // "Date of Contract Formation",
-    // "Date of Land Availability to Executing Agency",
-    // "Project Update Log",
-    // "Project Gallery",
-    // "Meeting Instructions",
-    // "Meeting Instructions Compliance",
 
-    "Serial Number", // id
-    "Project Name", // projectName
-    "Project Status", // projectStatus
-    "Department Name", // projectDepartment
-    "Executing Agency", // executingAgency
-    "Scheme Name", // scheme
-    "Total Approved Budget (₹)", // approvedProjectCost
-    "Revised Project Cost (₹)", // revisedProjectCost
-    "Project Sanction Date", // projectSanctionDate
-    "Financial Approval GO Reference Number", // projectFinancialApprovalGoNumber
-    "Financial Approval Date", // projectFinancialApprovalDate
-    "Actual Project Start Date", // actualProjectStartDate
-    "Project Completion Date as per Work Order", // projectCompletionDate // as per work order
-    "Revised Project Sanction Date", // revisedProjectSanctionDate
-    "Revised Completion Date", // revisedProjectCompletionDate
-    "Estimated Completion Date (as per agency in case of project delay)", // estimatedCompletionDate
-    "Actual Completion Date", // actualCompletionDate
-    "Work Order Formation Date", // workOrderFormationDate
-    "Land Handover Date", // landHandoverDate
-    "Last Updated Date", // lastUpdatedDate
-    "Last Updated Date on CMIS", // lastUpdatedDateOnCmis
-    "Physical Progress Last Month (%)", // lastMonthPhysicalProgress
-    "Physical Progress This Month (%)", // currentMonthPhysicalProgress
-    "Total Released Funds (₹)", // totalReleasedFunds
-    "Total Expenditure (₹)", // totalExpenditure
-    "Last Fund Received Date", // lastFundReceivedDate
-    "Utilization Certificate Submission Date", // utilizationCertificateSubmissionDate
-    "Geo-Tagged Photos Last Month", // geoTaggedPhotosLastMonth
-    "Geo-Tagged Photos This Month", // geoTaggedPhotosCurrentMonth
-    "Meeting Instructions", // meetingDescription
-    "Meeting Compliance", // meetingCompliance
-    "अभ्यूक्ति", // meetingfeedback
+      "Serial Number", // क्रम संख्या
+      "Project Name", // projectName
+      "Project Current Status", // projectStatus
+      "Department Name", // projectDepartment
+      "Executing Agency", // executingAgency
+      "Scheme Name", // scheme (19place)
+      "Project Sanction Date", // projectSanctionDate
+      "Government Order Number Issued for Financial Sanction", // projectFinancialApprovalGoNumber
+      "Date of Financial Sanction Issued by Government", // projectFinancialApprovalDate
+      "Approved Project Cost (in crores) (₹)", // approvedProjectCost
+      "Contract Date", // contractDate
+      "Project Cost as per Contract (in crores) (₹)", // contractCost
+      "Total Released Funds (₹)", // totalReleasedFunds
+      "Total Expenditure (₹)", // totalExpenditure
+      "Last Month's Physical Progress (%)", // lastMonthPhysicalProgress
+      "Current Month's Physical Progress (%)", // currentMonthPhysicalProgress
+      "Actual Project Start Date", // actualProjectStartDate
+      "Project Completion Date as per Contract", // projectCompletionDate
+      "New Target Date Set by Department in Case of Non-Completion by Original Deadline", // revisedProjectCompletionDate
+      "Date of Last Fund Received for the Project", // lastFundReceivedDate
+      "Utilization Certificate Submission Date", // utilizationCertificateSubmissionDate
+      "Reason for Delay if the Project was Not Completed by the Original Deadline", // delayReason nhi tha headers me // add in the projects
+      "Date of Land Availability to Executing Agency", // landAvailabilityDate (land hand over date) nhi tha header me
+      "Last Updated Date on CMIS", // lastUpdatedDateOnCmis
+      "Geotagged Photos of Last Month", // geoTaggedPhotosLastMonth
+      "Geotagged Photos of Current Month", // geoTaggedPhotosCurrentMonth
+      "Review Meeting Instructions", // meetingDescription
+      "Compliance with Given Instructions", // meetingCompliance
+      "Feedback/Remarks" // meetingfeedback meetingComment
+  
   ],
 };
 
