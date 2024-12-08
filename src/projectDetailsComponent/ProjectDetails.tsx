@@ -10,7 +10,7 @@ import ProjectEssentialTest from "./ProjectEssentialTest";
 import ProjectBudget from "./ProjectBudget";
 import ProjectGallery from "./ProjectGallery";
 import ProjectProgress from "./ProjectProgress";
-import { set } from "date-fns";
+import generateAndDownloadPDF from "../utils/pdfDownloader";
 
 const ProjectDetails = () => {
   const navigate = useNavigate();
@@ -47,7 +47,10 @@ const ProjectDetails = () => {
       {/* Header */}
       <div className="flex justify-end items-center">
         <div className="flex space-x-3">
-          <button className="px-4 py-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-md text-sm font-medium">
+          <button
+            onClick={() => generateAndDownloadPDF(project)}
+            className="px-4 py-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-md text-sm font-medium"
+          >
             <Download className="w-4 h-4 inline-block mr-2" />
             Download PDF
           </button>
