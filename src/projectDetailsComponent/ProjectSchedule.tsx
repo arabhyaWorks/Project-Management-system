@@ -45,7 +45,7 @@ const ProjectSchedule = ({ project }) => {
                     {milestone.milestoneName}
                   </td>
                   <td className="px-4 py-4 text-sm text-gray-900">
-                    under progress
+                    {milestone.milestoneProgress}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
                     {convertToIST(milestone.milestoneFromDate)}
@@ -54,7 +54,7 @@ const ProjectSchedule = ({ project }) => {
                     {convertToIST(milestone.milestoneCompletionDate)}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                    milestone actual date
+                    {convertToIST(milestone.milestoneActualCompletionDate)}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap">
                     <div className="flex items-center">

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import html2canvas from "html2canvas";
 import { Building2, IndianRupee, Activity, Users } from "lucide-react";
 import { StatCard } from "../components/dashboard/StatCard";
 import { ProjectStatusChart } from "../components/dashboard/ProjectStatusChart";
 import { BudgetChart } from "../components/dashboard/BudgetChart";
 import { DepartmentPieChart } from "../components/dashboard/dashboardPieChart";
+import { DepartmentBarChart } from "../components/dashboard/DepartmentBarChart";
 import { use } from "framer-motion/client";
 import { endpoint } from "../utils/dataSet";
 
@@ -13,31 +15,6 @@ const projectStatusData = [
   { name: "Completed", value: 30 },
   { name: "On Hold", value: 15 },
   { name: "In Planning", value: 10 },
-];
-
-const departmentsLabel = [
-  "Divyang Jan sashaktikaran vibhag",
-  "Nagar vikas",
-  "Electric distribution division -1",
-  "Electric distribution division -3",
-  "Basic Education",
-  "Health",
-  "Tourism",
-  "Technical Education",
-  "Intermidiate Education",
-  "Revenue",
-  "Vocational Education",
-  "Home",
-  "Social welfare",
-  "Animal Husbandry",
-  "Probation",
-  "Public work department",
-  "Rural engineering department",
-  "Agriculture",
-  "Rural development",
-  "Irrigation department",
-  "Fisheries deparment",
-  "Forest Department",
 ];
 
 const budgetData = [
@@ -57,40 +34,14 @@ const projectStatusLabels = [
   "Completed",
 ];
 
-// const departmentData = [
-//   { name: "C & DS Unit 24", value: 25 },
-//   { name: "Construction Division, PWD,Chandauli", value: 12 },
-//   { name: "Provincial Division, PWD, Chandauli", value: 17 },
-//   {
-//     name: "U.P. Project Corporation Ltd. Construction Division-3, Varanasi",
-//     value: 10,
-//   },
-//   { name: "Executive Engineer, U.P. Power Corporation Ltd.", value: 10 },
-//   { name: "Uttar Pradesh State Bridge Corporation, Chandauli", value: 9 },
-//   { name: "Uttar Pradesh Aawas Vikash Parisad, Varanasi-1", value: 8 },
-//   { name: "Irrigation Department, Laghudal Prakhand", value: 5 },
-//   {
-//     name: "Executive Engineer, Chandraprabha, Irrigation Department",
-//     value: 4,
-//   },
-//   { name: "UPCLDF Varanasi", value: 4 },
-//   { name: "UPSIDCO", value: 3 },
-//   { name: "Construction Division Building, PWD,Varanasi", value: 3 },
-//   { name: "Bandhi Prakhand, Irrigation Department", value: 3 },
-//   { name: "Uttar Pradesh Aawas Vikash Parisad, Varanasi-2", value: 2 },
-//   { name: "Forest Department", value: 2 },
-//   { name: "Rajkiya Nirman Nigam, Bhadohi", value: 1 },
-//   { name: "Mandiparisad, Varanasi", value: 1 },
-//   { name: "Jal Nigam Urban", value: 1 },
-//   { name: "Irrigation Department, Musakhand Prakhand", value: 1 },
-//   { name: "Irrigation Department, Tubewell division", value: 1 },
-// ];
+
 
 export function Dashboard() {
   const [projectStatus, setProjectStatus] = useState([]);
-
   const [departmentData, setDepartmentData] = useState([]);
   const [stats, setStats] = useState({});
+  const pieChartRef = useRef(null);
+  const barChartRef = useRef(null);
 
   const fetchProjectStatus = async () => {
     try {
@@ -116,6 +67,7 @@ export function Dashboard() {
     }
   };
 
+// Fetch Overall Stats Data
   const fetchStatsData = async () => {
     try {
       const response = await axios.get(
@@ -127,6 +79,18 @@ export function Dashboard() {
       console.error(error);
     }
   };
+
+    // Export Chart as PNG
+    const exportChartAsPNG = (ref, filename) => {
+      if (ref.current) {
+        html2canvas(ref.current, { useCORS: true }).then((canvas) => {
+          const link = document.createElement("a");
+          link.download = `${filename}.png`;
+          link.href = canvas.toDataURL("image/png");
+          link.click();
+        });
+      }
+    };
 
   useEffect(() => {
     fetchProjectStatus();
@@ -154,7 +118,7 @@ export function Dashboard() {
           icon={IndianRupee}
         />
         <StatCard
-          title="Active Projects"
+          title="In Progress Projects"
           value={stats?.activeProjects?.count}
           icon={Activity}
           trend={{ value: 8, label: "from last month" }}
@@ -188,14 +152,42 @@ export function Dashboard() {
         </div>
       </div>
 
+      {/* Department-wise Project Count - Pie Chart */}
       <div className="rounded-lg bg-white shadow">
-        <div className="px-6 py-5">
+        <div className="px-6 py-5 flex justify-between items-center">
           <h3 className="text-lg font-medium leading-6 text-gray-900">
             Department-wise Project Count
           </h3>
+          <button
+            className="bg-blue-500 text-white px-3 py-1 rounded-md"
+            onClick={() => exportChartAsPNG(pieChartRef, "DepartmentWisePieChart")}
+          >
+            Export as PNG
+          </button>
+        </div>
+        <div ref={pieChartRef} className="p-6">
           <DepartmentPieChart data={departmentData} />
         </div>
       </div>
+
+      {/* Department-wise Project Count - Bar Chart */}
+      <div className="rounded-lg bg-white shadow">
+        <div className="px-6 py-5 flex justify-between items-center">
+          <h3 className="text-lg font-medium leading-6 text-gray-900">
+            Department-wise Project Count (Bar Chart)
+          </h3>
+          <button
+            className="bg-blue-500 text-white px-3 py-1 rounded-md"
+            onClick={() => exportChartAsPNG(barChartRef, "DepartmentWiseBarChart")}
+          >
+            Export as PNG
+          </button>
+        </div>
+        <div ref={barChartRef} className="p-6">
+          <DepartmentBarChart data={departmentData} />
+        </div>
+      </div>
+
 
       <div className="rounded-lg bg-white shadow">
         <div className="px-6 py-5 border-b border-gray-200">
@@ -205,28 +197,22 @@ export function Dashboard() {
         </div>
         <div className="px-6 py-5">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {
-              departmentData.map((data, index) => (
-                <div key={index} className="bg-gray-50 rounded-lg p-4">
-                  <h4 className="text-sm font-medium text-gray-500">{departmentsLabel[index]}</h4>
-                  <p className="mt-1 text-3xl font-semibold text-gray-900">
-                    {data.value} Projects
-                  </p>
-                </div>
-              ))
-            }
-
-        
-            {/* <div className="bg-gray-50 rounded-lg p-4">
-              <h4 className="text-sm font-medium text-gray-500">Nagar Nigam</h4>
-              <p className="mt-1 text-3xl font-semibold text-gray-900">
-                89 Projects
-              </p>
-            </div> */}
-
+            {departmentData.map((data, index) => (
+              <div key={index} className="bg-gray-50 rounded-lg p-4">
+                <h4 className="text-sm font-medium text-gray-500">{data.name}</h4>
+                <p className="mt-1 text-3xl font-semibold text-gray-900">
+                  {data.value} Projects
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
+
     </div>
   );
 }
+
+
+
+

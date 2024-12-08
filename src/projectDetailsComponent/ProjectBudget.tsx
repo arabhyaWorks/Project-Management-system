@@ -28,7 +28,7 @@ const ProjectBudget = ({ project }) => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {project.budegetInstallment.map((item, index) => (
+              {project.budgetInstallment.map((item, index) => (
                 <tr key={index}>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
                     {index + 1}

@@ -29,38 +29,23 @@ import { hi, sr } from "date-fns/locale";
 //   "feedback",
 // ];
 
-export const ProjectTableDataKeys = [
-  // "id",
-  // "projectName",
-  // "projectStatus",
-  // "projectDepartment",
-  // "executingAgency",
-  // "scheme",
-  // "projectSanctionDate",
-  // "projectFinancialApprovalGoNumber",
-  // "projectFinancialApprovalDate",
-  // "actualProjectStartDate",
-  // "projectCompletionDate",
-  // "revisedProjectSanctionDate",
-  // "revisedProjectCompletionDate",
-  // "estimatedCompletionDate",
-  // "actualCompletionDate",
-  // "workOrderFormationDate",
-  // "landHandoverDate",
-  // "lastUpdatedDate",
-  // "lastUpdatedDateOnCmis",
-  // "lastMonthPhysicalProgress",
-  // "currentMonthPhysicalProgress",
-  // "totalReleasedFunds",
-  // "totalExpenditure",
-  // "lastFundReceivedDate",
-  // "utilizationCertificateSubmissionDate",
-  // "geoTaggedPhotosLastMonth",
-  // "geoTaggedPhotosCurrentMonth",
-  // "meetingDescription",
-  // "meetingCompliance",
-  // "meetingfeedback",
+export const projectDates = [
+  "projectSanctionDate",
+  "projectFinancialApprovalDate",
+  "projectFinancialApprovalDate",
+  "actualProjectStartDate",
+  "projectCompletionDate",
+  "revisedProjectSanctionDate",
+  "revisedProjectCompletionDate",
+  "estimatedCompletionDate",
+  "actualCompletionDate",
+  "workOrderFormationDate",
+  "landHandoverDate",
+  "lastUpdatedDate",
+  "lastUpdatedDateOnCmis",
+];
 
+export const ProjectTableDataKeys = [
   "id",
   "projectName",
   "projectStatus",
@@ -825,33 +810,42 @@ export const headers = {
     "परियोजना अद्यतन स्थिति", // projectStatus
     "विभाग का नाम", // projectDepartment
     "कार्यान्वयन एजेंसी", // executingAgency
-    "योजना का नाम", // scheme
-    "कुल स्वीकृत बजट (₹)", // approvedProjectCost
-    "संशोधित परियोजना लागत (₹)", // revisedProjectCost
+    "योजना का नाम", // scheme (19place)
     "परियोजना स्वीकृति की तिथि", // projectSanctionDate
-    "वित्तीय स्वीकृति गो संदर्भ संख्या", // projectFinancialApprovalGoNumber
-    "वित्तीय स्वीकृति तिथि", // projectFinancialApprovalDate
-    "कार्य प्रारंभ की तिथि", // actualProjectStartDate
-    "कार्य पूर्ण करने की तिथि", // projectCompletionDate
-    "संशोधित परियोजना स्वीकृति तिथि", // revisedProjectSanctionDate
-    "संशोधित पूर्णता तिथि", // revisedProjectCompletionDate
-    "प्रारंभिक पूर्णता तिथि (एजेंसी द्वारा अनुमानित)", // estimatedCompletionDate
-    "वास्तविक पूर्णता तिथि", // actualCompletionDate
-    "कार्य आदेश निर्माण की तिथि", // workOrderFormationDate
-    "भूमि हस्तांतरण की तिथि", // landHandoverDate
-    "अंतिम अद्यतन तिथि", // lastUpdatedDate
-    "सीएमआईएस पर अंतिम अद्यतन तिथि", // lastUpdatedDateOnCmis
-    "पिछले माह की भौतिक प्रगति (%)", // lastMonthPhysicalProgress
+    "परियोजना हेतु शासन द्वारा जारी वित्तीय स्वीकृति का दिनांक एवं शासनादेश संख्या", // projectFinancialApprovalGoNumber
+    "परियोजना की स्वीकृत लागत (करोड़ में) (₹)", // approvedProjectCost
+
+    "अनुबन्ध की तिथि", // contractDate
+    "अनुबन्ध के अनुसर परियोजना की धनराशि (करोड़ में) (₹)", // contractCost
+    "कुल अवमुक्त धनराशि (₹)", // totalReleasedFunds
+    "कुल व्यय धनराशि (₹)", // totalExpenditure
+
+    
+    "गत माह की भौतिक प्रगति (%)", // lastMonthPhysicalProgress
     "वर्तमान माह की भौतिक प्रगति (%)", // currentMonthPhysicalProgress
-    "कुल स्वीकृत धनराशि (₹)", // totalReleasedFunds
-    "कुल व्यय (₹)", // totalExpenditure
-    "अंतिम किस्त प्राप्ति की तिथि", // lastFundReceivedDate
+    "कार्य प्रारंभ की वास्तविक तिथि", // actualProjectStartDate
+    "अनुबन्ध के अनुसार कार्य पूर्ण करने की तिथि", // projectCompletionDate
+    "मूल निर्धारित तिथि तक कार्य पूर्ण न होने की स्थिति मे विभाग द्वारा निर्धारित नई लक्षित तिथि", // revisedProjectCompletionDate
+    "परियोजना पर अन्तिम बार धनराशि कब प्राप्त हुई", // lastFundReceivedDate
     "उपयोग प्रमाण पत्र प्रस्तुत करने की तिथि", // utilizationCertificateSubmissionDate
+    "यदि परियोजना मूल निर्धारित तिथि तक पूर्ण न  होने पर विलम्ब का कारण ", // delayReason nhi tha headers me // add in the projects
+    "कार्यदायी संस्था को भूमि उपलब्ध होने की तिथि", // landAvailabilityDate (land hand over date) nhi tha header me
+
+    // "संशोधित परियोजना लागत (₹)", // revisedProjectCost
+    // "वित्तीय स्वीकृति तिथि", // projectFinancialApprovalDate
+    // "संशोधित परियोजना स्वीकृति तिथि", // revisedProjectSanctionDate
+    // "संशोधित पूर्णता तिथि", // revisedProjectCompletionDate
+    // "प्रारंभिक पूर्णता तिथि (एजेंसी द्वारा अनुमानित)", // estimatedCompletionDate
+    // "वास्तविक पूर्णता तिथि", // actualCompletionDate
+    // "कार्य आदेश निर्माण की तिथि", // workOrderFormationDate
+    // "भूमि हस्तांतरण की तिथि", // landHandoverDate
+    // "अंतिम अद्यतन तिथि", // lastUpdatedDate
+    "सीएमआईएस पर अंतिम अद्यतन तिथि", // lastUpdatedDateOnCmis
     "पिछले माह की जियोटैग फोटो", // geoTaggedPhotosLastMonth
     "वर्तमान माह की जियोटैग फोटो", // geoTaggedPhotosCurrentMonth
     "समीक्षा बैठक निर्देश", // meetingDescription
-    "समीक्षा अनुपालन", // meetingCompliance
-    "समीक्षा प्रतिक्रिया", // meetingfeedback
+    "दिये गये निर्देश के सापेक्ष अनुपालन", // meetingCompliance
+    "अभ्यूक्ति", // meetingfeedback meetingComment
   ],
   en: [
     // "Serial Number",
@@ -891,11 +885,11 @@ export const headers = {
     "Project Sanction Date", // projectSanctionDate
     "Financial Approval GO Reference Number", // projectFinancialApprovalGoNumber
     "Financial Approval Date", // projectFinancialApprovalDate
-    "Work Start Date", // actualProjectStartDate
-    "Project Completion Date", // projectCompletionDate
+    "Actual Project Start Date", // actualProjectStartDate
+    "Project Completion Date as per Work Order", // projectCompletionDate // as per work order
     "Revised Project Sanction Date", // revisedProjectSanctionDate
     "Revised Completion Date", // revisedProjectCompletionDate
-    "Estimated Completion Date (as per agency)", // estimatedCompletionDate
+    "Estimated Completion Date (as per agency in case of project delay)", // estimatedCompletionDate
     "Actual Completion Date", // actualCompletionDate
     "Work Order Formation Date", // workOrderFormationDate
     "Land Handover Date", // landHandoverDate
@@ -911,9 +905,11 @@ export const headers = {
     "Geo-Tagged Photos This Month", // geoTaggedPhotosCurrentMonth
     "Meeting Instructions", // meetingDescription
     "Meeting Compliance", // meetingCompliance
-    "Meeting Feedback", // meetingfeedback
+    "अभ्यूक्ति", // meetingfeedback
   ],
 };
+
+export const dates = [];
 
 interface TestDetail {
   srNo: string;

@@ -8,6 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import { ProjectTableDataKeys } from "../../utils/dataSet";
+import { convertToIST } from "../../utils/functions";
 
 interface DataTableProps {
   searchTerm: string;
@@ -70,6 +71,22 @@ export const DataTable = ({
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
+              {headers.hi.map(
+                (header, index) =>
+                  visibleColumns.includes(index.toString()) && (
+                    <th
+                      key={header}
+                      className={classNames(
+                        "px-6 py-4 text-left text-sm font-bold text-orange-800 tracking-wider whitespace-normal border-2 border-gray-100",
+                        index === 0 ? "w-16" : "w-40"
+                      )}
+                    >
+                      {header}
+                    </th>
+                  )
+              )}
+            </tr>
+            <tr>
               {headers.en.map(
                 (header, index) =>
                   visibleColumns.includes(index.toString()) && (
@@ -96,8 +113,15 @@ export const DataTable = ({
                         key={index}
                         className={classNames(
                           "px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-2 border-gray-100",
-                          index === 0 ? "w-16 text-center" : "w-40"
+                          index === 0 ? "w-16 text-center" : "w-40",
+                          // key === "projectName" ? "bg-red-100 w-[20px]" : ""
+
                         )}
+                        style={{
+                        maxWidth: key === "projectName" ? "500px" : "200px",
+                        overflow: "hidden",
+
+                        }}
                       >
                         {key === "projectStatus" ? (
                           <p
@@ -139,10 +163,12 @@ export const DataTable = ({
                             onClick={() =>
                               navigate(`/projectDetail/${project.id}`)
                             }
-                            className="text-black-500 hover:underline"
+                            className="text-black-500  hover:underline focus:outline-none"
                           >
                             {project[key]}
                           </button>
+                        ) : key.includes("Date") ? (
+                          convertToIST(project[key])
                         ) : (
                           project[key]
                         )}

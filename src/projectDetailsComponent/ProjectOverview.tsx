@@ -27,11 +27,7 @@ const ProjectOverview = ({ project }) => {
                 Project Manager
               </h3>
               <p className="mt-1 text-gray-900">
-                {project.projectManager.officialName +
-                  ", " +
-                  project.projectManager.officialDesignation +
-                  `,\n` +
-                  project.projectManager.officialDepartment}
+                {project.concernedProjectManager}
               </p>
             </div>
 
@@ -41,11 +37,7 @@ const ProjectOverview = ({ project }) => {
               </h3>
 
               <p className="mt-1 text-gray-900">
-                {project.concernedOfficial[0].officialName +
-                  ", " +
-                  project.concernedOfficial[0].officialDesignation +
-                  `,\n` +
-                  project.concernedOfficial[0].officialDepartment}
+                {project.concernedOfficialName}
               </p>
             </div>
 
@@ -53,7 +45,7 @@ const ProjectOverview = ({ project }) => {
               <h3 className="text-sm font-medium text-gray-500">
                 Goals & Objectives
               </h3>
-              <p className="mt-1 text-gray-900">{project.projectObjectives}</p>
+              <p className="mt-1 text-gray-900">{project.projectGoal}</p>
             </div>
           </div>
         </div>

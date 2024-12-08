@@ -70,7 +70,7 @@ const ProjectInspection = ({ project }) => {
                     {data.officialName || "--"}
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {data["InspectionType"]}
+                    {data.inspectionType}
                   </td>
                   <td className="px-4 py-4 text-sm text-gray-900">
                     {data.inspectionInstruction}
