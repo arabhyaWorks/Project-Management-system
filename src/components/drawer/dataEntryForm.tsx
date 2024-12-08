@@ -5,6 +5,8 @@ import StepIndicator from "./StepIndicator";
 import FormField from "./FormField";
 import "react-datepicker/dist/react-datepicker.css";
 import { formatDate } from "../../utils/functions";
+import DatePicker from "react-datepicker";
+
 import axios from "axios";
 import { endpoint } from "../../utils/dataSet";
 import { useEntities } from "../../context/EntityContect";
@@ -73,6 +75,14 @@ const ProjectForm = ({ onSubmitSuccess }) => {
     contractDate: "",
     delayReason: "",
     meetingInstructions: "",
+
+    // meetingInstructions: [],
+    projectInspection: [],
+    projectEssentialTest: [],
+    projectGallery: [],
+    mileStones: [],
+    issues: [],
+    budgetInstallment: [],
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -86,7 +96,6 @@ const ProjectForm = ({ onSubmitSuccess }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  console.log;
   const handleEntityChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -135,33 +144,32 @@ const ProjectForm = ({ onSubmitSuccess }) => {
     };
 
     console.log({ ...formData, ...inst });
-    
 
-    // try {
-    //   const response = await fetch(
-    //     "https://pms-backend-ochre.vercel.app/api/uploadWholeData",
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({ ...formData, ...inst }),
-    //     }
-    //   );
+    try {
+      const response = await fetch(
+        "https://pms-backend-ochre.vercel.app/api/uploadWholeData",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...formData, ...inst }),
+        }
+      );
 
-    //   if (!response.ok) {
-    //     throw new Error(`HTTP error! status: ${response.status}`);
-    //   }
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-    //   const result = await response.json();
-    //   console.log("Success:", result);
-    //   onSubmitSuccess?.();
-    //   // Handle success (e.g., show success message, redirect, etc.)
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // } finally {
-    //   setIsSubmitting(false);
-    // }
+      const result = await response.json();
+      console.log("Success:", result);
+      onSubmitSuccess?.();
+      // Handle success (e.g., show success message, redirect, etc.)
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const nextStep = () => setCurrentStep((prev) => Math.min(prev + 1, 3));
@@ -541,6 +549,151 @@ const ProjectForm = ({ onSubmitSuccess }) => {
     </div>
   );
 
+  const handleAddEntry = (field) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: [...prev[field], {}],
+    }));
+  };
+
+  const handleEntryChange = (field, index, key, value) => {
+    const updatedEntries = formData[field].map((entry, i) =>
+      i === index ? { ...entry, [key]: value } : entry
+    );
+    setFormData((prev) => ({
+      ...prev,
+      [field]: updatedEntries,
+    }));
+  };
+
+  const handleRemoveEntry = (field, index) => {
+    const updatedEntries = formData[field].filter((_, i) => i !== index);
+    setFormData((prev) => ({
+      ...prev,
+      [field]: updatedEntries,
+    }));
+  };
+
+  const renderDynamicSection = (field, fieldsConfig) => (
+    <div className="space-y-4">
+      <h3 className="text-lg font-bold">{field.replace(/([A-Z])/g, " $1")}</h3>
+      {formData[field].map((entry, index) => (
+        <div key={index} className="border p-4 rounded-md space-y-2">
+          {fieldsConfig.map(({ label, name, type }) => (
+            <div key={name}>
+              {type === "date" ? (
+                <DatePicker
+                  selected={entry[name] ? new Date(entry[name]) : undefined}
+                  onChange={(date) =>
+                    handleEntryChange(field, index, name, formatDate(date))
+                  }
+                  dateFormat="dd/MM/yyyy"
+                  placeholderText={`Select ${label}`}
+                  className="w-full border p-2 rounded"
+                />
+              ) : (
+                <input
+                  type={type}
+                  value={entry[name] || ""}
+                  onChange={(e) =>
+                    handleEntryChange(field, index, name, e.target.value)
+                  }
+                  placeholder={`Enter ${label}`}
+                  className="w-full border p-2 rounded"
+                />
+              )}
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => handleRemoveEntry(field, index)}
+            className="bg-red-500 text-white px-4 py-2 rounded"
+          >
+            Remove
+          </button>
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={() => handleAddEntry(field)}
+        className="bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        Add Entry
+      </button>
+    </div>
+  );
+
+  const renderDynamicSections = () => (
+    <div className="space-y-6">
+      {/* Project Inspection Section */}
+      {renderDynamicSection("projectInspection", [
+        { label: "Inspection Date", name: "inspectionDate", type: "date" },
+        { label: "Official Name", name: "officialName", type: "text" },
+        { label: "Official Email", name: "officialEmail", type: "text" },
+        { label: "Official Phone", name: "officialPhone", type: "text" },
+        { label: "Official Designation", name: "officialDesignation", type: "text" },
+        { label: "Official Department", name: "officialDepartment", type: "text" },
+        { label: "Inspection Type", name: "inspectionType", type: "text" },
+        { label: "Inspection Instruction", name: "inspectionInstruction", type: "text" },
+        { label: "Inspection Status", name: "inspectionStatus", type: "text" },
+        { label: "Inspection Report", name: "inspectionReport", type: "text" },
+      ])}
+  
+      {/* Project Essential Test Section */}
+      {renderDynamicSection("projectEssentialTest", [
+        { label: "Test Name", name: "testName", type: "text" },
+        { label: "Sample Collection Date", name: "dateOfSampleCollection", type: "date" },
+        { label: "Sampling Authority", name: "samplingAuthority", type: "text" },
+        { label: "Sample Test Lab Name", name: "sampleTestLabName", type: "text" },
+        { label: "Sample Test Report", name: "sampleTestReport", type: "text" },
+        { label: "Sample Collection Site Images", name: "sampleCollectionSiteImages", type: "text" },
+      ])}
+  
+      {/* Project Gallery Section */}
+      {renderDynamicSection("projectGallery", [
+        { label: "Image", name: "image", type: "text" },
+        { label: "Image Description", name: "imageDescription", type: "text" },
+        { label: "Latitude", name: "latitude", type: "number" },
+        { label: "Longitude", name: "longitude", type: "number" },
+        { label: "Elevation", name: "elevation", type: "number" },
+        { label: "Accuracy", name: "accuracy", type: "number" },
+        { label: "Time", name: "time", type: "date" },
+      ])}
+  
+      {/* Milestones Section */}
+      {renderDynamicSection("mileStones", [
+        { label: "Milestone Name", name: "milestoneName", type: "text" },
+        { label: "Milestone From Date", name: "milestoneFromDate", type: "date" },
+        { label: "Milestone Completion Date", name: "milestoneCompletionDate", type: "date" },
+        { label: "Milestone Actual Completion Date", name: "milestoneActualCompletionDate", type: "date" },
+        { label: "Milestone Status", name: "milestoneStatus", type: "text" },
+        { label: "Milestone Description", name: "milestoneDescription", type: "text" },
+        { label: "Milestone Progress", name: "milestoneProgress", type: "number" },
+      ])}
+  
+      {/* Issues Section */}
+      {renderDynamicSection("issues", [
+        { label: "Issue Name", name: "issueName", type: "text" },
+        { label: "Issue Description", name: "issueDescription", type: "text" },
+        { label: "Issue Raised By", name: "issueRaisedBy", type: "text" },
+        { label: "Issue Raised Date", name: "issueRaisedDate", type: "date" },
+        { label: "Assigned To", name: "assignedTo", type: "text" },
+        { label: "Issue Reported On", name: "issueReportedOn", type: "date" },
+        { label: "Issue Status", name: "issueStatus", type: "text" },
+        { label: "Issue Closed Date", name: "issueClosedDate", type: "date" },
+        { label: "Issue Closed By", name: "issueClosedBy", type: "text" },
+      ])}
+  
+      {/* Budget Installment Section */}
+      {renderDynamicSection("budgetInstallment", [
+        { label: "Installment Amount", name: "installmentAmount", type: "number" },
+        { label: "Installment Expenditure", name: "installmentExpenditure", type: "number" },
+        { label: "Amount Received Date", name: "amountReceivedDate", type: "date" },
+        { label: "Utilization Certificate", name: "utilizationCertificate", type: "text" },
+      ])}
+    </div>
+  );
+
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       <StepIndicator currentStep={currentStep} steps={STEPS} />
@@ -571,6 +724,8 @@ const ProjectForm = ({ onSubmitSuccess }) => {
           </div>
         )}
       </div>
+
+      <div className="space-y-6">{renderDynamicSections()}</div>
 
       <div className="flex justify-between pt-6 border-t">
         <button

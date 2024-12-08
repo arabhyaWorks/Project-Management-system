@@ -20,7 +20,7 @@ const ProjectDetails = () => {
   const fetchProjectDetail = async (projectId) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/projects/${projectId}`
+        `https://pms-backend-ochre.vercel.app/api/projects/${projectId}`
       );
       if (response.status === 200) {
         setProject(response.data);

@@ -3,7 +3,7 @@ import axios from "axios";
 const generateAndDownloadPDF = async (data) => {
   try {
     // Send POST request to API
-    const response = await axios.post("http://localhost:3000/generate-pdf", data, {
+    const response = await axios.post("https://pms-backend-ochre.vercel.app/generate-pdf", data, {
       headers: {
         "Content-Type": "application/json",
       },

@@ -46,7 +46,7 @@ export function Dashboard() {
   const fetchProjectStatus = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/stats/project-status`
+        `https://pms-backend-ochre.vercel.app/api/stats/project-status`
       );
       // console.log(response.data.data);
       setProjectStatus(response.data.data);
@@ -58,7 +58,7 @@ export function Dashboard() {
   const fetchDepartmentData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/stats/department-count`
+        `https://pms-backend-ochre.vercel.app/api/stats/department-count`
       );
       console.log(response.data.data);
       setDepartmentData(response.data.data);
@@ -71,7 +71,7 @@ export function Dashboard() {
   const fetchStatsData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/stats/budget-overview`
+        `https://pms-backend-ochre.vercel.app/api/stats/budget-overview`
       );
       // console.log(response.data);
       setStats(response.data);

@@ -21,7 +21,7 @@ export function EntitiesProvider({ children }: { children: React.ReactNode }) {
   // Fetch entities from API
   const fetchEntities = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/entities');
+      const response = await axios.get('https://pms-backend-ochre.vercel.app/api/entities');
       setEntities(response.data.data);
     } catch (error) {
       console.error('Error fetching entities:', error);

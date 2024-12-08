@@ -86,7 +86,7 @@ export const DataTable = ({
                   )
               )}
             </tr>
-            <tr>
+            {/* <tr>
               {headers.en.map(
                 (header, index) =>
                   visibleColumns.includes(index.toString()) && (
@@ -101,7 +101,7 @@ export const DataTable = ({
                     </th>
                   )
               )}
-            </tr>
+            </tr> */}
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {currentEntries.map((project, rowIndex) => (
