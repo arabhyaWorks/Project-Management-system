@@ -1,6 +1,15 @@
 import React from "react";
 import { Search, Filter } from "lucide-react";
 import { ColumnVisibilityToggle } from "./ColumnVisibilityToggle";
+import { useEntities } from "../../context/EntityContect";
+
+const projectStatus = [
+  "योजना चरण में",
+  "प्रगति पर है",
+  "रोक पर",
+  "विलंबित",
+  "पूर्ण हुआ",
+];
 
 interface ProjectFiltersProps {
   searchTerm: string;
@@ -16,7 +25,7 @@ interface ProjectFiltersProps {
   onToggleColumn: (columnKey: string) => void;
 }
 
-export function ProjectFilters({
+export const ProjectFilters = ({
   searchTerm,
   onSearchChange,
   selectedDepartment,
@@ -28,7 +37,10 @@ export function ProjectFilters({
   columns,
   visibleColumns,
   onToggleColumn,
-}: ProjectFiltersProps) {
+}: ProjectFiltersProps) => {
+  const { entities, reloadEntities } = useEntities();
+  console.warn("These are the entities");
+
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div className="relative flex-1 max-w-xs">
@@ -46,14 +58,21 @@ export function ProjectFilters({
         <div className="flex items-center gap-2">
           <Filter className="h-4 w-4 text-gray-400" />
           <select
+            style={{
+              width: "12rem",
+            }}
             value={selectedDepartment}
             onChange={(e) => onDepartmentChange(e.target.value)}
             className="rounded-md outline-none font-medium border-0 py-1.5 pl-3 pr-8 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-orange-600"
           >
             <option value="">सभी विभाग</option>
-            <option value="औद्योगिक विकास विभाग">औद्योगिक विकास विभाग</option>
-            <option value="नगरीय विकास विभाग">नगरीय विकास विभाग </option>
-            <option value="योजना विभाग">योजना विभाग </option>
+            {entities
+              ?.filter((entity) => entity.entity_type === 1)
+              .map((entity) => (
+                <option key={entity.id} value={entity.entity_name}>
+                  {entity.entity_name}
+                </option>
+              ))}
           </select>
 
           <select
@@ -62,21 +81,29 @@ export function ProjectFilters({
             className="rounded-md outline-none font-medium border-0 py-1.5 pl-3 pr-8 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-orange-600"
           >
             <option value="">परियोजना स्थिति </option>
-            <option value="कार्य प्रगति पर">कार्य प्रगति पर </option>
-            <option value="प्रारंभिक चरण">प्रारंभिक चरण </option>
-            <option value="योजना निर्माण">योजना निर्माण </option>
-            <option value="कार्य पूर्ण">कार्य पूर्ण</option>
+            {projectStatus.map((status, index) => (
+              <option key={status} value={index + 1}>
+                {status}
+              </option>
+            ))}
           </select>
 
           <select
+            style={{
+              width: "12rem",
+            }}
             value={selectedExecutiveAgency}
             onChange={(e) => onSelectedExecutiveAgency(e.target.value)}
-            className="rounded-md outline-none font-medium border-0 py-1.5 pl-3 pr-8 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-orange-600"
+            className="rounded-md className=w-10 outline-none font-medium border-0 py-1.5 pl-3 pr-8 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-orange-600"
           >
             <option value="">सभी कार्यदायी संस्था</option>
-            <option value="भदोही औद्योगिक विकास प्राधिकरण (BIDA)">
-              बी.आई.डी.ए
-            </option>
+            {entities
+              ?.filter((entity) => entity.entity_type === 2)
+              .map((entity) => (
+                <option key={entity.id} value={entity.entity_name}>
+                  {entity.entity_name}
+                </option>
+              ))}
           </select>
 
           <ColumnVisibilityToggle
@@ -88,4 +115,4 @@ export function ProjectFilters({
       </div>
     </div>
   );
-}
+};

@@ -7,65 +7,23 @@ import "react-datepicker/dist/react-datepicker.css";
 import { formatDate } from "../../utils/functions";
 import axios from "axios";
 import { endpoint } from "../../utils/dataSet";
+import { useEntities } from "../../context/EntityContect";
+import { set } from "date-fns";
 
-const departments = [
-  "Divyang Jan sashaktikaran vibhag",
-  "Nagar vikas",
-  "Electric distribution division -1",
-  "Electric distribution division -3",
-  "Basic Education",
-  "Health",
-  "Tourism",
-  "Technical Education",
-  "Intermidiate Education",
-  "Revenue",
-  "Vocational Education",
-  "Home",
-  "Social welfare",
-  "Animal Husbandry",
-  "Probation",
-  "Public work department",
-  "Rural engineering department",
-  "Agriculture",
-  "Rural development",
-  "Irrigation department",
-  "Fisheries deparment",
-  "Forest Department",
-];
-const executingAgencies = [
-  "Uttar Pradesh Power Transmission Corporation Limited",
-  "Construction Division Building, PWD,Varanasi",
-  "Uttar Pradesh State Bridge Corporation, Bhadohi",
-  "Bhadohi Development Authority, Bida",
-  "Rajkiya Nirman Nigam, Sonbhadra",
-  "C & DS Unit 24",
-  "Rajkiya Nirman Nigam, Bhadohi",
-  "Construction Division, PWD,Chandauli",
-  "Executive Engineer, Chandraprabha, Irrigation Department",
-  "Bandhi Prakhand, Irrigation Department",
-  "Uttar Pradesh Aawas Vikash Parisad, Prayagraj",
-  "Provincial Division, PWD, Bhadohi",
-  "U.P. Project Corporation Ltd. Construction Division-3, Lucknow",
-  "UPCLDF Bhadohi",
-  "UPRNSS, Varanasi",
-  "UPSIDCO",
-  "Uttar Pradesh Police Aawas Nirman Nigam, Varanasi",
-  "Uttar Pradesh Aawas Vikash Parisad, Varanasi-1",
-  "Executive Engineer, U.P. Power Corporation Ltd.",
-  "Forest Department",
-  "Rural Engineering Department",
-  "Jal Nigam Urban",
-  "Irrigation Department, Laghudal Prakhand",
-  "Irrigation Department, Tubewell division",
-  "HITES",
-];
 const yojnaCategories = [
   "Sansad Nidhi",
   "Vidhayak Nidhi",
   "Purvanchal Vikas Nidhi",
   "Others",
 ];
-const projectStatuses = ["In Planning", "In Progress", "On Hold", "Completed"];
+
+const projectStatuses = [
+  "योजना चरण में",
+  "प्रगति पर है",
+  "रोक पर",
+  "विलंबित",
+  "पूर्ण हुआ",
+];
 
 const STEPS = [
   { title: "Project Info", description: "Basic details" },
@@ -74,6 +32,8 @@ const STEPS = [
 ];
 
 const ProjectForm = ({ onSubmitSuccess }) => {
+  const { entities, reloadEntities } = useEntities();
+
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     projectName: "",
@@ -103,6 +63,16 @@ const ProjectForm = ({ onSubmitSuccess }) => {
 
     totalApprovedBudget: "",
     revisedProjectCost: "",
+
+    approvedProjectCost: "",
+    contractCost: "",
+
+    totalReleasedFunds: "",
+    totalExpenditure: "",
+
+    contractDate: "",
+    delayReason: "",
+    meetingInstructions: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -112,7 +82,30 @@ const ProjectForm = ({ onSubmitSuccess }) => {
     >
   ) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  console.log;
+  const handleEntityChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    // console.log(name.split(","), value);
+    const [entityType, id] = name.split(",");
+    const index = entities.findIndex((entity) => entity.id === Number(value));
+    console.log({
+      [entityType]: entities[index].entity_name,
+      [id]: entities[index].id,
+    });
+
+    setFormData((prev) => ({
+      ...prev,
+      [entityType]: entities[index].entity_name,
+      [id]: entities[index].id,
+    }));
   };
 
   const handleDateChange = (date: Date | null, field: keyof FormData) => {
@@ -125,20 +118,46 @@ const ProjectForm = ({ onSubmitSuccess }) => {
     setIsSubmitting(true);
     setFormData((prev) => ({
       ...prev,
-      departmentId: 1,
-      executingAgencyId: 1,
+
       contactInformation: 1,
     }));
 
-    console.log(formData);
+    const inst = {
+      meetingInstructions: [
+        {
+          description: null,
+          date: null,
+          compliance: null,
+
+          feedback: formData.meetingInstructions,
+        },
+      ],
+    };
+
+    console.log({ ...formData, ...inst });
 
     try {
-      // Simulate API call
-      const response = await axios.post(`${endpoint}/api/projects`, formData);
-      console.log("Form submitted:", response.data);
+      const response = await fetch(
+        "http://localhost:3000/api/uploadWholeData",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...formData, ...inst }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Success:", result);
       onSubmitSuccess?.();
+      // Handle success (e.g., show success message, redirect, etc.)
     } catch (error) {
-      console.error("Submission error:", error);
+      console.error("Error:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -152,27 +171,30 @@ const ProjectForm = ({ onSubmitSuccess }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
           label="Project Department"
-          name="projectDepartment"
+          name="projectDepartment,departmentId"
           type="select"
-          value={formData.projectDepartment}
-          onChange={handleInputChange}
-          options={departments.map((department, index) => ({
-            value: index,
-            label: department,
-          }))}
+          value={formData.departmentId} // Use the ID to match the selected option
+          onChange={handleEntityChange}
+          options={entities
+            ?.filter((entity) => entity.entity_type === 1)
+            .map((entity) => ({
+              value: entity.id, // The value should match `departmentId`
+              label: entity.entity_name,
+            }))}
           required
         />
         <FormField
           label="Executing Agency"
-          name="executingAgency"
+          name="executingAgency,executingAgencyId"
           type="select"
-          value={formData.executingAgency}
-          onChange={handleInputChange}
-          // options={executingAgencies}
-          options={executingAgencies.map((department, index) => ({
-            value: index,
-            label: department,
-          }))}
+          value={formData.executingAgencyId} // Bind to executingAgencyId
+          onChange={handleEntityChange}
+          options={entities
+            ?.filter((entity) => entity.entity_type === 2)
+            .map((entity) => ({
+              value: entity.id, // ID as the option value
+              label: entity.entity_name, // Display name as the option label
+            }))}
           required
         />
       </div>
@@ -182,9 +204,14 @@ const ProjectForm = ({ onSubmitSuccess }) => {
         name="scheme"
         type="select"
         value={formData.scheme}
-        onChange={handleInputChange}
+        onChange={(e) => {
+          setFormData((prev) => ({
+            ...prev,
+            scheme: e.target.value,
+          }));
+        }}
         options={yojnaCategories.map((category, index) => ({
-          value: index,
+          value: category,
           label: category,
         }))}
         required
@@ -223,16 +250,26 @@ const ProjectForm = ({ onSubmitSuccess }) => {
           label="Fund Sanctioned By"
           name="fundSanctionedBy"
           type="select"
-          value={formData.fundSanctionedBy}
-          onChange={handleInputChange}
+          value={formData.fundSanctionedBy} // Bind to fundSanctionedBy
+          onChange={(e) => {
+            console.log(e.target.value);
+            setFormData((prev) => ({
+              ...prev,
+              fundSanctionedBy: e.target.value, // Update fundSanctionedBy
+            }));
+          }}
           options={[
             {
-              value: "state_govt",
-              label: `State Government`,
+              value: "State Government",
+              label: "State Government",
             },
             {
-              value: "central_govt",
-              label: `Central Government`,
+              value: "Central Government",
+              label: "Central Government",
+            },
+            {
+              value: "Both Central & State Government",
+              label: "Both Central & State Government",
             },
           ]}
           required
@@ -242,14 +279,19 @@ const ProjectForm = ({ onSubmitSuccess }) => {
           name="projectStatus"
           type="select"
           value={formData.projectStatus}
-          onChange={handleInputChange}
-          options={[
-            { value: "planning", label: "In Planning" },
-            { value: "progress", label: "In Progress" },
-            { value: "hold", label: "On Hold" },
-            { value: "delayed", label: "Delayed" },
-            { value: "completed", label: "Completed" },
-          ]}
+          onChange={(e) => {
+            console.log(e.target.value);
+            setFormData((prev) => ({
+              ...prev,
+              projectStatus: e.target.value,
+            }));
+          }}
+          options={
+            projectStatuses.map((status, index) => ({
+              value: index + 1,
+              label: status,
+            })) || []
+          }
         />
       </div>
 
@@ -286,21 +328,46 @@ const ProjectForm = ({ onSubmitSuccess }) => {
     <div className="space-y-6 animate-fadeIn">
       {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6"> */}
       <FormField
-        label="Total Approved Budget (in Lac)"
-        name="totalApprovedBudget"
+        label="परियोजना की स्वीकृत लागत (Approved Project Cost)"
+        name="approvedProjectCost"
         type="number"
-        value={formData.totalApprovedBudget}
+        value={formData.approvedProjectCost}
         onChange={handleInputChange}
         placeholder="Enter amount"
       />
       <FormField
+        label="अनुबन्ध के अनुसर परियोजना की धनराशि (Contract Cost)"
+        name="contractCost"
+        type="number"
+        value={formData.contractCost}
+        onChange={handleInputChange}
+        placeholder="Enter amount"
+      />
+
+      <FormField
+        label="कुल अवमुक्त धनराशि (Total Released Funds)"
+        name="totalReleasedFunds"
+        type="number"
+        value={formData.totalReleasedFunds}
+        onChange={handleInputChange}
+        placeholder="Enter amount"
+      />
+      <FormField
+        label="कुल व्यय धनराशि (Total Expenditure)"
+        name="totalExpenditure"
+        type="number"
+        value={formData.totalExpenditure}
+        onChange={handleInputChange}
+        placeholder="Enter amount"
+      />
+      {/* <FormField
         label="Cost of the project as per revised acceptance in(Lac)"
         name="revisedProjectCost"
         type="number"
         value={formData.revisedProjectCost}
         onChange={handleInputChange}
         placeholder="Enter amount"
-      />
+      /> */}
       {/* </div> */}
 
       {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -330,7 +397,7 @@ const ProjectForm = ({ onSubmitSuccess }) => {
     <div className="space-y-6 animate-fadeIn">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
-          label="Project Sanction Date"
+          label="परियोजना स्वीकृति की तिथि (Project Sanction Date)"
           name="projectSanctionDate"
           type="date"
           value={formData.projectSanctionDate}
@@ -338,9 +405,7 @@ const ProjectForm = ({ onSubmitSuccess }) => {
           placeholder="Select date"
         />
         <FormField
-          // label="Project Financial Approval GO Ref No."
-          // label="Project Financial Approval GO Ref No."
-          label="Project Financial Approval Date"
+          label="परियोजना हेतु शासन द्वारा जारी वित्तीय स्वीकृति का दिनांक (Project Financial Approval Date)"
           name="projectFinancialApprovalDate"
           type="date"
           value={formData.projectFinancialApprovalDate}
@@ -353,7 +418,7 @@ const ProjectForm = ({ onSubmitSuccess }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
-          label="Project Financial Approval GO Ref No."
+          label="परियोजना हेतु शासन द्वारा जारी वित्तीय स्वीकृति का शासनादेश संख्या (Project Financial Approval GO Ref No.)"
           name="projectFinancialApprovalGoNumber"
           type="text"
           value={formData.projectFinancialApprovalGoNumber}
@@ -361,7 +426,15 @@ const ProjectForm = ({ onSubmitSuccess }) => {
           placeholder="Enter GO number"
         />
         <FormField
-          label="Actual Project Start Date"
+          label="अनुबन्ध की तिथि (Contract Date)"
+          name="contractDate"
+          type="date"
+          value={formData.contractDate}
+          onChange={(date) => handleDateChange(date, "contractDate")}
+          placeholder="Select date"
+        />
+        <FormField
+          label="कार्य प्रारंभ की वास्तविक तिथि (Actual Project Start Date)"
           name="actualProjectStartDate"
           type="date"
           value={formData.actualProjectStartDate}
@@ -372,7 +445,7 @@ const ProjectForm = ({ onSubmitSuccess }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
-          label="Project Completion Date(as per work order)"
+          label="अनुबन्ध के अनुसार कार्य पूर्ण करने की तिथि (Project Completion Date as per work order)"
           name="projectCompletionDate"
           type="date"
           value={formData.projectCompletionDate}
@@ -393,7 +466,7 @@ const ProjectForm = ({ onSubmitSuccess }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <FormField
-          label="Revised Project Completion Date"
+          label="मूल निर्धारित तिथि तक कार्य पूर्ण न होने की स्थिति मे विभाग द्वारा निर्धारित नई लक्षित तिथि (Revised Project Completion Date)"
           name="revisedProjectCompletionDate"
           type="date"
           value={formData.revisedProjectCompletionDate}
@@ -403,7 +476,9 @@ const ProjectForm = ({ onSubmitSuccess }) => {
           placeholder="Select date"
           required
         />
-        <FormField
+
+        {/* Confusion with revised project completion date */}
+        {/* <FormField
           label="Estimated date of completion of work as per executing agency in case of project delay"
           name="estimatedCompletionDate"
           type="date"
@@ -411,6 +486,24 @@ const ProjectForm = ({ onSubmitSuccess }) => {
           onChange={(date) => handleDateChange(date, "estimatedCompletionDate")}
           placeholder="Select date"
           required
+        /> */}
+
+        <FormField
+          label="यदि परियोजना मूल निर्धारित तिथि तक पूर्ण न  होने पर विलम्ब का कारण` (Reason for delay in case project not completed by original scheduled date)"
+          name="delayReason"
+          type="text"
+          value={formData.delayReason}
+          onChange={handleInputChange}
+          placeholder="Enter Enter Delay Reason"
+        />
+
+        <FormField
+          label="Meeting instructions given in the meeting"
+          name="meetingInstructions"
+          type="text"
+          value={formData.meetingInstructions}
+          onChange={handleInputChange}
+          placeholder="Enter the instructions given in the meeting"
         />
       </div>
 
@@ -436,7 +529,7 @@ const ProjectForm = ({ onSubmitSuccess }) => {
       </div>
 
       <FormField
-        label="Date of Land Handover to Executing Agency"
+        label="कार्यदायी संस्था को भूमि उपलब्ध होने की तिथि (Date of Land Handover to Executing Agency)"
         name="landHandoverDate"
         type="date"
         value={formData.landHandoverDate}
