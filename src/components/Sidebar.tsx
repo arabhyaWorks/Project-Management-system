@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 const menuItems = [
-  { icon: LayoutDashboard, label: "Dashboard", route: "/" },
+  { icon: LayoutDashboard, label: "Dashboard", route: "/dashboard" },
   { icon: Database, label: "Issues", route: "/projectDashboard" },
   { icon: FolderOpen, label: "All Projects", route: "/projects" },
   { icon: Users, label: "All Users", route: "/users" },

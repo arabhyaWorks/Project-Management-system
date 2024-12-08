@@ -25,12 +25,11 @@ function App() {
       <AuthProvider>
         <EntitiesProvider>
           <Routes>
-            {/* <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} /> */}
+
             <Route path="/login" element={<Login />} />
-            <Route path="landing" element={<Landing />} />
+            <Route path="/" index element={<Landing />} />
             <Route path="/" element={<Layout />}>
-              <Route index element={<Dashboard />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="projects" element={<Projects />} />
               <Route path="users" element={<UsersList />} />
 
@@ -48,8 +47,7 @@ function App() {
 
               <Route path="issues" element={<Issues />} />
 
-              <Route path="projectCreation" element={<ProjectCreation  />} />
-
+              <Route path="projectCreation" element={<ProjectCreation />} />
             </Route>
           </Routes>
         </EntitiesProvider>
@@ -59,4 +57,3 @@ function App() {
 }
 
 export default App;
-
