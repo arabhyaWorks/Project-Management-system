@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import html2canvas from "html2canvas";
-import { Building2, IndianRupee, Activity, Users } from "lucide-react";
+import { Building2, IndianRupee, Activity, Users, Download } from "lucide-react";
 import { StatCard } from "../components/dashboard/StatCard";
 import { ProjectStatusChart } from "../components/dashboard/ProjectStatusChart";
 import { BudgetChart } from "../components/dashboard/BudgetChart";
@@ -159,11 +159,18 @@ export function Dashboard() {
             Department-wise Project Count
           </h3>
           <button
+            onClick={() => exportChartAsPNG(pieChartRef, "DepartmentWisePieChart")}
+            className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+          >
+            <Download className="h-4 w-4 mr-1" />
+            Export as PNG
+          </button>
+          {/* <button
             className="bg-blue-500 text-white px-3 py-1 rounded-md"
             onClick={() => exportChartAsPNG(pieChartRef, "DepartmentWisePieChart")}
           >
             Export as PNG
-          </button>
+          </button> */}
         </div>
         <div ref={pieChartRef} className="p-6">
           <DepartmentPieChart data={departmentData} />
@@ -177,9 +184,10 @@ export function Dashboard() {
             Department-wise Project Count (Bar Chart)
           </h3>
           <button
-            className="bg-blue-500 text-white px-3 py-1 rounded-md"
             onClick={() => exportChartAsPNG(barChartRef, "DepartmentWiseBarChart")}
+            className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
           >
+            <Download className="h-4 w-4 mr-1" />
             Export as PNG
           </button>
         </div>

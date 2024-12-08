@@ -30,7 +30,7 @@ export function Login() {
             />
           </div>
           <h2 className="text-2xl font-bold text-black">
-            Program Management System
+            Project Monitering System
           </h2>
           <p className="text-gray-600 font-medium">Bhadohi District</p>
         </div>
